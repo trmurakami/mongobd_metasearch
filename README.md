@@ -1,10 +1,12 @@
 # journals_ci
 Extração de dados dos periódicos da CI
 
+Run: 
+./run.sh
 
-== No notepad++ ==
+Download export/final.csv
 
-FIND: ^(.*?)(\",")(.*?)(\",")(.*?)\"\", \"\"(.*)
+== NEED ==
 
-REPLACE: \1\2\3\4\5\"\"\]\"\n\1\2\3\4[ \"\"\6
-
+MongoDB
+Catmandu
