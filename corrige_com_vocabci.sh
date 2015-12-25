@@ -9,7 +9,7 @@ semmudanca=$(echo $line)
 result_count=$(echo "$result" | wc -m) 
  if [ $result_count -gt "1" ]
    then
-    printf "%s\n" "$line" | sed "s/$instituicao/$result/g"
+    printf "%s\n" "$line" | sed "s/\"$instituicao\"/\"$result\"/g"
    else
     printf "%s\n" "$line"
    fi
