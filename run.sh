@@ -6,4 +6,5 @@ sleep 2
 sleep 2
 ./transform.sh export/export.csv export/final.csv
 sleep 2
-iconv -f ISO-8859-15 -t UTF-8 export/final.csv >  finalutf8.csv
+./corrige_com_vocabci.sh export/final.csv > export/final_corrigido.csv
+#iconv -f ISO-8859-15 -t UTF-8 export/final.csv >  finalutf8.csv
