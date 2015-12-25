@@ -1,13 +1,10 @@
 #!/bin/bash
 
-consulta() {
-curl -s -G -L 'http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=search&arg='$1'' | xmlstarlet sel -t -v "//string"
-}
-
-while read p;
+IFS=$'\n'       # make newlines the only separator
+for line in $(cat $1);
 do
- instituicao=$(cut -d "," -f 5 | sed -e 's/\"//g')
- echo -e "$instituicao\n" 
-consulta $instituicao
-done<$1
-
+ instituicao=$(echo "$line"|cut -d "," -f 5 | sed -e 's/\"//g')
+ #printf "%s\n" "$instituicao"
+ result=$(./consulta_vocabci.sh $instituicao)
+ printf "%s\n" "$instituicao:" "$result"
+done 
