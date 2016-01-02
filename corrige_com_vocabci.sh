@@ -3,7 +3,7 @@
 IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
- instituicao=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 4 | sed -e 's/\"//g' )
+ instituicao=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 4 | sed -e 's/\"//g' | sed -e "s/'//g" )
  autor=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 3 | sed -e 's/\"//g' )
  result_inst=$(./consulta_vocabci.sh $instituicao | sed -e '1h;2,$H;$!d;g' -e "s/).*/)/g")
  result_autor=$(./consulta_vocabci.sh $autor | sed -e '1h;2,$H;$!d;g' -e "s/).*/)/g")
