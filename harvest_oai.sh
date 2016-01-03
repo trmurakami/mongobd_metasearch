@@ -88,7 +88,7 @@ sleep 2
 #Revista ACB - RACB
 catmandu import OAI --fix 'add_field("journalci_title","RACB")' --url http://revista.acbsc.org.br/racb/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
 echo "RACB OK"
-echo 'db.ci.find({"journalci_title":"RABC"}).count()' | mongo journals
+echo 'db.ci.find({"journalci_title":"RACB"}).count()' | mongo journals
 sleep 2
 # Revista Brasileira de Biblioteconomia e Documentação - RBBD
 catmandu import OAI --fix 'add_field("journalci_title","RBBD")' --url http://rbbd.febab.org.br/rbbd/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
