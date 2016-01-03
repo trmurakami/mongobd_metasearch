@@ -32,10 +32,6 @@ sleep 2
 catmandu import OAI --url https://periodicos.ufsc.br/index.php/eb/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
 echo "Encontros Bibli OK"
 sleep 2
-#InCID: Revista de Ciência da Informação e Documentação
-catmandu import OAI --url http://www.revistas.usp.br/incid/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
-echo "InCID OK"
-sleep 2
 # Informação & Informação
 catmandu import OAI --url http://www.uel.br/revistas/uel/index.php/informacao/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
 echo "Informação & Informação OK"
@@ -104,3 +100,8 @@ sleep 2
 catmandu import OAI --url http://periodicos.puc-campinas.edu.br/seer/index.php/transinfo/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
 echo "TRANSINFO OK"
 sleep 2
+#InCID: Revista de Ciência da Informação e Documentação
+catmandu import OAI --url http://www.revistas.usp.br/incid/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
+echo "InCID OK"
+sleep 2
+
