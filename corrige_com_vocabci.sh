@@ -43,7 +43,7 @@ fi
 
 if  [[ $result_count_autor -gt "1" ]]
 then
-line=$(printf "%s\n" "$line" | sed "s|"$autor"|"$result_autor"|g" | sed 's/$/\,\"'$result_inst_id'\"/g')
+line=$(printf "%s\n" "$line" | sed "s|"$autor"|"$result_autor"|g" | sed 's/$/\,\"'$result_autor_id'\"/g')
 else 
    line=$(printf "%s\n" "$line" | sed "s|$|\,\""$autor_limpo"\"|g")
 fi
