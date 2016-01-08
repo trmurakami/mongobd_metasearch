@@ -30,11 +30,11 @@ IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
 #Procura a instituição
- instituicao=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 4 | sed -e 's/\"//g' | sed -e "s/'//g" | sed -e 's/\\n/ /g' | sed -e 's/\"//g')
+ instituicao=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 6 | sed -e 's/\"//g' | sed -e "s/'//g" | sed -e 's/\\n/ /g' | sed -e 's/\"//g')
 #Limpa os caracteres especiais da instituição
  instituicao_limpa=$(echo "$instituicao" | sed "s/[^a-z|0-9|A-Z| ]//g")
 #Procura o autor
- autor=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 3 | sed -e 's/\"//g' )
+ autor=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 5 | sed -e 's/\"//g' )
 #Limpa os caracteres especiais do autor
  autor_limpo=$(echo "$autor" | sed "s/[^a-z|0-9|A-Z| ]//g")
 #Consulta a instituição no Vocabci usando a função consulta_vocabci
@@ -75,7 +75,7 @@ else
 fi
 
 #Verifica se o autor tem ID e consulta no 
-autor_id=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 6 | sed -e 's/[^0-9]//g' )
+autor_id=$(echo "$line" | sed "s/\'//g" | sed 's/\"\s/\"/g' |  sed -e 's/\",\"/\|/g' | cut -d "|" -f 8 | sed -e 's/[^0-9]//g' )
 
 if  [[ $autor_id -gt "0" ]]
 then
