@@ -12,12 +12,22 @@ instautor_result_id=""
 
 #Funções
 
-consulta_vocabci() {
+consulta_termo() {
   query=$(echo $1 | sed 's/ /+/g')
-  url="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=search&arg=$query"
-  vocabci_result=$(curl -s -G -L $url | xmlstarlet sel -t -v "//string")
+  url="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetch&arg=$query"
   vocabci_result_id=$(curl -s -G -L $url | xmlstarlet sel -t -v "//term_id")
+  url2="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetchTerm&arg=$vocabci_result_id"
+  vocabci_result=$(curl -s -G -L $url2 | xmlstarlet sel -t -v "//string")
 }
+
+
+
+#consulta_vocabci() {
+#  query=$(echo $1 | sed 's/ /+/g')
+#  url="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=search&arg=$query"
+#  vocabci_result=$(curl -s -G -L $url | xmlstarlet sel -t -v "//string")
+#  vocabci_result_id=$(curl -s -G -L $url | xmlstarlet sel -t -v "//term_id")
+#}
 
 consulta_instautor(){
   url="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetchRelated&arg=$1"
@@ -57,7 +67,7 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/
 		fi
 		
 		#Consulta os autores no Vocabci usando a função consulta_vocabci
-		consulta_vocabci $autor_limpo
+		consulta_termo $autor_limpo
 		result_autor=$(printf "$vocabci_result" | sed -e '1h;2,$H;$!d;g' -e "s/).*/)/g")
 		result_autor_id=$(printf "$vocabci_result_id")
 		result_count_autor=$(echo "$result_autor" | wc -m)
@@ -85,7 +95,7 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/
 				
 				
 					#Consulta a instituição no Vocabci usando a função consulta_vocabci
-					  consulta_vocabci $instituicao_limpa
+					  consulta_termo $instituicao_limpa
 
 		  
 					  result_inst=$(printf "$vocabci_result" | head -n 1)
