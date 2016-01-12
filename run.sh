@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo rm export/*.*
+rm export/*.*
 sleep 2
 ./csv_export.sh
 sleep 2

@@ -45,25 +45,29 @@ _id=$(printf "%s\n" "$line" | cut -d "|" -f 1 | sed 's/\"//g')
 journalci_title=$(printf "%s\n" "$line" | cut -d "|" -f 2)
 language=$(printf "%s\n" "$line" | cut -d "|" -f 3 | sed 's/, /|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
 date=$(printf "%s\n" "$line" | cut -d "|" -f 4 | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
-creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/\"\"/\"/g'| sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g')
+creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' )
+
+
+# | sed 's/\"//g'   
 
 	IFS='|' read -ra creator <<< "$creator"
 	for i in "${creator[@]}"; do
-		autor=$(echo $i | cut -d ";" -f 1)
+		autor=$(echo $i | cut -d ";" -f 1 | sed 's/^\s//g' | sed 's/\s$//g')
 		autor_limpo=$(echo "$autor" | sed "s/[^a-z|0-9|A-Z| ]//g")
 		
 		if [[ $i == *";"* ]] ; 
 		
 		then
 		
-		instituicao=$(echo $i | cut -d ";" -f 2)
+		instituicao=$(echo $i | cut -d ";" -f 2 | sed 's/^\s//g' | sed 's/\s$//g')
 		instituicao_count=$(echo "$instituicao" | wc -m) 
-		
+				
 		else
 		
 		instituicao=$(echo $i | grep -E ';.*')
 		instituicao_count=$(echo "$instituicao" | wc -m) 
-				
+	
+		
 		fi
 		
 		#Consulta os autores no Vocabci usando a função consulta_vocabci
@@ -88,13 +92,11 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/
 			if [[ "$instituicao_count" -gt '1' ]]
 			then 
 
-				IFS=',' read -ra instituicao <<< "$instituicao"
-				for x in "${instituicao[@]}"; do
-					instituicao_limpa=$(echo $x | sed "s/[^a-z|0-9|A-Z| ]//g" | sed 's/^\s//' | sed 's/  / /')
+				#IFS=',' read -ra instituicao <<< "$instituicao"
+				#for x in "${instituicao[@]}"; do
+					instituicao_limpa=$(echo $instituicao | sed "s/[^a-z|0-9|A-Z| ]//g" | sed 's/^\s//' | sed 's/  / /g')
 				
-				
-				
-					#Consulta a instituição no Vocabci usando a função consulta_vocabci
+				        #Consulta a instituição no Vocabci usando a função consulta_vocabci
 					  consulta_termo $instituicao_limpa
 
 		  
@@ -119,7 +121,7 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/
 					line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"")
 				
 				
-				done
+				#done
 
 						
 			else
