@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "_id,title,language,date,creator,creator_id,institution,institution_id,\\n" >> $2
+printf "_id,title,_setSpec,language,date,creator,creator_id,institution,institution_id,\\n" >> $2
 
 #Declarando variáveis
 
@@ -43,9 +43,10 @@ do
 line=$(printf "%s\n" "$line" | sed "s/\",\"/|/g")
 _id=$(printf "%s\n" "$line" | cut -d "|" -f 1 | sed 's/\"//g')
 journalci_title=$(printf "%s\n" "$line" | cut -d "|" -f 2)
-language=$(printf "%s\n" "$line" | cut -d "|" -f 3 | sed 's/, /|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
-date=$(printf "%s\n" "$line" | cut -d "|" -f 4 | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
-creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' )
+_setSpec=$(printf "%s\n" "$line" | cut -d "|" -f 3 | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' | cut -d ":" -f 2)
+language=$(printf "%s\n" "$line" | cut -d "|" -f 4 | sed 's/, /|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
+date=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
+creator=$(printf "%s\n" "$line" | cut -d "|" -f 6 | sed 's/\", \"/|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' )
 
 
 # | sed 's/\"//g'   
@@ -118,7 +119,7 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/
 				
 			
 							
-					line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"")
+					line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$_setSpec\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"")
 				
 				
 				#done
@@ -136,13 +137,13 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\", \"/|/g' | sed 's/
 				
 					if  [[ $autor_tematres_id_numero -eq NULL ]]
 					then
-						line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"\",\"\"") 
+						line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$_setSpec\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"\",\"\"") 
    				    
 					else
 					    consulta_instautor $result_autor_id
 					    instituicao_tematres=$(printf "$instautor_result") 
 					    instituicao_tematres_id=$(printf "$instautor_result_id")
-					    line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"") 						
+					    line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$_setSpec\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"") 						
 				    
 					fi 
 
