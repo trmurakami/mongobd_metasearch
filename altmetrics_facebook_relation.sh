@@ -33,15 +33,26 @@ IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
 
-url=$(printf "%s\n" "$line" | cut -d "\"" -f 4)
+  echo $line
+
+  IFS=',' read -ra line <<< "$line"
+	for i in "${line[@]}"; do
+
+  url_relation=$(printf "$i" | sed 's/\"//g' | sed 's/ \]//g' | sed 's/\[ //g' | sed 's/^ //g')
+
+  query_url_facebook $url_relation
+
+  echo "db.ci.update({\""relation"\" : \""$url_relation"\"},{\$inc: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total"}})" | mongo journals
+  sleep 5
+
+  done
 #doi=$(printf "%s\n" "$line" | cut -d "," -f 2 | sed 's/\"//g' | sed 's/\s//g' | sed 's/\]//g')
 
-query_url_facebook $url
+#query_url_facebook $url
 #query_doi_facebook $doi
 
-hoje=$(date +'%Y%m%d')
+#hoje=$(date +'%Y%m%d')
 
-echo "db.ci.update({\""identifier.0"\" : \""$url"\"},{\$set: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total",facebook_atualizacao: "$hoje"}})" | mongo journals
-sleep 5
+#sleep 5
 
 done
