@@ -42,6 +42,6 @@ query_url_facebook $url
 hoje=$(date +'%Y%m%d')
 
 echo "db.ci.update({\""identifier.0"\" : \""$url"\"},{\$set: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total",facebook_atualizacao: "$hoje"}})" | mongo journals
-sleep 5
+sleep 3
 
 done
