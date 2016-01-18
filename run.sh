@@ -9,6 +9,10 @@ sleep 2
 ./transform.sh export/export.csv export/final.csv
 sleep 2
 sed -e '2,1d' < export/final.csv > export/final_corrigido.csv
+sleep 2
+./transform_assunto.sh export/subject.csv > export/subject_final.csv
+sleep 2
+sed -e '2,1d' < export/subject_final.csv > export/subject_final_corrigido.csv
 
 
 #./corrige_com_vocabci.sh export/final.csv > export/final_corrigido.csv
