@@ -47,7 +47,7 @@ $consulta_id = array("_id" => "oai:ojs.c3sl.ufpr.br:article/41284");
 $consulta_title = array("title" => new MongoRegex("/Bibliometria/"));
 $consulta_author = array("creator" => new MongoRegex("/Murakami/"));
 $consulta_geral = array(''.$_GET['idx'].'' => ''.$_GET['q'].'');
-$consulta_novo = array(''.$_GET['idx'].'' => new MongoRegex("/".$_GET["q"]."/"));
+$consulta_novo = array(''.$_GET['idx'].'' => new MongoRegex("/".$_GET["q"]."/i"));
 
 $cursor = $collection->find($consulta_novo)->skip($skip)->limit($limit)->sort($sort);
 $total= $cursor->count();
