@@ -16,62 +16,6 @@
 <div class="container">
 
 <?php
-/**
-
-* Description of StringUtil
-
-*
-
-* @author  Rafael Goulart
-
-*/
-
-class StringUtil {
-
-const ACCENT_STRINGS = 'ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĨÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïĩðñòóôõöøùúûüýÿ_&';
-
-const NO_ACCENT_STRINGS = 'SOZsozYYuAAAAAAACEEEEEIIIIIDNOOOOOOUUUUYsaaaaaaaceeeeeiiiiionoooooouuuuyy_&';
-
-/**
-* Returns a string with accent to REGEX expression to find any combinations
-* in accent insentive way
-*
-* @param string $text The text.
-* @return string The REGEX text.
-*/
-
-static public function accentToRegex($text)
-{
-$from = str_split(utf8_decode(self::ACCENT_STRINGS));
-$to   = str_split(strtolower(self::NO_ACCENT_STRINGS));
-$text = utf8_decode($text);
-$regex = array();
-
-foreach ($to as $key => $value)
-{
-if (isset($regex[$value]))
-{
-$regex[$value] .= $from[$key];
-} else {
-$regex[$value] = $value;
-}
-}
-
-foreach ($regex as $rg_key => $rg)
-{
-$text = preg_replace("/[$rg]/", "_{$rg_key}_", $text);
-}
-
-foreach ($regex as $rg_key => $rg)
-{
-$text = preg_replace("/_{$rg_key}_/", "[$rg]", $text);
-}
-return utf8_encode($text);
-}
-}
-?>
-
-<?php
   include "inc/header.php";
 ?>
 
@@ -97,7 +41,7 @@ $next  = ($page + 1);
 $prev  = ($page - 1);
 $sort  = array('createdAt' => -1);
 
-$search_string = StringUtil::accentToRegex(''.$_GET['q'].'');
+$search_string = $_GET['q'];
 $query =  array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"));
 $consulta_not_deleted = array('_status' => array('$not' => new \MongoRegex("/\bdeleted\b/i")));
 $query_union = array(
@@ -105,6 +49,7 @@ $query_union = array(
   array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"))
 );
 $cursor = $collection->find($query)->skip($skip)->limit($limit)->sort($sort);
+
 $total= $cursor->count();
 
 /* Pegar a URL atual */
@@ -142,7 +87,7 @@ foreach ($cursor as $r) {
     echo 'URL: <a href="'.$identifier.'">'.$identifier."</a><br />";
   }
   echo 'Título do periódico: '.$r["journalci_title"]."<br />";
-  echo '_id: '.$r["_id"]."<br />";
+  echo '_id: <a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["_id"]."</a><br />";
   echo 'Status: '.$r["_status"]."<br />";
   echo 'Qualis2014: '.$r["Qualis2014"]."<br />";
   echo 'Data de atualização dos dados obtidos no facebook: '.$r["facebook_atualizacao"]."<br />";

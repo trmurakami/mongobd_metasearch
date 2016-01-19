@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <select class="form-control" name="idx">
-                        <option value="">Escolha</option>
+                        <!-- <option value="">Escolha</option> -->
                         <option value="journalci_title">Periódico</option>
                         <option value="title">Título</option>
                         <option value="creator">Autor</option>
