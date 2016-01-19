@@ -24,11 +24,26 @@
 ?>
 
 
-<h1>Página principal</h1>
-<p>
 
-Tente: AtoZ, CIR, Biblos, CIInf em Periódico
+<p>Dados coletados de periódicos de Ciência da Informação disponíveis em OAI</p>
 
+
+
+
+<?php
+$mongodb    = new MongoClient();
+$database   = $mongodb->journals;
+$collection = $database->ci;
+$cursor = 	$database->command(array("distinct" => "ci", "key" => "journalci_title"));
+
+echo "<br/><br/><h3>Revistas indexadas</h3></br>";
+
+reset($cursor);
+while (list($key, $value) = each($cursor["values"])) {
+    echo '<a href="result.php?idx=journalci_title&q='.$value.'">'.$value.'</a>, ';
+}
+
+?>
 
 <?php
   include "inc/footer.php";

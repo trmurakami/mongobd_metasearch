@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Dados coletados de periódicos de Ciência da Informação disponíveis em OAI</title>
+<title>Resultados de Busca</title>
 
 <!-- Jquery -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -99,25 +99,32 @@ $sort  = array('createdAt' => -1);
 
 $search_string = StringUtil::accentToRegex(''.$_GET['q'].'');
 $query =  array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"));
-
+$consulta_not_deleted = array('_status' => array('$not' => new \MongoRegex("/\bdeleted\b/i")));
+$query_union = array(
+  array('_status' => array('$not' => new \MongoRegex("/\bdeleted\b/i"))),
+  array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"))
+);
 $cursor = $collection->find($query)->skip($skip)->limit($limit)->sort($sort);
 $total= $cursor->count();
 
 /* Pegar a URL atual */
 $url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 $escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+$pattern = '/page=\d/i';
+$url_sem_page = preg_replace($pattern,'',$escaped_url);
+
 
 
 print_r("Quantidade de resultados: $total<br/><br/>");
 
 if($page > 1){
-    echo '<a href="' . $escaped_url . '&page=' . $prev . '">Anterior</a>';
+    echo '<a href="' . $url_sem_page . '&page=' . $prev . '">Anterior</a>';
     if($page * $limit < $total) {
-        echo ' <a href="' . $escaped_url . '&page=' . $next . '">Próximo</a>';
+        echo ' - <a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a>';
     }
 } else {
     if($page * $limit < $total) {
-        echo ' <a href="' . $escaped_url . '&page=' . $next . '">Próximo</a>';
+        echo ' <a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a>';
     }
 }
 
