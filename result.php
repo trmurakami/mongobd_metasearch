@@ -28,9 +28,9 @@
 
 class StringUtil {
 
-const ACCENT_STRINGS = 'ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĨÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïĩðñòóôõöøùúûüýÿ';
+const ACCENT_STRINGS = 'ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĨÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïĩðñòóôõöøùúûüýÿ_&';
 
-const NO_ACCENT_STRINGS = 'SOZsozYYuAAAAAAACEEEEEIIIIIDNOOOOOOUUUUYsaaaaaaaceeeeeiiiiionoooooouuuuyy';
+const NO_ACCENT_STRINGS = 'SOZsozYYuAAAAAAACEEEEEIIIIIDNOOOOOOUUUUYsaaaaaaaceeeeeiiiiionoooooouuuuyy_&';
 
 /**
 * Returns a string with accent to REGEX expression to find any combinations
@@ -85,8 +85,8 @@ return utf8_encode($text);
 
 <h2>Resultado da busca</h2>
 <?php
-/*error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', 1);*/
+error_reporting(E_ALL|E_STRICT);
+ini_set('display_errors', 1);
 $mongodb    = new MongoClient();
 $database   = $mongodb->journals;
 $collection = $database->ci;
@@ -116,6 +116,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
 
 print_r("Quantidade de resultados: $total<br/><br/>");
+
 
 if($page > 1){
     echo '<a href="' . $url_sem_page . '&page=' . $prev . '">Anterior</a>';
@@ -197,6 +198,9 @@ if($page > 1){
         echo ' <a href="?page=' . $next . '">Next</a>';
     }
 }
+
+
+
 $mongodb->close();
 ?>
 
