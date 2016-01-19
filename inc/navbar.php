@@ -17,7 +17,7 @@
           <li class="active"><a href="pagination.php">Pagination <span class="sr-only">(current)</span></a></li>
         </ul>
 
-        <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="pagination.php" method="get">
+        <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="result.php" method="get">
             <div class="input-group">
         <span class="input-group-addon glyphicon glyphicon-search" aria-hidden="true"></span>
 
@@ -29,8 +29,8 @@
                     <select class="form-control" name="idx">
                         <option value="">Escolha</option>
                         <option value="journalci_title">Periódico</option>
-                        <option value="1">select2</option>
-                        <option value="2">select3</option>
+                        <option value="title">Título</option>
+                        <option value="creator">Autor</option>
                     </select>
                     <button type="submit" class="btn btn-default" id="searchsubmit">Enviar</button>
                 </div>

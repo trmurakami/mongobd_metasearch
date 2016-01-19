@@ -46,8 +46,10 @@ $consulta_journal = array(''.$_GET['idx'].'' => ''.$_GET['q'].'');
 $consulta_id = array("_id" => "oai:ojs.c3sl.ufpr.br:article/41284");
 $consulta_title = array("title" => new MongoRegex("/Bibliometria/"));
 $consulta_author = array("creator" => new MongoRegex("/Murakami/"));
+$consulta_geral = array(''.$_GET['idx'].'' => ''.$_GET['q'].'');
+$consulta_novo = array(''.$_GET['idx'].'' => new MongoRegex("/".$_GET["q"]."/"));
 
-$cursor = $collection->find($consulta_journal)->skip($skip)->limit($limit)->sort($sort);
+$cursor = $collection->find($consulta_novo)->skip($skip)->limit($limit)->sort($sort);
 $total= $cursor->count();
 
 /* Pegar a URL atual */
@@ -55,7 +57,7 @@ $url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 $escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
 
 
-print_r("Quantidade de resultados: $total<br/>");
+print_r("Quantidade de resultados: $total<br/><br/>");
 
 if($page > 1){
     echo '<a href="' . $escaped_url . '&page=' . $prev . '">Anterior</a>';
