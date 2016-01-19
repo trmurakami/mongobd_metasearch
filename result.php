@@ -16,6 +16,62 @@
 <div class="container">
 
 <?php
+/**
+
+* Description of StringUtil
+
+*
+
+* @author  Rafael Goulart
+
+*/
+
+class StringUtil {
+
+const ACCENT_STRINGS = 'ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĨÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïĩðñòóôõöøùúûüýÿ';
+
+const NO_ACCENT_STRINGS = 'SOZsozYYuAAAAAAACEEEEEIIIIIDNOOOOOOUUUUYsaaaaaaaceeeeeiiiiionoooooouuuuyy';
+
+/**
+* Returns a string with accent to REGEX expression to find any combinations
+* in accent insentive way
+*
+* @param string $text The text.
+* @return string The REGEX text.
+*/
+
+static public function accentToRegex($text)
+{
+$from = str_split(utf8_decode(self::ACCENT_STRINGS));
+$to   = str_split(strtolower(self::NO_ACCENT_STRINGS));
+$text = utf8_decode($text);
+$regex = array();
+
+foreach ($to as $key => $value)
+{
+if (isset($regex[$value]))
+{
+$regex[$value] .= $from[$key];
+} else {
+$regex[$value] = $value;
+}
+}
+
+foreach ($regex as $rg_key => $rg)
+{
+$text = preg_replace("/[$rg]/", "_{$rg_key}_", $text);
+}
+
+foreach ($regex as $rg_key => $rg)
+{
+$text = preg_replace("/_{$rg_key}_/", "[$rg]", $text);
+}
+return utf8_encode($text);
+}
+}
+?>
+
+<?php
   include "inc/header.php";
 ?>
 
@@ -29,8 +85,8 @@
 
 <h2>Resultado da busca</h2>
 <?php
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', 1);
+/*error_reporting(E_ALL|E_STRICT);
+ini_set('display_errors', 1);*/
 $mongodb    = new MongoClient();
 $database   = $mongodb->journals;
 $collection = $database->ci;
@@ -40,16 +96,11 @@ $skip  = ($page - 1) * $limit;
 $next  = ($page + 1);
 $prev  = ($page - 1);
 $sort  = array('createdAt' => -1);
-/*$db->users->find(array("a" => 1, "b" => "q"));*/
-$consulta_not_deleted = array('_status' => array('$not' => new \MongoRegex("/\bdeleted\b/i")));
-$consulta_journal = array(''.$_GET['idx'].'' => ''.$_GET['q'].'');
-$consulta_id = array("_id" => "oai:ojs.c3sl.ufpr.br:article/41284");
-$consulta_title = array("title" => new MongoRegex("/Bibliometria/"));
-$consulta_author = array("creator" => new MongoRegex("/Murakami/"));
-$consulta_geral = array(''.$_GET['idx'].'' => ''.$_GET['q'].'');
-$consulta_novo = array(''.$_GET['idx'].'' => new MongoRegex("/".$_GET["q"]."/i"));
 
-$cursor = $collection->find($consulta_novo)->skip($skip)->limit($limit)->sort($sort);
+$search_string = StringUtil::accentToRegex(''.$_GET['q'].'');
+$query =  array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"));
+
+$cursor = $collection->find($query)->skip($skip)->limit($limit)->sort($sort);
 $total= $cursor->count();
 
 /* Pegar a URL atual */
