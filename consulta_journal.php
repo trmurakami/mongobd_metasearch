@@ -1,18 +1,31 @@
 <html>
 <head>
 <title>Dados coletados de periódicos de Ciência da Informação disponíveis em OAI</title>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 
 <h1>Testando o MongoDB com PHP</h1>
 <p>
 <?php
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', 1);
-$mongo = new MongoClient('mongodb://localhost');
+
+/*error_reporting(E_ALL|E_STRICT);
+ini_set('display_errors', 1);*/
+$mongo = new MongoClient();
 $db = $mongo->journals;
 $col = $db->ci;
-$consulta = array('journalci_title' => 'CIR');
+$consulta = array('journalci_title' => ''.$_GET['journal'].'');
 /*$consulta2 = array('_status' => array( '$not:' => 'deleted'));*/
 $rows = $col->find($consulta);
 
