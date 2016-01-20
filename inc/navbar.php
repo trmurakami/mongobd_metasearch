@@ -14,7 +14,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="pagination.php">Pagination <span class="sr-only">(current)</span></a></li>
+          <li class="active"><a href="#">Link ativo <span class="sr-only">(current)</span></a></li>
         </ul>
 
         <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="result.php" method="get">
@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <select class="form-control" name="idx">
-                        <!-- <option value="">Escolha</option> -->
+                        <option value="">Escolha</option>
                         <option value="journalci_title">Periódico</option>
                         <option value="title">Título</option>
                         <option value="creator">Autor</option>

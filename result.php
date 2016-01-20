@@ -23,17 +23,118 @@
   include "inc/navbar.php";
 ?>
 
-  <div class="row">
-    <div class="col-md-4"><h2>Refine os resultados</h2></div>
-    <div class="col-md-8">
-
-<h2>Resultado da busca</h2>
 <?php
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', 1);
-$mongodb    = new MongoClient();
-$database   = $mongodb->journals;
-$collection = $database->ci;
+$m    = new MongoClient();
+$d   = $m->journals;
+$c = $d->ci;
+
+/* recupera as variáveis do GET */
+$idx_query = $_GET['idx'];
+$search_string = $_GET['q'];
+
+?>
+  <div class="row">
+    <div class="col-md-4"><h2>Sumário dos registros</h2>
+    <p>
+    <?php
+
+        $aggregate_query_language=array(
+          array(
+            '$match'=>array(''.$_GET['idx'].''=>new MongoRegex("/.*{$search_string}.*/i"))
+          ),
+          array(
+            '$unwind'=>'$language'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$language',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
+        $aggregate_journal_title=array(
+          array(
+            '$unwind'=>'$journalci_title'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$journalci_title',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
+        $aggregate_query_language_total=array(
+          array(
+            '$unwind'=>'$language'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$language',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
+
+        $aggregate_journal_title_total=array(
+          array(
+            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
+          ),
+          array(
+            '$unwind'=>'$journalci_title'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$journalci_title',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
+        if ($idx_query == ''){
+        $facet_language = $c->aggregate($aggregate_query_language_total);
+        $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
+        }
+        else{
+        $facet_language = $c->aggregate($aggregate_query_language);
+        $facet_journal_title = $c->aggregate($aggregate_journal_title);
+        }
+
+
+        echo "<h3>Periódico:</h3>";
+        foreach ($facet_journal_title["result"] as $jt) {
+          echo '<b>'.$jt["_id"].'</b>:'.$jt["count"].'<br/>';
+        };
+
+        echo "<h3>Idioma:</h3>";
+        foreach ($facet_language["result"] as $fl) {
+          echo '<b>'.$fl["_id"].'</b>:'.$fl["count"].'<br/>';
+        };
+
+      ?>
+    </p>
+    </div>
+    <div class="col-md-8">
+
+<h2>Resultado da busca</h2>
+
+<?php
 $page  = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $limit = 12;
 $skip  = ($page - 1) * $limit;
@@ -41,14 +142,17 @@ $next  = ($page + 1);
 $prev  = ($page - 1);
 $sort  = array('createdAt' => -1);
 
-$search_string = $_GET['q'];
+$text_query = array ('$text' => array('$search'=>''.$_GET['q'].''));
 $query =  array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"));
-$consulta_not_deleted = array('_status' => array('$not' => new \MongoRegex("/\bdeleted\b/i")));
-$query_union = array(
-  array('_status' => array('$not' => new \MongoRegex("/\bdeleted\b/i"))),
-  array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"))
-);
-$cursor = $collection->find($query)->skip($skip)->limit($limit)->sort($sort);
+
+if ($idx_query == ''){
+ $cursor = $c->find($text_query)->skip($skip)->limit($limit)->sort($sort);
+}
+else{
+$cursor = $c->find($query)->skip($skip)->limit($limit)->sort($sort);
+}
+
+
 
 $total= $cursor->count();
 
@@ -57,7 +161,6 @@ $url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 $escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
 $pattern = '/page=\d/i';
 $url_sem_page = preg_replace($pattern,'',$escaped_url);
-
 
 
 print_r("Quantidade de resultados: $total<br/><br/>");
@@ -78,59 +181,24 @@ echo "<br/><br/>";
 
 foreach ($cursor as $r) {
   foreach ($r["title"] as $title){
-    echo 'Título: '.$title."<br />";
+    echo '<b>Título</b>: '.$title."<br />";
   }
   foreach ($r["creator"] as $autores){
-    echo 'Autor: '.$autores."<br />";
-  }
+    echo '<b>Autor</b>:'.$autores[0].',<b>Instituição</b>:'.$autores[1].'<br/>';
+}
   foreach ($r["identifier"] as $identifier){
-    echo 'URL: <a href="'.$identifier.'">'.$identifier."</a><br />";
+    echo '<b>URL</b>: <a href="'.$identifier.'">'.$identifier."</a><br />";
   }
-  echo 'Título do periódico: '.$r["journalci_title"]."<br />";
-  echo '_id: <a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["_id"]."</a><br />";
-  echo 'Status: '.$r["_status"]."<br />";
-  echo 'Qualis2014: '.$r["Qualis2014"]."<br />";
-  echo 'Data de atualização dos dados obtidos no facebook: '.$r["facebook_atualizacao"]."<br />";
-  echo 'Comentários no facebook: '.$r["facebook_url_comments"]."<br />";
-  echo 'Likes no facebook: '.$r["facebook_url_likes"]."<br />";
-  echo 'Compartilhamentos no facebook: '.$r["facebook_url_shares"]."<br />";
-  echo 'Total de interações no facebook: '.$r["facebook_url_total"]."<br />";
-
-/*  foreach ($r["relation"] as $relation){
-    echo 'URLs relacionadas: '.$relation."<br />";
+  foreach ($r["journalci_title"] as $journalci_title){
+  echo '<b>Periódico</b>: '.$journalci_title."<br />";
   }
-  foreach ($r["description"] as $resumo){
-    echo 'Resumo: '.$resumo."<br />";
-  }
-  foreach ($r["language"] as $idioma){
-    echo 'Idioma: '.$idioma."<br />";
-  }
-  foreach ($r["publisher"] as $publisher){
-    echo 'Editora: '.$publisher."<br />";
-  }
-  foreach ($r["source"] as $source){
-    echo 'Fonte: '.$source."<br />";
-  }
-  foreach ($r["subject"] as $subject){
-    echo 'Assuntos: '.$subject."<br />";
-  }
-  foreach ($r["date"] as $data_de_publicacao){
-    echo 'Data de publicação: '.$data_de_publicacao."<br />";
-  }
-  foreach ($r["format"] as $formato){
-    echo 'Formato: '.$formato."<br />";
-  }
-  foreach ($r["rights"] as $direitos_autorais){
-    echo 'Direitos Autorais: '.$direitos_autorais."<br />";
-  }
-  foreach ($r["type"] as $tipo){
-    echo 'Tipo: '.$tipo."<br />";
-  }
-  foreach ($r["_setSpec"] as $set_oai){
-    echo 'Set OAI: '.$set_oai."<br />";
-  }*/
+  echo '<b>_id</b>: <a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["_id"]."</a><br />";
+  echo '<b>Facebook: Comentários</b>: '.$r["facebook_url_comments"]."<br />";
+  echo '<b>Facebook: Curtidas</b>: '.$r["facebook_url_likes"]."<br />";
+  echo '<b>Facebook: Compartilhamentos</b>: '.$r["facebook_url_shares"]."<br />";
+  echo '<b>Facebook: Total de interações</b>: '.$r["facebook_url_total"]."<br />";
+  echo '<b>Data de atualização dos dados obtidos no facebook</b>: '.$r["facebook_atualizacao"]."<br />";
   echo "</br></br>";
-
 }
 
 if($page > 1){

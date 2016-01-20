@@ -29,8 +29,10 @@
 
 <h2>Resultado da busca</h2>
 <?php
+/*
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', 1);
+*/
 $mongodb    = new MongoClient();
 $database   = $mongodb->journals;
 $collection = $database->ci;

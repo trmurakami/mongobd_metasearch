@@ -31,10 +31,10 @@
 
 
 <?php
-$mongodb    = new MongoClient();
-$database   = $mongodb->journals;
-$collection = $database->ci;
-$cursor = 	$database->command(array("distinct" => "ci", "key" => "journalci_title"));
+$m    = new MongoClient();
+$d   = $m->journals;
+$c = $d->ci;
+$cursor = 	$d->command(array("distinct" => "ci", "key" => "journalci_title"));
 
 echo "<br/><br/><h3>Revistas indexadas</h3></br>";
 

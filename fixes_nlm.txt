@@ -1,0 +1,3 @@
+add_field("data_de_coleta","2016-01-20");
+copy_field("metadata.2","flaten");
+flatten(flaten);
