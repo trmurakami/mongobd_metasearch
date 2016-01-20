@@ -60,6 +60,9 @@ $search_string = $_GET['q'];
 
         $aggregate_journal_title=array(
           array(
+            '$match'=>array(''.$_GET['idx'].''=>new MongoRegex("/.*{$search_string}.*/i"))
+          ),
+          array(
             '$unwind'=>'$journalci_title'
           ),
           array(
@@ -90,9 +93,6 @@ $search_string = $_GET['q'];
 
 
         $aggregate_journal_title_total=array(
-          array(
-            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
-          ),
           array(
             '$unwind'=>'$journalci_title'
           ),
