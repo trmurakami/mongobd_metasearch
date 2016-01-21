@@ -30,14 +30,28 @@
 $m    = new MongoClient();
 $d   = $m->journals;
 $c = $d->ci;
-$cursor = 	$d->command(array("distinct" => "ci", "key" => "journalci_title"));
 
-echo "<br/><br/><h3>Revistas indexadas</h3></br>";
+$aggregate_journal_title_total=array(
+  array(
+    '$unwind'=>'$journalci_title'
+  ),
+  array(
+    '$group' => array(
+      "_id"=>'$journalci_title',
+      "count"=>array('$sum'=>1)
+      )
+  ),
+  array(
+    '$sort' => array("_id"=>1)
+  )
+);
+$facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 
-reset($cursor);
-while (list($key, $value) = each($cursor["values"])) {
-    echo '<a href="result.php?idx=journalci_title&q='.$value.'">'.$value.'</a>, ';
-}
+echo "<h3>Periódicos indexados</h3></br><ul class=\"list-group\">";
+foreach ($facet_journal_title["result"] as $jt) {
+  echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="result.php?idx=journalci_title&q='.$jt["_id"].'">'.$jt["_id"].'</a></li>';
+};
+echo "</ul>";
 
 ?>
 

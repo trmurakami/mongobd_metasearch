@@ -160,19 +160,21 @@ $search_string = $_GET['q'];
         $facet_subject = $c->aggregate($aggregate_query_subject);
         }
 
-        echo "<h3>Periódico:</h3></br><ul class=\"list-group\">";
+        echo "<h3>Periódico</h3></br><ul class=\"list-group\">";
         foreach ($facet_journal_title["result"] as $jt) {
           echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="#">'.$jt["_id"].'</a></li>';
         };
         echo "</ul>";
-        echo "<h3>Idioma:</h3></br><ul class=\"list-group\">";
+        echo "<h3>Idioma</h3></br><ul class=\"list-group\">";
         foreach ($facet_language["result"] as $fl) {
             echo '<li class="list-group-item"><span class="badge">'.$fl["count"].'</span><a href="#">'.$fl["_id"].'</a></li>';
         };
         echo "</ul>";
-        echo "<h3>Assunto:</h3></br><ul class=\"list-group\">";
+        echo "<h3>Principais assuntos</h3></br><ul class=\"list-group\">";
+        $i = 0;
         foreach ($facet_subject["result"] as $sj) {
-            echo '<li class="list-group-item"><span class="badge">'.$sj["count"].'</span><a href="#">'.$sj["_id"].'</a></li>';
+          echo '<li class="list-group-item"><span class="badge">'.$sj["count"].'</span><a href="#">'.$sj["_id"].'</a></li>';
+          if(++$i > 20) break;
         };
         echo "</ul>";
       ?>
@@ -250,12 +252,12 @@ foreach ($cursor as $r) {
     echo '<b>DOI</b>: <a href="http://dx.doi.org/'.$r["doi"].'">'.$r["doi"].'</a><br/>';
   }
 
-  echo '<ul class="nav nav-pills" role="tablist">';
+  echo '<small><br/><ul class="nav nav-pills" role="tablist">';
   echo '<li role="presentation" class="active"><a href="#">Facebook</a></li>';
   echo '<li role="presentation"><a href="#">Comentários <span class="badge">'.$r["facebook_url_comments"].'</span></a></li>';
   echo '<li role="presentation"><a href="#">Curtidas <span class="badge">'.$r["facebook_url_likes"].'</span></a></li>';
   echo '<li role="presentation"><a href="#">Compartilhamentos <span class="badge">'.$r["facebook_url_shares"].'</span></a></li>';
-  echo '</ul>';
+  echo '</ul></small>';
   echo '</div>';
 }
 
