@@ -24,11 +24,7 @@
 ?>
 
 
-
-<p>Dados coletados de periódicos de Ciência da Informação disponíveis em OAI</p>
-
-
-
+<h4>Metabuscador em periódicos de Ciência da Informação brasileiros disponíveis em OAI-PMH</p></h4>
 
 <?php
 $m    = new MongoClient();

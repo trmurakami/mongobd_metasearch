@@ -76,7 +76,28 @@ $search_string = $_GET['q'];
           )
         );
 
+        $aggregate_query_subject=array(
+          array(
+            '$match'=>array(''.$_GET['idx'].''=>new MongoRegex("/.*{$search_string}.*/i"))
+          ),
+          array(
+            '$unwind'=>'$subject'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$subject',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
         $aggregate_query_language_total=array(
+          array(
+            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
+          ),
           array(
             '$unwind'=>'$language'
           ),
@@ -94,6 +115,9 @@ $search_string = $_GET['q'];
 
         $aggregate_journal_title_total=array(
           array(
+            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
+          ),
+          array(
             '$unwind'=>'$journalci_title'
           ),
           array(
@@ -107,32 +131,54 @@ $search_string = $_GET['q'];
           )
         );
 
+        $aggregate_query_subject_total=array(
+          array(
+            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
+          ),
+          array(
+            '$unwind'=>'$subject'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$subject',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
         if ($idx_query == ''){
         $facet_language = $c->aggregate($aggregate_query_language_total);
         $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
+        $facet_subject = $c->aggregate($aggregate_query_subject_total);
         }
         else{
         $facet_language = $c->aggregate($aggregate_query_language);
         $facet_journal_title = $c->aggregate($aggregate_journal_title);
+        $facet_subject = $c->aggregate($aggregate_query_subject);
         }
 
-
-        echo "<h3>Periódico:</h3>";
+        echo "<h3>Periódico:</h3></br><ul class=\"list-group\">";
         foreach ($facet_journal_title["result"] as $jt) {
-          echo '<b>'.$jt["_id"].'</b>:'.$jt["count"].'<br/>';
+          echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="#">'.$jt["_id"].'</a></li>';
         };
-
-        echo "<h3>Idioma:</h3>";
+        echo "</ul>";
+        echo "<h3>Idioma:</h3></br><ul class=\"list-group\">";
         foreach ($facet_language["result"] as $fl) {
-          echo '<b>'.$fl["_id"].'</b>:'.$fl["count"].'<br/>';
+            echo '<li class="list-group-item"><span class="badge">'.$fl["count"].'</span><a href="#">'.$fl["_id"].'</a></li>';
         };
-
+        echo "</ul>";
+        echo "<h3>Assunto:</h3></br><ul class=\"list-group\">";
+        foreach ($facet_subject["result"] as $sj) {
+            echo '<li class="list-group-item"><span class="badge">'.$sj["count"].'</span><a href="#">'.$sj["_id"].'</a></li>';
+        };
+        echo "</ul>";
       ?>
     </p>
     </div>
     <div class="col-md-8">
-
-<h2>Resultado da busca</h2>
 
 <?php
 $page  = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -152,8 +198,6 @@ else{
 $cursor = $c->find($query)->skip($skip)->limit($limit)->sort($sort);
 }
 
-
-
 $total= $cursor->count();
 
 /* Pegar a URL atual */
@@ -162,61 +206,68 @@ $escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
 $pattern = '/page=\d/i';
 $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
-
-print_r("Quantidade de resultados: $total<br/><br/>");
+print_r("<div class=\"page-header\"><h3>Resultado da busca <small>($total)</small></h3></div>");
 
 
 if($page > 1){
-    echo '<a href="' . $url_sem_page . '&page=' . $prev . '">Anterior</a>';
+    echo '<nav><ul class="pager">';
+    echo '<li><a href="' . $url_sem_page . '&page=' . $prev . '">Anterior</a></li>';
     if($page * $limit < $total) {
-        echo ' - <a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a>';
+        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
     }
 } else {
     if($page * $limit < $total) {
-        echo ' <a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a>';
+        echo '<nav><ul class="pager">';
+        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
     }
 }
 
-echo "<br/><br/>";
+echo "<br/>";
 
 foreach ($cursor as $r) {
-  foreach ($r["title"] as $title){
-    echo '<b>Título</b>: '.$title."<br />";
+  echo "<div class=\"media\"><div class=\"media-left\"><a href=\"#\"><img class=\"media-object\" data-src=\"holder.js/64x64\" alt=\"64x64\" src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTI2MDRjNzVhYSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MjYwNGM3NWFhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==\" data-holder-rendered=\"true\" style=\"width: 64px; height: 64px;\"></a></div><div class=\"media-body\">";
+  echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].'</a></h4>';
+  echo '<span class="badge">'.$r["journalci_title"][0].'</span><br/>';
+  if (!empty($r["title"][1])) {
+  echo '<small>Outros títulos:'.$r["title"][1].'</small><br/>';
   }
+  if (!empty($r["title"][2])) {
+  echo '<small>Outros títulos:'.$r["title"][2].'</small><br/>';
+  }
+
   foreach ($r["creator"] as $autores){
     echo '<b>Autor</b>:'.$autores[0].',<b>Instituição</b>:'.$autores[1].'<br/>';
-}
-  foreach ($r["identifier"] as $identifier){
-    echo '<b>URL</b>: <a href="'.$identifier.'">'.$identifier."</a><br />";
   }
-  foreach ($r["journalci_title"] as $journalci_title){
-  echo '<b>Periódico</b>: '.$journalci_title."<br />";
+  echo '<b>Acesso online</b>: <a href="#">'.$r["url_principal"].'</a><br/>';
+
+  if (!empty($r["doi"])) {
+    echo '<b>DOI</b>: <a href="http://dx.doi.org/'.$r["doi"].'">'.$r["doi"].'</a><br/>';
   }
-  echo '<b>_id</b>: <a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["_id"]."</a><br />";
-  echo '<b>Facebook: Comentários</b>: '.$r["facebook_url_comments"]."<br />";
-  echo '<b>Facebook: Curtidas</b>: '.$r["facebook_url_likes"]."<br />";
-  echo '<b>Facebook: Compartilhamentos</b>: '.$r["facebook_url_shares"]."<br />";
-  echo '<b>Facebook: Total de interações</b>: '.$r["facebook_url_total"]."<br />";
-  echo '<b>Data de atualização dos dados obtidos no facebook</b>: '.$r["facebook_atualizacao"]."<br />";
-  echo "</br></br>";
+
+  echo '<ul class="nav nav-pills" role="tablist">';
+  echo '<li role="presentation" class="active"><a href="#">Facebook</a></li>';
+  echo '<li role="presentation"><a href="#">Comentários <span class="badge">'.$r["facebook_url_comments"].'</span></a></li>';
+  echo '<li role="presentation"><a href="#">Curtidas <span class="badge">'.$r["facebook_url_likes"].'</span></a></li>';
+  echo '<li role="presentation"><a href="#">Compartilhamentos <span class="badge">'.$r["facebook_url_shares"].'</span></a></li>';
+  echo '</ul>';
+  echo '</div>';
 }
 
 if($page > 1){
-    echo '<a href="?page=' . $prev . '">Previous</a>';
+    echo '<nav><ul class="pager">';
+    echo '<li><a href="' . $url_sem_page . '&page=' . $prev . '">Anterior</a></li>';
     if($page * $limit < $total) {
-        echo ' <a href="?page=' . $next . '">Next</a>';
+        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
     }
 } else {
     if($page * $limit < $total) {
-        echo ' <a href="?page=' . $next . '">Next</a>';
+        echo '<nav><ul class="pager">';
+        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
     }
 }
-
-
-
-$mongodb->close();
 ?>
 
+</div>
 </div>
 </div>
 

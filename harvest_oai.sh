@@ -54,14 +54,14 @@ echo "Encontros Bibli OK" >> export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"EncontrosBibli"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Informação & Informação
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informacao&Informacao")' --fix 'set_array("qualis2014","B1")' --url http://www.uel.br/revistas/uel/index.php/informacao/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informacao & Informacao")' --fix 'set_array("qualis2014","B1")' --url http://www.uel.br/revistas/uel/index.php/informacao/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "Informação & Informação OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"Informacao&Informacao"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Informacao & Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Informação & Sociedade: Estudos
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","IES")' --fix 'set_array("qualis2014","A1")' --url http://www.ies.ufpb.br/ojs2/index.php/ies/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informacao & Sociedade: Estudos")' --fix 'set_array("qualis2014","A1")' --url http://www.ies.ufpb.br/ojs2/index.php/ies/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "Informação & Sociedade OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"IES"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Informacao & Sociedade: Estudos"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Informação@Profissões - INFOPROF
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","INFOPROF")' --fix 'set_array("qualis2014","Nao possui")' --url http://www.uel.br/revistas/uel/index.php/infoprof/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
@@ -69,19 +69,19 @@ echo "Informação@Profissões OK" >> export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"INFOPROF"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Informação & Tecnologia - ITEC
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","ITEC")' --fix 'set_array("qualis2014","Nao possui")' --url http://periodicos.ufpb.br/ojs/index.php/itec/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informacao & Tecnologia - ITEC")' --fix 'set_array("qualis2014","Nao possui")' --url http://periodicos.ufpb.br/ojs/index.php/itec/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "ITEC OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"ITEC"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Informacao & Tecnologia - ITEC"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Liinc em Revista - Liinc
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Liinc")' --fix 'set_array("qualis2014","B1")' --url http://revista.ibict.br/liinc/index.php/liinc/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
-echo "Liinc OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"Liinc"}).count()' | mongo journals >> export/oai_result.txt
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Liinc em Revista")' --fix 'set_array("qualis2014","B1")' --url http://revista.ibict.br/liinc/index.php/liinc/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+echo "Liinc em Revista OK" >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Liinc em Revista"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Perspectivas em Ciência da Informação - PCI
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PCI")' --fix 'set_array("qualis2014","A1")' --url http://portaldeperiodicos.eci.ufmg.br/index.php/pci/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
-echo "PCI OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"PCI"}).count()' | mongo journals >> export/oai_result.txt
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Perspectivas em Ciencia da Informacao")' --fix 'set_array("qualis2014","A1")' --url http://portaldeperiodicos.eci.ufmg.br/index.php/pci/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+echo "Perspectivas em Ciencia da Informacao OK" >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Perspectivas em Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Perspectivas em Gestão & Conhecimento - PGC
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PGC")' --fix 'set_array("qualis2014","Nao possui")' --url http://periodicos.ufpb.br/ojs2/index.php/pgc/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
