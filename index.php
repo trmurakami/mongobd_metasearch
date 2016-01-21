@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Dados coletados de periódicos de Ciência da Informação disponíveis em OAI</title>
+<title>Meta-CI - Metabuscador em periódicos de Ciência da Informação</title>
 
 <!-- Jquery -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -47,9 +47,9 @@ $aggregate_journal_title_total=array(
 );
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 
-echo "<h3>Periódicos indexados</h3></br><ul class=\"list-group\">";
+echo "<h3>Periódicos indexados</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
 foreach ($facet_journal_title["result"] as $jt) {
-  echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="result.php?idx=journalci_title&q='.$jt["_id"].'">'.$jt["_id"].'</a></li>';
+  echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?journalci_title='.$jt["_id"].'">'.$jt["_id"].'<span class="badge">'.$jt["count"].'</span></a></li>';
 };
 echo "</ul>";
 

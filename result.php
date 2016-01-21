@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Resultados de Busca</title>
+<title>Meta-CI - Resultados de Busca</title>
 
 <!-- Jquery -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -31,18 +31,28 @@ $d   = $m->journals;
 $c = $d->ci;
 
 /* recupera as variáveis do GET */
-$idx_query = $_GET['idx'];
-$search_string = $_GET['q'];
+
+$query_array = array();
+  foreach ($_GET as $key=>$value) {
+    $query[$key] = $value;
+}
+
+/* Pegar a URL atual */
+$url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+$pattern = '/page=\d/i';
+$url_sem_page = preg_replace($pattern,'',$escaped_url);
 
 ?>
   <div class="row">
     <div class="col-md-4"><h2>Sumário dos registros</h2>
     <p>
-    <?php
+
+<?php
 
         $aggregate_query_language=array(
           array(
-            '$match'=>array(''.$_GET['idx'].''=>new MongoRegex("/.*{$search_string}.*/i"))
+            '$match'=>$query
           ),
           array(
             '$unwind'=>'$language'
@@ -60,7 +70,7 @@ $search_string = $_GET['q'];
 
         $aggregate_journal_title=array(
           array(
-            '$match'=>array(''.$_GET['idx'].''=>new MongoRegex("/.*{$search_string}.*/i"))
+            '$match'=>$query
           ),
           array(
             '$unwind'=>'$journalci_title'
@@ -78,7 +88,7 @@ $search_string = $_GET['q'];
 
         $aggregate_query_subject=array(
           array(
-            '$match'=>array(''.$_GET['idx'].''=>new MongoRegex("/.*{$search_string}.*/i"))
+            '$match'=>$query
           ),
           array(
             '$unwind'=>'$subject'
@@ -94,9 +104,27 @@ $search_string = $_GET['q'];
           )
         );
 
+        $aggregate_query_year=array(
+          array(
+            '$match'=>$query
+          ),
+          array(
+            '$unwind'=>'$year'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$year',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
         $aggregate_query_language_total=array(
           array(
-            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
+            '$match'=>$query
           ),
           array(
             '$unwind'=>'$language'
@@ -115,7 +143,7 @@ $search_string = $_GET['q'];
 
         $aggregate_journal_title_total=array(
           array(
-            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
+            '$match'=>$query
           ),
           array(
             '$unwind'=>'$journalci_title'
@@ -133,7 +161,7 @@ $search_string = $_GET['q'];
 
         $aggregate_query_subject_total=array(
           array(
-            '$match'=>array ('$text' => array('$search'=>''.$_GET['q'].''))
+            '$match'=>$query
           ),
           array(
             '$unwind'=>'$subject'
@@ -149,32 +177,51 @@ $search_string = $_GET['q'];
           )
         );
 
-        if ($idx_query == ''){
-        $facet_language = $c->aggregate($aggregate_query_language_total);
-        $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
-        $facet_subject = $c->aggregate($aggregate_query_subject_total);
-        }
-        else{
+        $aggregate_query_year_total=array(
+          array(
+            '$match'=>$query
+          ),
+          array(
+            '$unwind'=>'$year'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$year',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
+
         $facet_language = $c->aggregate($aggregate_query_language);
         $facet_journal_title = $c->aggregate($aggregate_journal_title);
         $facet_subject = $c->aggregate($aggregate_query_subject);
-        }
+        $facet_year = $c->aggregate($aggregate_query_year);
+
 
         echo "<h3>Periódico</h3></br><ul class=\"list-group\">";
         foreach ($facet_journal_title["result"] as $jt) {
-          echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="#">'.$jt["_id"].'</a></li>';
+          echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="'.$url.'&journalci_title='.$jt["_id"].'">'.$jt["_id"].'</a></li>';
         };
         echo "</ul>";
-        echo "<h3>Idioma</h3></br><ul class=\"list-group\">";
-        foreach ($facet_language["result"] as $fl) {
-            echo '<li class="list-group-item"><span class="badge">'.$fl["count"].'</span><a href="#">'.$fl["_id"].'</a></li>';
+        echo "<h3>Ano de publicação</h3></br><ul class=\"list-group\">";
+        foreach ($facet_year["result"] as $yr) {
+            echo '<li class="list-group-item"><span class="badge">'.$yr["count"].'</span><a href="'.$url.'&year='.$yr["_id"].'">'.$yr["_id"].'</a></li>';
         };
         echo "</ul>";
         echo "<h3>Principais assuntos</h3></br><ul class=\"list-group\">";
         $i = 0;
         foreach ($facet_subject["result"] as $sj) {
-          echo '<li class="list-group-item"><span class="badge">'.$sj["count"].'</span><a href="#">'.$sj["_id"].'</a></li>';
+          echo '<li class="list-group-item"><span class="badge">'.$sj["count"].'</span><a href="'.$url.'&subject='.$sj["_id"].'">'.$sj["_id"].'</a></li>';
           if(++$i > 20) break;
+        };
+        echo "</ul>";
+        echo "<h3>Idioma</h3></br><ul class=\"list-group\">";
+        foreach ($facet_language["result"] as $fl) {
+            echo '<li class="list-group-item"><span class="badge">'.$fl["count"].'</span><a href="'.$url.'&language='.$fl["_id"].'">'.$fl["_id"].'</a></li>';
         };
         echo "</ul>";
       ?>
@@ -190,23 +237,8 @@ $next  = ($page + 1);
 $prev  = ($page - 1);
 $sort  = array('createdAt' => -1);
 
-$text_query = array ('$text' => array('$search'=>''.$_GET['q'].''));
-$query =  array(''.$_GET['idx'].'' =>new MongoRegex("/.*{$search_string}.*/i"));
-
-if ($idx_query == ''){
- $cursor = $c->find($text_query)->skip($skip)->limit($limit)->sort($sort);
-}
-else{
 $cursor = $c->find($query)->skip($skip)->limit($limit)->sort($sort);
-}
-
 $total= $cursor->count();
-
-/* Pegar a URL atual */
-$url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
-$pattern = '/page=\d/i';
-$url_sem_page = preg_replace($pattern,'',$escaped_url);
 
 print_r("<div class=\"page-header\"><h3>Resultado da busca <small>($total)</small></h3></div>");
 
@@ -227,8 +259,8 @@ if($page > 1){
 echo "<br/>";
 
 foreach ($cursor as $r) {
-  echo "<div class=\"media\"><div class=\"media-left\"><a href=\"#\"><img class=\"media-object\" data-src=\"holder.js/64x64\" alt=\"64x64\" src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTI2MDRjNzVhYSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MjYwNGM3NWFhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==\" data-holder-rendered=\"true\" style=\"width: 64px; height: 64px;\"></a></div><div class=\"media-body\">";
-  echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].'</a></h4>';
+  echo '<div class="media"><div class="media-left"><a href="single.php?idx=_id&q='.$r["_id"].'"><button type="button" class="list-group-item"><center><span class="glyphicon glyphicon-file" aria-hidden="true"></span></center><br/>'.$r["tipo"][0].'</button></a></div><div class="media-body">';
+  echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].' ('.$r["year"][0].')</a></h4>';
   echo '<span class="badge">'.$r["journalci_title"][0].'</span><br/>';
   if (!empty($r["title"][1])) {
   echo '<small>Outros títulos:'.$r["title"][1].'</small><br/>';
@@ -245,8 +277,7 @@ foreach ($cursor as $r) {
   }
 }
 
-
-  echo '<b>Acesso online</b>: <a href="#">'.$r["url_principal"].'</a><br/>';
+  echo '<b>Acesso online</b>: <a href="'.$r["url_principal"].'">'.$r["url_principal"].'</a><br/>';
 
   if (!empty($r["doi"])) {
     echo '<b>DOI</b>: <a href="http://dx.doi.org/'.$r["doi"].'">'.$r["doi"].'</a><br/>';
@@ -277,7 +308,7 @@ if($page > 1){
 
 </div>
 </div>
-</div>
+</div></div></div>
 
 <?php
   include "inc/footer.php";
