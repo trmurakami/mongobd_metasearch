@@ -236,8 +236,14 @@ foreach ($cursor as $r) {
   }
 
   foreach ($r["creator"] as $autores){
+    if (!empty($autores[1])) {
     echo '<b>Autor</b>:'.$autores[0].',<b>Instituição</b>:'.$autores[1].'<br/>';
+  }else {
+    echo '<b>Autor</b>:'.$autores[0].'<br/>';
   }
+}
+
+
   echo '<b>Acesso online</b>: <a href="#">'.$r["url_principal"].'</a><br/>';
 
   if (!empty($r["doi"])) {
