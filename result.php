@@ -131,15 +131,41 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
           )
         );
 
+        $aggregate_facebook=array(
+          array(
+            '$match'=>$query
+          ),
+          array(
+            '$group' => array(
+              "_id"=>"Total de interações no facebook",
+              "likes"=>array('$sum'=>'$facebook_url_likes'),
+              "shares"=>array('$sum'=>'$facebook_url_shares'),
+              "comments"=>array('$sum'=>'$facebook_url_comments'),
+              "total"=>array('$sum'=>'$facebook_url_total')
+              )
+          )
+        );
+
+
+
         $facet_language = $c->aggregate($aggregate_query_language);
         $facet_journal_title = $c->aggregate($aggregate_journal_title);
         $facet_subject = $c->aggregate($aggregate_query_subject);
         $facet_year = $c->aggregate($aggregate_query_year);
+        $facet_facebook = $c->aggregate($aggregate_facebook);
 
 
         echo "<h3>Periódico</h3></br><ul class=\"list-group\">";
         foreach ($facet_journal_title["result"] as $jt) {
           echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="'.$url.'&journalci_title='.$jt["_id"].'">'.$jt["_id"].'</a></li>';
+        };
+        echo "</ul>";
+        echo "<h3>Interações no Facebook</h3></br><ul class=\"list-group\">";
+        foreach ($facet_facebook["result"] as $fb) {
+          echo '<li class="list-group-item"><span class="badge">'.$fb["likes"].'</span>Curtidas</li>';
+          echo '<li class="list-group-item"><span class="badge">'.$fb["shares"].'</span>Compartilhamentos</li>';
+          echo '<li class="list-group-item"><span class="badge">'.$fb["comments"].'</span>Comentários</li>';
+          echo '<li class="list-group-item"><span class="badge">'.$fb["total"].'</span>Total</li>';
         };
         echo "</ul>";
         echo "<h3>Ano de publicação</h3></br><ul class=\"list-group\">";
@@ -165,7 +191,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
     <div class="col-md-8">
 
 <?php
-$page  = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$page  = isset($_POST['page']) ? (int) $_POST['page'] : 1;
 $limit = 12;
 $skip  = ($page - 1) * $limit;
 $next  = ($page + 1);
@@ -177,17 +203,18 @@ $total= $cursor->count();
 
 print_r("<div class=\"page-header\"><h3>Resultado da busca <small>($total)</small></h3></div>");
 
-
 if($page > 1){
-    echo '<nav><ul class="pager">';
-    echo '<li><a href="' . $url_sem_page . '&page=' . $prev . '">Anterior</a></li>';
+    echo '<div class="btn-group btn-group-justified" role="group" aria-label="pagination">';
+            echo '<div class="btn-group" role="group"><form method="post" action="'.$escaped_url.'"><input type="hidden" name="extra_submit_param" value="extra_submit_value"><button type="submit" name="page" value="'.$prev.'" class="btn btn-default">Anterior</button></form></div>';
     if($page * $limit < $total) {
-        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
+                echo '<div class="btn-group" role="group"><form method="post" action="'.$escaped_url.'"><input type="hidden" name="extra_submit_param" value="extra_submit_value"><button type="submit" name="page" value="'.$next.'" class="btn btn-default">Próximo</button></form></div>';
     }
+    echo '</div>';
 } else {
     if($page * $limit < $total) {
-        echo '<nav><ul class="pager">';
-        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
+        echo '<div class="btn-group btn-group-justified" role="group" aria-label="pagination">';
+        echo '<div class="btn-group" role="group"><form method="post" action="'.$escaped_url.'"><input type="hidden" name="extra_submit_param" value="extra_submit_value"><button type="submit" name="page" value="'.$next.'" class="btn btn-default">Próximo</button></form></div>';
+        echo '</div>';
     }
 }
 
@@ -237,15 +264,17 @@ foreach ($cursor as $r) {
 }
 
 if($page > 1){
-    echo '<nav><ul class="pager">';
-    echo '<li><a href="' . $url_sem_page . '&page=' . $prev . '">Anterior</a></li>';
+    echo '<div class="btn-group btn-group-justified" role="group" aria-label="pagination">';
+            echo '<div class="btn-group" role="group"><form method="post" action="'.$escaped_url.'"><input type="hidden" name="extra_submit_param" value="extra_submit_value"><button type="submit" name="page" value="'.$prev.'" class="btn btn-default">Anterior</button></form></div>';
     if($page * $limit < $total) {
-        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
+                echo '<div class="btn-group" role="group"><form method="post" action="'.$escaped_url.'"><input type="hidden" name="extra_submit_param" value="extra_submit_value"><button type="submit" name="page" value="'.$next.'" class="btn btn-default">Próximo</button></form></div>';
     }
+    echo '</div>';
 } else {
     if($page * $limit < $total) {
-        echo '<nav><ul class="pager">';
-        echo '<li><a href="' . $url_sem_page . '&page=' . $next . '">Próximo</a></li></ul></nav>';
+        echo '<div class="btn-group btn-group-justified" role="group" aria-label="pagination">';
+        echo '<div class="btn-group" role="group"><form method="post" action="'.$escaped_url.'"><input type="hidden" name="extra_submit_param" value="extra_submit_value"><button type="submit" name="page" value="'.$next.'" class="btn btn-default">Próximo</button></form></div>';
+        echo '</div>';
     }
 }
 ?>
