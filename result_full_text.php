@@ -37,6 +37,14 @@ $query_array = array();
     $query[$key] = $value;
 }
 
+$qstring = "?";
+foreach($_GET as $key => $val)
+{
+    $qstring .= $key . "=" . $val . "&";
+}
+
+$text_query = array ('$text' => array('$search'=>''.$qstring.''));
+
 /* Pegar a URL atual */
 $url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 $escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
@@ -52,7 +60,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
         $aggregate_query_language=array(
           array(
-            '$match'=>$query
+            '$match'=>$text_query
           ),
           array(
             '$unwind'=>'$language'
@@ -70,7 +78,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
         $aggregate_journal_title=array(
           array(
-            '$match'=>$query
+            '$match'=>$text_query
           ),
           array(
             '$unwind'=>'$journalci_title'
@@ -88,7 +96,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
         $aggregate_query_subject=array(
           array(
-            '$match'=>$query
+            '$match'=>$text_query
           ),
           array(
             '$unwind'=>'$subject'
@@ -106,7 +114,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
         $aggregate_query_year=array(
           array(
-            '$match'=>$query
+            '$match'=>$text_query
           ),
           array(
             '$unwind'=>'$year'
@@ -163,7 +171,7 @@ $next  = ($page + 1);
 $prev  = ($page - 1);
 $sort  = array('createdAt' => -1);
 
-$cursor = $c->find($query)->skip($skip)->limit($limit)->sort($sort);
+$cursor = $c->find($text_query)->skip($skip)->limit($limit)->sort($sort);
 $total= $cursor->count();
 
 print_r("<div class=\"page-header\"><h3>Resultado da busca <small>($total)</small></h3></div>");
@@ -185,31 +193,26 @@ if($page > 1){
 echo "<br/>";
 
 foreach ($cursor as $r) {
-
   echo '<div class="media"><div class="media-left"><a href="single.php?idx=_id&q='.$r["_id"].'"><button type="button" class="list-group-item"><center><span class="glyphicon glyphicon-file" aria-hidden="true"></span></center><br/>'.$r["tipo"][0].'</button></a></div><div class="media-body">';
-  echo '<div class="panel panel-info">';
   if (!empty($r["title"][2])) {
-     echo '<div class="panel-heading"><h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a></h4>';
+     echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a></h4>';
      echo '<small>Outros títulos:'.$r["title"][1].'</small><br/>';
-     echo '<small>Outros títulos:'.$r["title"][0].'</small><br/></div>';
+     echo '<small>Outros títulos:'.$r["title"][0].'</small><br/>';
   }
   elseif (empty($r["title"][2]) && !empty($r["title"][1])) {
-    echo '<div class="panel-heading"><h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a></h4>';
-    echo '<small>Outros títulos:'.$r["title"][0].'</small><br/></div>';
+    echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a></h4>';
+    echo '<small>Outros títulos:'.$r["title"][0].'</small><br/>';
   }
   else {
-    echo '<div class="panel-heading"><h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].' ('.$r["year"][0].')</a></h4></div>';
+    echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].' ('.$r["year"][0].')</a></h4>';
   }
-  echo '</div><div class="panel-body">';
-  echo '<span class="badge">'.$r["journalci_title"][0].'</span><br/>';
-  echo "<br/>";
   foreach ($r["creator"] as $autores){
     if (!empty($autores[1])) {
     echo '<b>Autor</b>:'.$autores[0].',<b>Instituição</b>:'.$autores[1].'<br/>';
-    }else {
+  }else {
     echo '<b>Autor</b>:'.$autores[0].'<br/>';
-    }
   }
+}
 
   echo '<b>Acesso online</b>: <a href="'.$r["url_principal"].'">'.$r["url_principal"].'</a><br/>';
 
@@ -223,7 +226,6 @@ foreach ($cursor as $r) {
   echo '<li role="presentation"><a href="#">Curtidas <span class="badge">'.$r["facebook_url_likes"].'</span></a></li>';
   echo '<li role="presentation"><a href="#">Compartilhamentos <span class="badge">'.$r["facebook_url_shares"].'</span></a></li>';
   echo '</ul></small>';
-  echo '</div>';
   echo '</div>';
 }
 

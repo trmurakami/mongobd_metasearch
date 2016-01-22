@@ -13,41 +13,26 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Link ativo <span class="sr-only">(current)</span></a></li>
-        </ul>
 
-        <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="result.php" method="get">
+        <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="result_full_text.php" method="get">
             <div class="input-group">
         <span class="input-group-addon glyphicon glyphicon-search" aria-hidden="true"></span>
 
                 <div class="form-group">
-                    <input size="50" maxlength="50" class="form-control" name="q" type="text">
+                    <input size="50" maxlength="50" class="form-control" name="full_text" type="text">
                 </div>
-
-                <div class="form-group">
-                    <select class="form-control" name="idx">
-                        <option value="">Escolha</option>
-                        <option value="journalci_title">Periódico</option>
-                        <option value="title">Título</option>
-                        <option value="creator">Autor</option>
-                    </select>
-                    <button type="submit" class="btn btn-default" id="searchsubmit">Enviar</button>
-                </div>
+                <button type="submit" class="btn btn-default" id="searchsubmit">Enviar</button>
             </div>
         </form>
 
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Link</a></li>
+          <li><a href="about.php">Sobre</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mais <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Contato</a></li>
             </ul>
           </li>
         </ul>
