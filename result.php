@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Meta-CI - Resultados de Busca</title>
+<title>MetaBuscaCI - Resultados de Busca</title>
 
 <!-- Jquery -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -146,12 +146,48 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
           )
         );
 
+        $aggregate_autor=array(
+          array(
+            '$match'=>$query
+          ),
+          array(
+            '$unwind'=>'$autor'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$autor',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
 
+        $aggregate_instituicao=array(
+          array(
+            '$match'=>$query
+          ),
+          array(
+            '$unwind'=>'$instituicao'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$instituicao',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
 
         $facet_language = $c->aggregate($aggregate_query_language);
         $facet_journal_title = $c->aggregate($aggregate_journal_title);
         $facet_subject = $c->aggregate($aggregate_query_subject);
         $facet_year = $c->aggregate($aggregate_query_year);
+        $facet_autor = $c->aggregate($aggregate_autor);
+        $facet_instituicao = $c->aggregate($aggregate_instituicao);
         $facet_facebook = $c->aggregate($aggregate_facebook);
 
 
@@ -166,6 +202,20 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
           echo '<li class="list-group-item"><span class="badge">'.$fb["shares"].'</span>Compartilhamentos</li>';
           echo '<li class="list-group-item"><span class="badge">'.$fb["comments"].'</span>Comentários</li>';
           echo '<li class="list-group-item"><span class="badge">'.$fb["total"].'</span>Total</li>';
+        };
+        echo "</ul>";
+        echo "<h3>Autores (20)</h3></br><ul class=\"list-group\">";
+        $i = 0;
+        foreach ($facet_autor["result"] as $at) {
+          echo '<li class="list-group-item"><span class="badge">'.$at["count"].'</span><a href="'.$url.'&autor='.$at["_id"].'">'.$at["_id"].'</a></li>';
+          if(++$i > 20) break;
+        };
+        echo "</ul>";
+        echo "<h3>Instituições (20)</h3></br><ul class=\"list-group\">";
+        $i = 0;
+        foreach ($facet_instituicao["result"] as $it) {
+          echo '<li class="list-group-item"><span class="badge">'.$it["count"].'</span><a href="'.$url.'&instituicao='.$it["_id"].'">'.$it["_id"].'</a></li>';
+          if(++$i > 20) break;
         };
         echo "</ul>";
         echo "<h3>Ano de publicação</h3></br><ul class=\"list-group\">";
@@ -239,12 +289,8 @@ foreach ($cursor as $r) {
   echo '</div><div class="panel-body">';
   echo '<span class="badge">'.$r["journalci_title"][0].'</span><br/>';
   echo "<br/>";
-  foreach ($r["creator"] as $autores){
-    if (!empty($autores[1])) {
-    echo '<b>Autor</b>:'.$autores[0].',<b>Instituição</b>:'.$autores[1].'<br/>';
-    }else {
-    echo '<b>Autor</b>:'.$autores[0].'<br/>';
-    }
+  foreach ($r["autor"] as $autores){
+    echo '<b>Autor</b>:'.$autores.'<br/>';
   }
 
   echo '<b>Acesso online</b>: <a href="'.$r["url_principal"].'">'.$r["url_principal"].'</a><br/>';

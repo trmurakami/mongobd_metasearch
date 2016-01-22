@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Meta-CI - Metabuscador em periódicos de Ciência da Informação</title>
+<title>MetaBuscaCI - Metabuscador em periódicos de Ciência da Informação</title>
 
 <!-- Jquery -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -29,7 +29,7 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1>Meta-CI</h1>
+    <h1>MetaBuscaCI</h1>
     <p style="background-color: white">Metabuscador em periódicos de Ciência da Informação brasileiros disponíveis em OAI-PMH.</p>
   </div>
 </div>
@@ -99,16 +99,61 @@ $aggregate_query_subject=array(
   )
 );
 
+$aggregate_query_autor=array(
+  array(
+    '$unwind'=>'$autor'
+  ),
+  array(
+    '$group' => array(
+      "_id"=>'$autor',
+      "count"=>array('$sum'=>1)
+      )
+  ),
+  array(
+    '$sort' => array("count"=>-1)
+  )
+);
+
+$aggregate_query_instituicao=array(
+  array(
+    '$unwind'=>'$instituicao'
+  ),
+  array(
+    '$group' => array(
+      "_id"=>'$instituicao',
+      "count"=>array('$sum'=>1)
+      )
+  ),
+  array(
+    '$sort' => array("count"=>-1)
+  )
+);
+
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 $facet_year = $c->aggregate($aggregate_year_total);
 $facet_subject = $c->aggregate($aggregate_query_subject);
+$facet_autor = $c->aggregate($aggregate_query_autor);
+$facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 
 echo "<h3>Periódicos indexados</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
 foreach ($facet_journal_title["result"] as $jt) {
   echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?journalci_title='.$jt["_id"].'">'.$jt["_id"].'<span class="badge">'.$jt["count"].'</span></a></li>';
 };
 echo "</ul>";
-
+echo "<h3>Autores</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
+$i = 0;
+foreach ($facet_autor["result"] as $at) {
+  echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?autor='.$at["_id"].'">'.$at["_id"].'<span class="badge">'.$at["count"].'</span></a></li>';
+  if(++$i > 60) break;
+};
+echo "</ul>";
+echo "<h3>Instituições</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
+$i = 0;
+foreach ($facet_instituicao ["result"] as $it) {
+  echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?instituicao='.$it["_id"].'">'.$it["_id"].'<span class="badge">'.$it["count"].'</span></a></li>';
+  if(++$i > 60) break;
+};
+echo "</ul>";
 echo "<h3>Ano</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
 foreach ($facet_year["result"] as $yr) {
   echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?year='.$yr["_id"].'">'.$yr["_id"].'<span class="badge">'.$yr["count"].'</span></a></li>';
@@ -118,7 +163,6 @@ echo "<h3>Principais assuntos</h3></br><ul class=\"nav nav-pills\" role=\"tablis
 $i = 0;
 foreach ($facet_subject["result"] as $sj) {
   echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?subject='.$sj["_id"].'">'.$sj["_id"].'<span class="badge">'.$sj["count"].'</span></a></li>';
-/*  echo '<li class="list-group-item"><span class="badge">'.$sj["count"].'</span><a href="'.$url.'&subject='.$sj["_id"].'">'.$sj["_id"].'</a></li>'; */
   if(++$i > 60) break;
 };
 echo "</ul>";

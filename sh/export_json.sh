@@ -7,7 +7,9 @@ do
 jq '._metadata[2][0][2][1][2][4][2]['$i'][1][]' export/records_exemplo.json -r
 
 
-done 
+done
+
+db.ci.update({},{$unset: {words:1}},false,true)
 
 
 #jq '._id,._metadata[2][0][2][1][2][4][2][][1][],._metadata[2][0][2][1][2][4][2][][2][0][2][0][2][],._metadata[2][0][2][1][2][4][2][][2][0][2][0][2][]' export/records_exemplo.json -r

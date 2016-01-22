@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Meta-CI - Detalhes do registro</title>
+<title>MetaBuscaCI - Detalhes do registro</title>
 
 <!-- Jquery -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -43,29 +43,28 @@ $cursor = $database->ci->findOne($query);
 echo '<div class="media"><div class="media"><a href="single.php?idx=_id&q='.$cursor["_id"].'"><button type="button" class="list-group-item"><center><span class="glyphicon glyphicon-file" aria-hidden="true"></span> '.$cursor["tipo"][0].'</button></a></center></div><br/>';
 
 if (!empty($cursor["title"][2])) {
-   echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$cursor["_id"].'">'.$cursor["title"][2].' ('.$cursor["year"][0].')</a></h4>';
+   echo '<h4 class="media-heading"><a href="'.$cursor["url_principal"].'">'.$cursor["title"][2].' ('.$cursor["year"][0].')</a></h4>';
    echo '<small>Outros títulos:'.$cursor["title"][1].'</small><br/>';
    echo '<small>Outros títulos:'.$cursor["title"][0].'</small><br/>';
 }
 elseif (empty($cursor["title"][2]) && !empty($cursor["title"][1])) {
-  echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$cursor["_id"].'">'.$cursor["title"][1].' ('.$cursor["year"][0].')</a></h4>';
+  echo '<h4 class="media-heading"><a href="'.$cursor["url_principal"].'">'.$cursor["title"][1].' ('.$cursor["year"][0].')</a></h4>';
   echo '<small>Outros títulos:'.$cursor["title"][0].'</small><br/>';
 }
 else {
-  echo '<h4 class="media-heading"><a href="single.php?idx=_id&q='.$cursor["_id"].'">'.$cursor["title"][0].' ('.$cursor["year"][0].')</a></h4>';
+  echo '<h4 class="media-heading"><a href="'.$cursor["url_principal"].'">'.$cursor["title"][0].' ('.$cursor["year"][0].')</a></h4>';
 }
 echo "<br/>";
-foreach ($cursor["creator"] as $autores){
-  if (!empty($autores[1])) {
-  echo '<b>Autor</b>:'.$autores[0].',<b>Instituição</b>:'.$autores[1].'<br/>';
-  }else {
-  echo '<b>Autor</b>:'.$autores[0].'<br/>';
-  }
+foreach ($cursor["autor"] as $autores){
+  echo '<b>Autor</b>:'.$autores.'<br/>';
+}
+foreach ($cursor["instituicao"] as $instituicoes){
+  echo '<b>Instituições em que os autores estão vinculados</b>:'.$instituicoes.'<br/>';
 }
 
-foreach ($cursor["identifier"] as $identifier){
-  echo 'URL: <a href="'.$identifier.'">'.$identifier."</a><br />";
-}
+  echo '<b>URL</b>: <a href="'.$cursor["url_principal"].'">'.$cursor["url_principal"]."</a><br />";
+  echo '<b>DOI</b>: <a href="'.$cursor["doi"].'">'.$cursor["doi"]."</a><br />";
+
 echo '<span class="badge">'.$cursor["journalci_title"][0].'</span><br/>';
 echo '<b>_id:</b> '.$cursor["_id"]."<br />";
 echo '<b>Qualis2014</b>: '.$cursor["qualis2014"][0]."<br />";

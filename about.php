@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Sobre o Meta-CI</title>
+<title>Sobre o MetaBuscaCI</title>
 
 <!-- Jquery -->
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -26,7 +26,7 @@
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-8">
-      <p>O Meta-CI é uma metabusca em periódicos da Ciência da Informação brasileiros que disponibilizam seus dados por meio de OAI-PMH.</p>
+      <p>O MetaBuscaCI é uma metabusca em periódicos da Ciência da Informação brasileiros que disponibilizam seus dados por meio de OAI-PMH.</p>
       <p>Está sendo desenvolvido por Tiago Rodrigo Marçal Murakami, do Sistema Integrado de Bibliotecas da Universidade de São Paulo, em parceria com o Prof. Ronaldo Ferreira de Araújo, da Universidade Federal de Alagoas</p>
     </div>
  </div>

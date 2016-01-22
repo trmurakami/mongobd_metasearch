@@ -1,7 +1,5 @@
 #!/bin/bash
 
-printf "_id,title,_setSpec,language,date,creator,creator_id,institution,institution_id,\\n" >> $2
-
 #Declarando variáveis
 
 vocabci_result=""
@@ -17,7 +15,7 @@ consulta_termo() {
   url="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetch&arg=$query"
   vocabci_result_id=$(curl -s -G -L $url | xmlstarlet sel -t -v "//term_id")
   url2="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetchTerm&arg=$vocabci_result_id"
-  vocabci_result=$(curl -s -G -L $url2 | xmlstarlet sel -t -v "//string")
+  vocabci_result=$(curl -s -G -L $url2 | xmlstarlet sel -t -v "//string" | sed 's/(/\\(/g' | sed 's/)/\\)/g')
 }
 
 consulta_instautor(){
@@ -31,20 +29,13 @@ consulta_instautor(){
 IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
-line=$(printf "%s\n" "$line" | sed "s/\",\"/|/g")
+line=$(printf "%s\n" "$line" | sed "s/\]\",\"\[/\]|\[/g"| sed "s/,\"\[/|\[/g")
 _id=$(printf "%s\n" "$line" | cut -d "|" -f 1 | sed 's/\"//g')
-journalci_title=$(printf "%s\n" "$line" | cut -d "|" -f 2)
-_setSpec=$(printf "%s\n" "$line" | cut -d "|" -f 3 | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' | cut -d ":" -f 2)
-language=$(printf "%s\n" "$line" | cut -d "|" -f 4 | sed 's/, /|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
-date=$(printf "%s\n" "$line" | cut -d "|" -f 5 | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
-creator=$(printf "%s\n" "$line" | cut -d "|" -f 6 | sed 's/\", \"/|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' )
-
-
-# | sed 's/\"//g'
+creator=$(printf "%s\n" "$line" | cut -d "|" -f 2 | sed 's/],\[/\]|\[/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' )
 
 	IFS='|' read -ra creator <<< "$creator"
 	for i in "${creator[@]}"; do
-		autor=$(echo $i | cut -d ";" -f 1 | sed 's/^\s//g' | sed 's/\s$//g')
+		autor=$(echo $i | sed 's/\"\",\"\"/;/g' | cut -d ";" -f 1 | sed 's/^\s//g' | sed 's/\s$//g')
 		autor_limpo=$(echo "$autor" | sed "s/[^a-z|0-9|A-Z| ]//g")
 
 		if [[ $i == *";"* ]] ;
@@ -133,9 +124,14 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 6 | sed 's/\", \"/|/g' | sed 's/
 
 					fi
 
+
+
 			fi
 
-		printf "%s\n" "$line" >> $2
+      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {autor: \"$autor_tematres\"}})" | mongo journals
+      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {instituicao: \"$instituicao_tematres\"}})" | mongo journals
+      printf "%s\n" "$line" >> $2
+
 	done
 
 done
