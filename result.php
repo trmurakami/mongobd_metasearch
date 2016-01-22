@@ -15,26 +15,35 @@
 <body>
 <div class="container">
 
-<?php
-  include "inc/header.php";
-?>
+  <?php
+    include ('inc/config.php');
+    include ('inc/header.php');
+    include ('inc/navbar.php');
+  ?>
 
 <?php
-  include "inc/navbar.php";
-?>
-
-<?php
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', 1);
-$m    = new MongoClient();
-$d   = $m->journals;
-$c = $d->ci;
 
 /* recupera as variáveis do GET */
 
-$query_array = array();
-  foreach ($_GET as $key=>$value) {
-    $query[$key] = $value;
+if(isset($_GET['full_text'])) {
+  $query_array = array();
+    foreach ($_GET as $key=>$value) {
+      $query[$key] = $value;
+  }
+
+  $qstring = "?";
+  foreach($_GET as $key => $val)
+  {
+      $qstring .= '"' . $val . '"&';
+  }
+
+  $query = array ('$text' => array('$search'=>''.$qstring.''));
+}
+else {
+  $query_array = array();
+    foreach ($_GET as $key=>$value) {
+      $query[$key] = $value;
+  }
 }
 
 /* Pegar a URL atual */

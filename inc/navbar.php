@@ -14,7 +14,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-        <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="result_full_text.php" method="get">
+        <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="result.php" method="get">
             <div class="input-group">
         <span class="input-group-addon glyphicon glyphicon-search" aria-hidden="true"></span>
 

@@ -14,22 +14,23 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<!-- Folha de estilos -->
+<link rel="stylesheet" href="css/style.css" type="text/css">
+
 </head>
 <body>
 <div class="container">
 
 <?php
-  include "inc/header.php";
-?>
-
-<?php
-  include "inc/navbar.php";
+  include ('inc/config.php');
+  include ('inc/header.php');
+  include ('inc/navbar.php');
 ?>
 
 <div class="jumbotron">
   <div class="container">
     <h1>Meta-CI</h1>
-    <p>Metabuscador em periódicos de Ciência da Informação brasileiros disponíveis em OAI-PMH.</p>
+    <p style="background-color: white">Metabuscador em periódicos de Ciência da Informação brasileiros disponíveis em OAI-PMH.</p>
   </div>
 </div>
 
@@ -45,16 +46,13 @@
    </div>
     <div class="col-md-4">
       <h2>Visualização de dados</h2>
-      <p>Dados são visualizados por meio de facetas nos resultados de busca. São adicionados gráficos utilizando as bibliotecas <a href="http://d3js.org/">d3.js</a> e <a href="https://developers.google.com/chart/">Google Charts</a></p>
+      <p>Dados são visualizados por meio de facetas nos resultados de busca. São adicionados gráficos utilizando as bibliotecas <a href="http://d3js.org/">d3.js</a> e <a href="https://developers.google.com/chart/">Google Charts</a>.</p>
     </div>
   </div>
 
 
 
 <?php
-$m    = new MongoClient();
-$d   = $m->journals;
-$c = $d->ci;
 
 $aggregate_journal_title_total=array(
   array(
