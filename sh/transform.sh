@@ -128,9 +128,9 @@ creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 
 
 			fi
 
-      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {autor: \"$autor_tematres\"}})" # mongo journals
-      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {instituicao: \"$instituicao_tematres\"}})" # mongo journals
-#      printf "%s\n" "$line" >> $2
+      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {autor: \"$autor_tematres\"}})" | mongo journals
+      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {instituicao: \"$instituicao_tematres\"}})" | mongo journals
+      printf "%s\n" "$line" >> $2
 
 	done
 

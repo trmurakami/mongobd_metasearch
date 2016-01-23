@@ -119,19 +119,19 @@ echo "RDBCI OK" >> export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Revista Digital de Biblioteconomia e Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Revista Ibero-Americana de Ciência da Informação - RICI
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","RICI")' --fix 'set_array("qualis2014","Nao possui")' --url http://periodicos.unb.br/index.php/rici/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Ibero Americana de Ciencia da Informacao")' --fix 'set_array("qualis2014","Nao possui")' --url http://periodicos.unb.br/index.php/rici/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "RICI OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"RICI"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Revista Ibero Americana de Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Tendências da Pesquisa Brasileira em Ciência da Informação - TPBCI
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","TPBCI")' --fix 'set_array("qualis2014","B1")' --url http://inseer.ibict.br/ancib/index.php/tpbci/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Tendencias da Pesquisa Brasileira em Ciencia da Informacao")' --fix 'set_array("qualis2014","B1")' --url http://inseer.ibict.br/ancib/index.php/tpbci/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "TPBCI OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"TPBCI"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Tendencias da Pesquisa Brasileira em Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Transinformação
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","TRANSINFO")' --fix 'set_array("qualis2014","A1")' --url http://periodicos.puc-campinas.edu.br/seer/index.php/transinfo/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Transinformacao")' --fix 'set_array("qualis2014","A1")' --url http://periodicos.puc-campinas.edu.br/seer/index.php/transinfo/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "TRANSINFO OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"TRANSINFO"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Transinformacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 #InCID: Revista de Ciência da Informação e Documentação
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","InCID")' --fix 'set_array("qualis2014","Nao possui")' --url http://www.revistas.usp.br/incid/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
