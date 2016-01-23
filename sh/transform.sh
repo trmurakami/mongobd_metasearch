@@ -29,25 +29,25 @@ consulta_instautor(){
 IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
-line=$(printf "%s\n" "$line" | sed "s/\]\",\"\[/\]|\[/g"| sed "s/,\"\[/|\[/g")
-_id=$(printf "%s\n" "$line" | cut -d "|" -f 1 | sed 's/\"//g')
-creator=$(printf "%s\n" "$line" | cut -d "|" -f 2 | sed 's/],\[/\]|\[/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' )
+line=$(printf "%s\n" "$line" | sed "s/,\"\[/#\[/g")
+_id=$(printf "%s\n" "$line" | cut -d "#" -f 1 | sed 's/\"//g')
+creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 's/\"//g' | sed 's/\[//g' | sed 's/\]//g' | sed 's/\% /\%/g'  )
 
 	IFS='|' read -ra creator <<< "$creator"
 	for i in "${creator[@]}"; do
-		autor=$(echo $i | sed 's/\"\",\"\"/;/g' | cut -d ";" -f 1 | sed 's/^\s//g' | sed 's/\s$//g')
+		autor=$(echo $i | cut -d "%" -f 1 | sed 's/^\s//g' | sed 's/\s$//g')
 		autor_limpo=$(echo "$autor" | sed "s/[^a-z|0-9|A-Z| ]//g")
 
-		if [[ $i == *";"* ]] ;
+		if [[ $i == *"%"* ]] ;
 
 		then
 
-		instituicao=$(echo $i | cut -d ";" -f 2 | sed 's/^\s//g' | sed 's/\s$//g')
+		instituicao=$(echo $i | cut -d "%" -f 2 | sed 's/^\s//g' | sed 's/\s$//g')
 		instituicao_count=$(echo "$instituicao" | wc -m)
 
 		else
 
-		instituicao=$(echo $i | grep -E ';.*')
+		instituicao=$(echo $i | grep -E '%.*')
 		instituicao_count=$(echo "$instituicao" | wc -m)
 
 
@@ -128,9 +128,9 @@ creator=$(printf "%s\n" "$line" | cut -d "|" -f 2 | sed 's/],\[/\]|\[/g' | sed '
 
 			fi
 
-      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {autor: \"$autor_tematres\"}})" | mongo journals
-      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {instituicao: \"$instituicao_tematres\"}})" | mongo journals
-      printf "%s\n" "$line" >> $2
+      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {autor: \"$autor_tematres\"}})" # mongo journals
+      echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {instituicao: \"$instituicao_tematres\"}})" # mongo journals
+#      printf "%s\n" "$line" >> $2
 
 	done
 

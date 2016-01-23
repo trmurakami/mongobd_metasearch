@@ -19,6 +19,7 @@ flatten(language);
 trim("subject.*")
 copy_field("creator","creator_total");
 count("creator_total");
+replace_all("creator.*",";","%") 
 copy_field("date","year");
 substring("year.0",0,4);
 vacuum();

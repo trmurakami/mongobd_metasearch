@@ -84,10 +84,10 @@ echo "Perspectivas em Gestao e Conhecimento OK" >> export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Perspectivas em Gestao e Conhecimento"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
-echo "PBCIB OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals >> export/oai_result.txt
-sleep 2
+#catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+#echo "PBCIB OK" >> export/oai_result.txt
+#echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals >> export/oai_result.txt
+#sleep 2
 # PontodeAcesso
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PontodeAcesso")' --fix 'set_array("qualis2014","B1")' --url http://www.portalseer.ufba.br/index.php/revistaici/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci
 echo "PontodeAcesso OK" >> export/oai_result.txt
@@ -104,19 +104,19 @@ echo "RBBD OK" >> export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"RBBD"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Revista Brasileira de Educação em Ciência da Informação - Rebecin
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Rebecin")' --fix 'set_array("qualis2014","Nao possui")' --url http://www.abecin.org.br/revista/index.php/rebecin/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Brasileira de Educacao em Ciencia da Informacao")' --fix 'set_array("qualis2014","Nao possui")' --url http://www.abecin.org.br/revista/index.php/rebecin/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "Rebecin OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"Rebecin"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Revista Brasileira de Educacao em Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 #Revista Ciência da Informação - CIInf
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","CIInf")' --fix 'set_array("qualis2014","B1")' --url http://revista.ibict.br/cienciadainformacao/index.php/ciinf/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
-echo "CIInf OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"CIInf"}).count()' | mongo journals >> export/oai_result.txt
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Ciencia da Informacao")' --fix 'set_array("qualis2014","B1")' --url http://revista.ibict.br/cienciadainformacao/index.php/ciinf/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+echo "Revista Ciencia da Informacao OK" >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Revista Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Revista Digital de Biblioteconomia e Ciência da Informação - RDBCI
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","RDBCI")' --fix 'set_array("qualis2014","B1")' --url http://www.sbu.unicamp.br/seer/ojs/index.php/rbci/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Digital de Biblioteconomia e Ciencia da Informacao")' --fix 'set_array("qualis2014","B1")' --url http://www.sbu.unicamp.br/seer/ojs/index.php/rbci/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
 echo "RDBCI OK" >> export/oai_result.txt
-echo 'db.ci.find({"journalci_title":"RDBCI"}).count()' | mongo journals >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Revista Digital de Biblioteconomia e Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
 # Revista Ibero-Americana de Ciência da Informação - RICI
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","RICI")' --fix 'set_array("qualis2014","Nao possui")' --url http://periodicos.unb.br/index.php/rici/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose

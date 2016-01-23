@@ -212,10 +212,10 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
         };
         echo "</ul>";
         echo "<h3>Instituições (20)</h3></br><ul class=\"list-group\">";
-        $i = 0;
+        $ia = 0;
         foreach ($facet_instituicao["result"] as $it) {
           echo '<li class="list-group-item"><span class="badge">'.$it["count"].'</span><a href="'.$url.'&instituicao='.$it["_id"].'">'.$it["_id"].'</a></li>';
-          if(++$i > 20) break;
+          if(++$ia > 20) break;
         };
         echo "</ul>";
         echo "<h3>Ano de publicação</h3></br><ul class=\"list-group\">";
@@ -224,10 +224,10 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
         };
         echo "</ul>";
         echo "<h3>Principais assuntos</h3></br><ul class=\"list-group\">";
-        $i = 0;
+        $ib = 0;
         foreach ($facet_subject["result"] as $sj) {
           echo '<li class="list-group-item"><span class="badge">'.$sj["count"].'</span><a href="'.$url.'&subject='.$sj["_id"].'">'.$sj["_id"].'</a></li>';
-          if(++$i > 20) break;
+          if(++$ib > 20) break;
         };
         echo "</ul>";
         echo "<h3>Idioma</h3></br><ul class=\"list-group\">";
