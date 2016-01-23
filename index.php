@@ -129,11 +129,32 @@ $aggregate_query_instituicao=array(
   )
 );
 
+$aggregate_facebook_total=array(
+  array(
+    '$unwind'=>'$journalci_title'
+  ),
+  array(
+    '$group' => array(
+      "_id"=>'$journalci_title',
+      "likes"=>array('$sum'=>'$facebook_url_likes'),
+      "shares"=>array('$sum'=>'$facebook_url_shares'),
+      "comments"=>array('$sum'=>'$facebook_url_comments'),
+      "interações"=>array('$sum'=>'$facebook_url_total')
+      )
+  )
+);
+
+
+
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 $facet_year = $c->aggregate($aggregate_year_total);
 $facet_subject = $c->aggregate($aggregate_query_subject);
 $facet_autor = $c->aggregate($aggregate_query_autor);
 $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
+$facet_facebook = $c->aggregate($aggregate_facebook_total);
+
+var_dump($facet_facebook);
+
 
 echo "<h3>Periódicos indexados</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
 foreach ($facet_journal_title["result"] as $jt) {
