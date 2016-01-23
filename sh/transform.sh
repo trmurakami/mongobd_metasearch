@@ -38,7 +38,7 @@ creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 
 		autor=$(echo $i | cut -d "%" -f 1 | sed 's/^\s//g' | sed 's/\s$//g')
 		autor_limpo=$(echo "$autor" | sed "s/[^a-z|0-9|A-Z| ]//g")
 
-		if [[ $i == *"%"* ]] ;
+    if [[ $i == *"%"* ]] ;
 
 		then
 
@@ -47,9 +47,8 @@ creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 
 
 		else
 
-		instituicao=$(echo $i | grep -E '%.*')
-		instituicao_count=$(echo "$instituicao" | wc -m)
-
+		instituicao=""
+		instituicao_count=0
 
 		fi
 
@@ -65,7 +64,7 @@ creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 
 				autor_tematres=$(printf "$result_autor")
 				autor_tematres_id=$(printf "$result_autor_id")
 			else
-			        autor_tematres=$(printf "$autor_limpo")
+			  autor_tematres=$(printf "$autor_limpo")
 				autor_tematres_id=$(printf "$autor_limpo")
 			fi
 
@@ -99,11 +98,11 @@ creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 
 
 
 
-					line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$_setSpec\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"")
+					line=$(printf "%s\n" "\"$_id\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"")
 
 
 			else
-			   	  line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"\",\"\"")
+			   	  line=$(printf "%s\n" "\"$_id\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\"")
 
 
 					#Verifica se o autor tem ID e consulta no
@@ -115,16 +114,14 @@ creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 
 					if  [[ $autor_tematres_id_numero -eq NULL ]]
 					then
 						line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$_setSpec\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"\",\"\"")
-
+            instituicao_tematres=""
 					else
 					    consulta_instautor $result_autor_id
 					    instituicao_tematres=$(printf "$instautor_result")
 					    instituicao_tematres_id=$(printf "$instautor_result_id")
-					    line=$(printf "%s\n" "\"$_id\",\"$journalci_title\",\"$_setSpec\",\"$language\",\"$date\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"")
+					    line=$(printf "%s\n" "\"$_id\",\"$autor_tematres\",\"$autor_tematres_id\",\"$instituicao_tematres\",\"$instituicao_tematres_id\"")
 
 					fi
-
-
 
 			fi
 
