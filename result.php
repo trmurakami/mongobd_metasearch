@@ -127,7 +127,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
               )
           ),
           array(
-            '$sort' => array("count"=>-1)
+            '$sort' => array("_id"=>-1)
           )
         );
 
