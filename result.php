@@ -178,6 +178,24 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
           )
         );
 
+        $aggregate_tipo=array(
+          array(
+            '$match'=>$query
+          ),
+          array(
+            '$unwind'=>'$tipo'
+          ),
+          array(
+            '$group' => array(
+              "_id"=>'$tipo',
+              "count"=>array('$sum'=>1)
+              )
+          ),
+          array(
+            '$sort' => array("count"=>-1)
+          )
+        );
+
         $facet_language = $c->aggregate($aggregate_query_language);
         $facet_journal_title = $c->aggregate($aggregate_journal_title);
         $facet_subject = $c->aggregate($aggregate_query_subject);
@@ -185,8 +203,13 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
         $facet_autor = $c->aggregate($aggregate_autor);
         $facet_instituicao = $c->aggregate($aggregate_instituicao);
         $facet_facebook = $c->aggregate($aggregate_facebook);
+        $facet_tipo = $c->aggregate($aggregate_tipo);
 
-
+        echo "<h4>Tipo</h4></br><ul class=\"list-group\">";
+        foreach ($facet_tipo["result"] as $tp) {
+          echo '<li class="list-group-item"><span class="badge">'.$tp["count"].'</span><a href="'.$url.'&journalci_title='.$tp["_id"].'">'.$tp["_id"].'</a></li>';
+        };
+        echo "</ul>";
         echo "<h4>Periódico</h4></br><ul class=\"list-group\">";
         foreach ($facet_journal_title["result"] as $jt) {
           echo '<li class="list-group-item"><span class="badge">'.$jt["count"].'</span><a href="'.$url.'&journalci_title='.$jt["_id"].'">'.$jt["_id"].'</a></li>';

@@ -1,0 +1,23 @@
+add_field("data_de_coleta","2016-01-20");
+add_field("facebook_atualizacao","00000000");
+add_field("facebook_url_comments",0);
+add_field("facebook_url_likes",0);
+add_field("facebook_url_shares",0);
+add_field("facebook_url_total",0);
+split_field("subject.*",";");
+set_array("tipo","Trabalho apresentado em evento");
+set_array("instituicao");
+set_array("autor");
+copy_field("publisher.*","editor");
+copy_field("source","Edição do evento");
+copy_field("identifier.0","url_principal");
+array("url_principal");
+flatten(subject);
+flatten(language);
+trim("subject.*")
+copy_field("creator","creator_total");
+count("creator_total");
+replace_all("creator.*",";","%")
+copy_field("date","year");
+substring("year.0",0,4);
+vacuum();

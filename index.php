@@ -3,7 +3,7 @@
   include ('inc/header.php');
 ?>
 <head>
-<title>MetaBuscaCI - Metabuscador em periódicos de Ciência da Informação</title>
+<title>MetaBuscaCI - Metabuscador em periódicos e eventos de Ciência da Informação</title>
 </head>
 <body>
 <div class="container">
@@ -15,7 +15,7 @@
 <div class="jumbotron">
   <div class="container">
     <h1 style="color: white">MetaBuscaCI</h1>
-    <p style="background-color: white">Metabuscador em periódicos de Ciência da Informação brasileiros disponíveis em OAI-PMH.</p>
+    <p style="background-color: white">Metabuscador em periódicos e eventos de Ciência da Informação brasileiros disponíveis em OAI-PMH.</p>
   </div>
 </div>
 

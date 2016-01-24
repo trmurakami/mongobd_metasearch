@@ -143,6 +143,17 @@ catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Bibliote
 echo "Biblioteca Escolar em Revista OK" >> export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Biblioteca Escolar em Revista"}).count()' | mongo journals >> export/oai_result.txt
 sleep 2
+# I ENANCIB - Encontro Nacional de Pesquisa em Ciência da Informação
+catmandu import OAI --fix fixes_enancib.txt --fix 'set_array("journalci_title","ENANCIB - Encontro Nacional de Pesquisa em Ciencia da Informacao")' --fix 'set_array("qualis2014","Nao possui")' --url http://enancib.ibict.br/index.php/enancib/ienancib/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+echo "I ENANCIB OK" >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"ENANCIB - Encontro Nacional de Pesquisa em Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
+sleep 2
+# II ENANCIB - Encontro Nacional de Pesquisa em Ciência da Informação
+catmandu import OAI --fix fixes_enancib.txt --fix 'set_array("journalci_title","ENANCIB - Encontro Nacional de Pesquisa em Ciencia da Informacao")' --fix 'set_array("qualis2014","Nao possui")' --url http://enancib.ibict.br/index.php/enancib/iienancib/oai --metadataPrefix oai_dc to MongoDB --database_name journals --bag ci --verbose
+echo "II ENANCIB OK" >> export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"ENANCIB - Encontro Nacional de Pesquisa em Ciencia da Informacao"}).count()' | mongo journals >> export/oai_result.txt
+sleep 2
+
 # Apaga os registros deletados
 echo 'db.ci.remove( { "_status" : "deleted" } )' | mongo journals
 #echo 'db.ci.createIndex( { "$**": "text" },{ language_override: "dummy" } )' | mongo journals
