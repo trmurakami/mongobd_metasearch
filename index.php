@@ -50,8 +50,6 @@
     </div>
   </div>
 
-
-
 <?php
 
 $aggregate_journal_title_total=array(
@@ -139,11 +137,13 @@ $aggregate_facebook_total=array(
       "likes"=>array('$sum'=>'$facebook_url_likes'),
       "shares"=>array('$sum'=>'$facebook_url_shares'),
       "comments"=>array('$sum'=>'$facebook_url_comments'),
-      "interações"=>array('$sum'=>'$facebook_url_total')
+      "interacoes"=>array('$sum'=>'$facebook_url_total')
       )
+  ),
+  array(
+    '$sort' => array("_id"=>1)
   )
 );
-
 
 
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
@@ -153,8 +153,44 @@ $facet_autor = $c->aggregate($aggregate_query_autor);
 $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 $facet_facebook = $c->aggregate($aggregate_facebook_total);
 
-var_dump($facet_facebook);
 
+
+$facebook = array();
+array_push($facebook,['Titulo do periódico','Curtidas','Compartilhamentos','Comentários']);
+foreach ($facet_facebook["result"] as $fb) {
+  array_push($facebook,[$fb['_id'],$fb['likes'],$fb['shares'],$fb['comments']]);
+};
+
+?>
+<h3>Facebook</h3></br>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['bar']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(
+      <?= json_encode($facebook); ?>
+    );
+
+    var options = {
+      chart: {
+        title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI',
+        subtitle: 'Atualizado em 2016-01-23',
+        legend: { position: 'top', maxLines: 3 },
+        bar: { groupWidth: '75%' },
+        isStacked: true
+      }
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+    chart.draw(data, options);
+  }
+</script>
+<div id="columnchart_material" style="width: 100%; height: 400px;"></div>
+
+<?php
 
 echo "<h3>Periódicos indexados</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
 foreach ($facet_journal_title["result"] as $jt) {
