@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "_id,title,date,subject,subject_id,\\n"
+printf "_id,subject,subject_id,\\n" >> $2
 
 #Declarando variáveis
 
@@ -21,33 +21,30 @@ consulta_termo() {
 IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
-line=$(printf "%s\n" "$line" | sed "s/\",\"/|/g")
-_id=$(printf "%s\n" "$line" | cut -d "|" -f 1 | sed 's/\"//g')
-title=$(printf "%s\n" "$line" | cut -d "|" -f 2)
-date=$(printf "%s\n" "$line" | cut -d "|" -f 3 | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/\s//g')
-subject=$(printf "%s\n" "$line" | cut -d "|" -f 4 | sed 's/\", \"/|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' | sed 's/;/|/g' | sed "s/\",\"/|/g" )
+line=$(printf "%s\n" "$line" | sed "s/,\"\[/#/g" | sed 's/,$/#/g')
+_id=$(printf "%s\n" "$line" | cut -d "#" -f 1 | sed 's/\"//g')
+subject=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 's/\./|/g' | sed 's/\"//g' | sed 's/\]//g' | sed 's/\[//g' | sed 's/^\s//g' | sed 's/\s$//g' | sed 's/;/|/g' | sed "s/\",\"/|/g" )
 
 	IFS='|' read -ra subject <<< "$subject"
 	for i in "${subject[@]}"; do
      subject_one=$(echo $i | sed 's/^ //g' | sed 's/ $//g')
 
      consulta_termo $subject_one
-    result_count_subject=$(echo "$vocabci_result" | wc -m)
+     result_count_subject=$(echo "$vocabci_result" | wc -m)
 
      			#Se autor teve resposta
      			if  [[ $result_count_subject -gt "1" ]]
      			then
      				subject_tematres=$(printf "$vocabci_result")
      				subject_tematres_id=$(printf "$vocabci_result_id")
+            echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {assunto_tematres: \"$subject_tematres\"}})" | mongo journals
      			else
      			  subject_tematres=$(printf "$subject_one")
      				subject_tematres_id=$(printf "$subject_one")
      			fi
 
-
-
-    line=$(printf "%s\n" "\"$_id\",\"$date\",\"$subject_tematres\",\"$subject_tematres_id\"")
-    printf "%s\n" "$line"
+  line=$(printf "%s\n" "\"$_id\",\"$subject_tematres\",\"$subject_tematres_id\"")
+  printf "%s\n" "$line" >> $2
   done
 
 done

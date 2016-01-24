@@ -82,6 +82,22 @@ $aggregate_query_subject=array(
   )
 );
 
+$aggregate_query_assunto_tematres=array(
+  array(
+    '$unwind'=>'$assunto_tematres'
+  ),
+  array(
+    '$group' => array(
+      "_id"=>'$assunto_tematres',
+      "count"=>array('$sum'=>1)
+      )
+  ),
+  array(
+    '$sort' => array("count"=>-1)
+  )
+);
+
+
 $aggregate_query_autor=array(
   array(
     '$unwind'=>'$autor'
@@ -134,6 +150,7 @@ $aggregate_facebook_total=array(
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 $facet_year = $c->aggregate($aggregate_year_total);
 $facet_subject = $c->aggregate($aggregate_query_subject);
+$facet_assunto_tematres = $c->aggregate($aggregate_query_assunto_tematres);
 $facet_autor = $c->aggregate($aggregate_query_autor);
 $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 $facet_facebook = $c->aggregate($aggregate_facebook_total);
@@ -205,6 +222,13 @@ echo "<h3>Principais assuntos</h3></br><ul class=\"nav nav-pills\" role=\"tablis
 $i = 0;
 foreach ($facet_subject["result"] as $sj) {
   echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?subject='.$sj["_id"].'">'.$sj["_id"].'<span class="badge">'.$sj["count"].'</span></a></li>';
+  if(++$i > 60) break;
+};
+echo "</ul>";
+echo "<h3>Assuntos tratados pelo Vocabulário Controlado</h3></br><ul class=\"nav nav-pills\" role=\"tablist\">";
+$i = 0;
+foreach ($facet_assunto_tematres["result"] as $aterm) {
+  echo '<li role="presentation" class="active" style="padding-top:5px;"><a href="result.php?assunto_tematres='.$aterm["_id"].'">'.$aterm["_id"].'<span class="badge">'.$aterm["count"].'</span></a></li>';
   if(++$i > 60) break;
 };
 echo "</ul>";
