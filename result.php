@@ -55,6 +55,8 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
 <?php
 
+/* Function to generate facets
+
 function generateFacet($facet_name,$sort_name,$sort_value,$facet_display_name){
   $aggregate_facet=array(
     array(
@@ -83,8 +85,9 @@ echo "</ul>";
 } 
 
 generateFacet("\$tipo","count",-1,"Tipo de publicação");
+*/
 
-/*
+
         $aggregate_query_language=array(
           array(
             '$match'=>$query
@@ -284,7 +287,7 @@ generateFacet("\$tipo","count",-1,"Tipo de publicação");
             echo '<li class="list-group-item"><span class="badge">'.$fl["count"].'</span><a href="'.$url.'&language='.$fl["_id"].'">'.$fl["_id"].'</a></li>';
         };
         echo "</ul>";
-  */
+  
  ?>
     </p>
     </div>
