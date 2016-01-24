@@ -14,7 +14,7 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1>MetaBuscaCI</h1>
+    <h1 style="color: white">MetaBuscaCI</h1>
     <p style="background-color: white">Metabuscador em periódicos de Ciência da Informação brasileiros disponíveis em OAI-PMH.</p>
   </div>
 </div>

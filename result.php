@@ -285,9 +285,20 @@ foreach ($cursor as $r) {
   echo '</div><div class="panel-body">';
   echo '<span class="badge">'.$r["journalci_title"][0].'</span><br/>';
   echo "<br/>";
-  foreach ($r["autor"] as $autores){
-    echo '<b>Autor</b>:'.$autores.'<br/>';
+
+  if (!empty($r["autor"])) {
+    foreach ($r["autor"] as $autores){
+      echo '<b>Autor</b>:'.$autores.'<br/>';
+    }
   }
+  else
+  {
+    foreach ($r["creator"] as $autores){
+        echo '<b>Autor</b>:'.$autores.'<br/>';
+   }
+  }
+
+
 
   echo '<b>Acesso online</b>: <a href="'.$r["url_principal"].'">'.$r["url_principal"].'</a><br/>';
 

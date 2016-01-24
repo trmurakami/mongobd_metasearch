@@ -42,12 +42,23 @@ else {
   echo '<h4 class="media-heading"><a href="'.$cursor["url_principal"].'">'.$cursor["title"][0].' ('.$cursor["year"][0].')</a></h4>';
 }
 echo "<br/>";
-foreach ($cursor["autor"] as $autores){
-  echo '<b>Autor</b>:'.$autores.'<br/>';
+
+if (!empty($cursor["autor"])) {
+  foreach ($cursor["autor"] as $autores){
+    echo '<b>Autor</b>:'.$autores.'<br/>';
+  }
+  foreach ($cursor["instituicao"] as $instituicoes){
+    echo '<b>Instituições em que os autores estão vinculados</b>:'.$instituicoes.'<br/>';
+  }
 }
-foreach ($cursor["instituicao"] as $instituicoes){
-  echo '<b>Instituições em que os autores estão vinculados</b>:'.$instituicoes.'<br/>';
+else
+{
+  foreach ($cursor["creator"] as $autores){
+    echo '<b>Autor</b>:'.$autores.'<br/>';
+ }
 }
+
+
 
 echo '<b>URL</b>: <a href="'.$cursor["url_principal"].'">'.$cursor["url_principal"]."</a><br />";
 
