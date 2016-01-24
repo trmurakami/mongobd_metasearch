@@ -14,9 +14,9 @@ Librecat/Catmandu (http://librecat.org/Catmandu/)
 
 Git clone 
 
-Edit inc/config.php
+Edit inc/config.php (edit the name of database and collection in MongoDB)
 
-Import data with Librecat/Catmandu
+Import data with Librecat/Catmandu to MongoDB (Examples in inc/harvest_oai.sh)
 
 == Credits ==
 
