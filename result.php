@@ -61,16 +61,16 @@ function generateFacet($facet_name,$sort_name,$sort_value,$facet_display_name){
       '$match'=>$query
     ),
     array(
-      '$unwind'=>$facet_name
+      '$unwind'=>''.$facet_name.''
     ),
     array(
       '$group' => array(
-      "_id"=>$facet_name,
+      "_id"=>''.$facet_name.'',
       "count"=>array('$sum'=>1)
     )
     ),
     array(
-      '$sort' => array($sort_name=>$sort_value)
+      '$sort' => array("$sort_name"=>$sort_value)
     )
   );
  $facet = $c->aggregate($aggregate_facet);  
@@ -82,7 +82,7 @@ foreach ($facet["result"] as $facets) {
 echo "</ul>";
 } 
 
-generateFacet("\$tipo","count","-1","Tipo de publicação");
+generateFacet("\$tipo","count",-1,"Tipo de publicação");
 
 /*
         $aggregate_query_language=array(
