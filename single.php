@@ -1,24 +1,11 @@
-<html>
-<head>
+<?php
+  include ('inc/config.php');
+  include ('inc/header.php');
+?>
 <title>MetaBuscaCI - Detalhes do registro</title>
-
-<!-- Jquery -->
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
 </head>
 <body>
 <div class="container">
-
-<?php
-  include "inc/header.php";
-?>
-
 <?php
   include "inc/navbar.php";
 ?>
@@ -62,8 +49,11 @@ foreach ($cursor["instituicao"] as $instituicoes){
   echo '<b>Instituições em que os autores estão vinculados</b>:'.$instituicoes.'<br/>';
 }
 
-  echo '<b>URL</b>: <a href="'.$cursor["url_principal"].'">'.$cursor["url_principal"]."</a><br />";
+echo '<b>URL</b>: <a href="'.$cursor["url_principal"].'">'.$cursor["url_principal"]."</a><br />";
+
+if (!empty($cursor["doi"])) {
   echo '<b>DOI</b>: <a href="'.$cursor["doi"].'">'.$cursor["doi"]."</a><br />";
+}
 
 echo '<span class="badge">'.$cursor["journalci_title"][0].'</span><br/>';
 echo '<b>_id:</b> '.$cursor["_id"]."<br />";
@@ -74,11 +64,16 @@ echo '<li>Comentários no facebook: '.$cursor["facebook_url_comments"]."</li>";
 echo '<li>Likes no facebook: '.$cursor["facebook_url_likes"]."</li>";
 echo '<li>Compartilhamentos no facebook: '.$cursor["facebook_url_shares"]."</li>";
 echo '<li>Total de interações no facebook: '.$cursor["facebook_url_total"]."</li></ul>";
-foreach ($cursor["relation"] as $cursorelation){
-  echo '<b>URL relacionada</b>: <a href="'.$cursorelation.'">'.$cursorelation.'</a><br />';
+
+if (!empty($cursor["relation"])) {
+  foreach ($cursor["relation"] as $cursorelation){
+    echo '<b>URL relacionada</b>: <a href="'.$cursorelation.'">'.$cursorelation.'</a><br />';
+  }
 }
-foreach ($cursor["description"] as $cursoresumo){
-  echo '<b>Resumo</b>: <p>'.$cursoresumo."</p>";
+if (!empty($cursor["description"])) {
+  foreach ($cursor["description"] as $cursoresumo){
+    echo '<b>Resumo</b>: <p>'.$cursoresumo."</p>";
+  }
 }
 foreach ($cursor["language"] as $idioma){
   echo '<b>Idioma</b>: '.$idioma."<br />";
@@ -89,8 +84,10 @@ foreach ($cursor["publisher"] as $publisher){
 foreach ($cursor["source"] as $source){
   echo '<b>Fonte</b>: '.$source."<br />";
 }
-foreach ($cursor["subject"] as $subject){
-  echo '<b>Assuntos</b>: '.$subject."<br />";
+if (!empty($cursor["subject"])) {
+  foreach ($cursor["subject"] as $subject){
+    echo '<b>Assuntos</b>: '.$subject."<br />";
+  }
 }
 foreach ($cursor["date"] as $data_de_publicacao){
   echo '<b>Data de publicação</b>: '.$data_de_publicacao."<br />";
@@ -98,8 +95,10 @@ foreach ($cursor["date"] as $data_de_publicacao){
 foreach ($cursor["format"] as $formato){
   echo '<b>Formato</b>: '.$formato."<br />";
 }
-foreach ($cursor["rights"] as $direitos_autorais){
-  echo '<b>Direitos Autorais</b>: '.$direitos_autorais."<br />";
+if (!empty($cursor["rights"])) {
+  foreach ($cursor["rights"] as $direitos_autorais){
+    echo '<b>Direitos Autorais</b>: '.$direitos_autorais."<br />";
+  }
 }
 foreach ($cursor["type"] as $tipo){
   echo '<b>Tipo</b>: '.$tipo."<br />";
