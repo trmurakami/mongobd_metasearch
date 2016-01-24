@@ -2,22 +2,17 @@
 
 MetaSearch tool using MongoDB and LibreCat/Catmandu
 
-# journals_ci
-Extração de dados dos periódicos da CI
+== Dependencies 
 
-Run:
-./run.sh
+PHP
+MongoDB - 3.2.1 or later (http://www.mongodb.org/)
+Librecat/Catmandu (http://librecat.org/Catmandu/)
 
-Download export/final.csv
+== Install == 
 
-Use this file in Table 2 Net:
-
-<a href='http://tools.medialab.sciences-po.fr/table2net/'>http://tools.medialab.sciences-po.fr/table2net/</a>
-
-== Dependencies ==
-
-MongoDB
-Catmandu
+Git clone 
+Edit inc/config.php
+Import data with Librecat/Catmandu
 
 == Credits ==
 
