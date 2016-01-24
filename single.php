@@ -89,6 +89,11 @@ if (!empty($cursor["subject"])) {
     echo '<b>Assuntos</b>: '.$subject."<br />";
   }
 }
+if (!empty($cursor["assunto_tematres"])) {
+  foreach ($cursor["assunto_tematres"] as $assunto_tematres){
+    echo '<b>Assuntos do Vocabulário Controlado</b>: '.$assunto_tematres."<br />";
+  }
+}
 foreach ($cursor["date"] as $data_de_publicacao){
   echo '<b>Data de publicação</b>: '.$data_de_publicacao."<br />";
 }
