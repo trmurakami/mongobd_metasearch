@@ -194,7 +194,7 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
         echo "</ul>";
         echo "<h4>Interações no Facebook</h4></br><ul class=\"list-group\">";
         foreach ($facet_facebook["result"] as $fb) {
-          echo '<li class="list-group-item"><span class="badge">'.$fb["likes"].'</span>Curtidas</li>';
+          echo '<li class="list-group-item"><span class="badge">'.$fb["likes"].'</span>Curtidas</li></a>';
           echo '<li class="list-group-item"><span class="badge">'.$fb["shares"].'</span>Compartilhamentos</li>';
           echo '<li class="list-group-item"><span class="badge">'.$fb["comments"].'</span>Comentários</li>';
           echo '<li class="list-group-item"><span class="badge">'.$fb["total"].'</span>Total</li>';
