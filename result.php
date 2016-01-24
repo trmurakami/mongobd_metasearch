@@ -55,6 +55,35 @@ $url_sem_page = preg_replace($pattern,'',$escaped_url);
 
 <?php
 
+function generate_facet($facet_name,$sort_name,$sort_value,$facet_display_name){
+  $aggregate_facet=array(
+    array(
+      '$match'=>$query
+    ),
+    array(
+      '$unwind'=>'$'$facet_name''
+    ),
+    array(
+      '$group' => array(
+      "_id"=>'$'$facet_name'',
+      "count"=>array('$sum'=>1)
+    )
+    ),
+    array(
+      '$sort' => array("$sort_name"=>$sort_value)
+    )
+  );
+ $facet = $c->aggregate($aggregate_facet);  
+
+echo "<h4>$facet_display_name</h4></br><ul class=\"list-group\">";
+foreach ($facet["result"] as $facets) {
+  echo '<li class="list-group-item"><span class="badge">'.$facets["count"].'</span><a href="'.$url.'&'.$facet_name.'='.$facets["_id"].'">'.$facets["_id"].'</a></li>';
+};
+echo "</ul>";
+} 
+
+
+
         $aggregate_query_language=array(
           array(
             '$match'=>$query
