@@ -82,7 +82,7 @@ foreach ($facet["result"] as $facets) {
 echo "</ul>";
 } 
 
-generateFacet("tipo","count",-1,"Tipo de publicação");
+generateFacet("tipo","count","-1","Tipo de publicação");
 
 /*
         $aggregate_query_language=array(
@@ -285,7 +285,7 @@ generateFacet("tipo","count",-1,"Tipo de publicação");
         };
         echo "</ul>";
   */
-      ?>
+ ?>
     </p>
     </div>
     <div class="col-md-8">
