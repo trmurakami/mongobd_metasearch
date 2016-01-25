@@ -1,51 +1,32 @@
-<!-- Cabeçalho -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="page-header">
-        <h1><a href="index.php">MetaBuscaCI</a> <small style="font-size: 20px">Metabuscador em periódicos e eventos de Ciência da Informação</small></h1>
-      </div>
-    </div>
-  </div>
-
 <!-- Barra de navegação -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.php">Início</a>
-      </div>
+<nav class="navbar navbar-top navbar-light bg-faded">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+    &#9776;
+  </button>
+  <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  <a class="navbar-brand" href="index.php">MetaBuscaCI</a>
+  <ul class="nav navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="about.php">Sobre</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Contato</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Login</a>
+    </li>
+  </ul>
+  <form class="form-inline pull-xs-right" action="result.php" method="get">
+    <input class="form-control" type="text" name="full_text" placeholder="Buscar" >
+    <button class="btn btn-primary-outline" type="submit">Buscar</button>
+  </form>
+  </div>
+</nav>
 
-        <form class="form-inline navbar-form navbar-left" role="form" id="yourformID-form" action="result.php" method="get">
-            <div class="input-group">
-        <span class="input-group-addon glyphicon glyphicon-search" aria-hidden="true"></span>
-
-                <div class="form-group">
-                    <input size="50" maxlength="50" class="form-control" name="full_text" type="text">
-                </div>
-                <button type="submit" class="btn btn-default" id="searchsubmit">Enviar</button>
-            </div>
-        </form>
-
-
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="about.php">Sobre</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mais <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Contato</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4" style="color: white">MetaBuscaCI</h1>
+    <p class="lead" style="background-color: white">Metabuscador em periódicos e eventos de Ciência da Informação.</p>
+  </div>
+</div>
