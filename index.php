@@ -166,9 +166,40 @@ foreach ($facet_facebook["result"] as $fb) {
 ?>
 <h3>Facebook</h3></br>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawMaterial);
+
+function drawMaterial() {
+      var data = google.visualization.arrayToDataTable(
+        <?= json_encode($facebook); ?>
+        );
+
+      var options = {
+        chart: {
+          title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI'
+        },
+        hAxis: {
+          title: 'Interações',
+          minValue: 0,
+        },
+        vAxis: {
+          title: 'Título'
+        },
+        bars: 'horizontal'
+      };
+      var material = new google.charts.Bar(document.getElementById('chart_div'));
+      material.draw(data, options);
+    }
+</script>
+
+ <div id="chart_div"></div>
+
+
 
 <script type="text/javascript">
-  google.charts.load('current', {'packages':['bar']});
+  google.charts.load('current', {'packages':['corechart', 'bar']});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
     var data = google.visualization.arrayToDataTable(
