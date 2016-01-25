@@ -178,7 +178,9 @@ function drawMaterial() {
 
       var options = {
         chart: {
-          title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI'
+          title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI',
+          subtitle: 'Atualizado em 2016-01-23',
+          isStacked: true,
         },
         hAxis: {
           title: 'Interações',
@@ -195,33 +197,6 @@ function drawMaterial() {
 </script>
 
  <div id="chart_div"></div>
-
-
-
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart', 'bar']});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(
-      <?= json_encode($facebook); ?>
-    );
-
-    var options = {
-      chart: {
-        title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI',
-        subtitle: 'Atualizado em 2016-01-23',
-        legend: { position: 'top', maxLines: 3 },
-        bar: { groupWidth: '75%' },
-        isStacked: true
-      }
-    };
-
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-    chart.draw(data, options);
-  }
-</script>
-<div id="columnchart_material" style="width: 100%; height: 400px;"></div>
 
 <?php
 
