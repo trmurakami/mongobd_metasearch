@@ -181,19 +181,18 @@ foreach ($cursor as $r) {
   echo '<div class="card-group">';
     echo '<div class="card">';
       echo '<div class="card-header">';
-        echo '<a href="single.php?idx=_id&q='.$r["_id"].'">Link</a>';
-      echo '</div>';
-      echo '<div class="card-block">';
         if (!empty($r["title"][2])) {
-          echo '<h5 class="card-title">'.$r["title"][2].' ('.$r["year"][0].')</h5>';
+          echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a></h5>';
         }
         elseif (empty($r["title"][2]) && !empty($r["title"][1])) {
-          echo '<h5 class="card-title">'.$r["title"][1].' ('.$r["year"][0].')</h5>';
+          echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a></h5>';
         }
         else {
-          echo '<h5 class="card-title">'.$r["title"][0].' ('.$r["year"][0].')</h5>';
+          echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].' ('.$r["year"][0].')</a></h5>';
         }
         echo '<p class="card-text"></p>';
+        echo '</div>';
+        echo '<div class="card-block">';
       echo '</div>';
     echo '</div>';
   echo '</div>';
