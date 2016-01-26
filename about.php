@@ -5,6 +5,7 @@
 <title>Sobre o MetaBuscaCI</title>
 </head>
 <body>
+<?php include_once("inc/analyticstracking.php") ?>
 <div class="container">
 <?php
   include "inc/navbar.php";

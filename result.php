@@ -4,6 +4,8 @@
 ?>
 <title>MetaBuscaCI - Resultados de Busca</title>
 
+
+
 <?php
 /* recupera as variáveis do GET */
 

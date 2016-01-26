@@ -2,10 +2,18 @@
   include ('inc/config.php');
   include ('inc/header.php');
 ?>
-<head>
 <title>MetaBuscaCI - Metabuscador em periódicos e eventos de Ciência da Informação</title>
 </head>
 <body>
+<?php include_once("inc/analyticstracking.php") ?>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//bdpife2.sibi.usp.br/metabuscaci";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div class="container-fluid">
 
 <?php
