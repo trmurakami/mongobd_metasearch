@@ -210,37 +210,39 @@ function drawMaterial() {
 
 echo "<h3>Periódicos indexados</h3></br><ul class=\"list-inline-button\">";
 foreach ($facet_journal_title["result"] as $jt) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?journalci_title='.$jt["_id"].'" style="color:white">'.$jt["_id"].' <span class="label label-pill label-info">'.$jt["count"].'</span></a></button></li>';
+  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?journalci_title='.$jt["_id"].'" style="color:white">'.$jt["_id"].' <span class="label label-pill label-default">'.$jt["count"].'</span></a></button></li>';
 };
+echo '</ul>';
 echo "<h3>Autores</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_autor["result"] as $at) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at["_id"].'" style="color:white">'.$at["_id"].' <span class="label label-success label-pill pull-xs-right">'.$at["count"].'</span></a></button></li>';
+  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at["_id"].'" style="color:white">'.$at["_id"].' <span class="label label-default label-pill">'.$at["count"].'</span></a></button></li>';
   if(++$i > 60) break;
 };
+echo '</ul>';
 echo "<h3>Instituições</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_instituicao ["result"] as $it) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao='.$it["_id"].'" style="color:white">'.$it["_id"].'<span class="label label-warning label-pill pull-xs-right">'.$it["count"].'</span></a></button></li>';
+  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao='.$it["_id"].'" style="color:white">'.$it["_id"].' <span class="label label-default label-pill">'.$it["count"].'</span></a></button></li>';
   if(++$i > 60) break;
 };
 echo "</ul>";
 echo "<h3>Ano</h3></br><ul class=\"list-inline-button\">";
 foreach ($facet_year["result"] as $yr) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year='.$yr["_id"].'" style="color:white">'.$yr["_id"].'<span class="label label-warning label-pill pull-xs-right">'.$yr["count"].'</span></a></button></li>';
+  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year='.$yr["_id"].'" style="color:white">'.$yr["_id"].' <span class="label label-default label-pill">'.$yr["count"].'</span></a></button></li>';
 };
 echo "</ul>";
 echo "<h3>Principais assuntos</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_subject["result"] as $sj) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?subject='.$sj["_id"].'" style="color:white">'.$sj["_id"].'<span class="label label-warning label-pill pull-xs-right">'.$sj["count"].'</span></a></button></li>';
+  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?subject='.$sj["_id"].'" style="color:white">'.$sj["_id"].' <span class="label label-default label-pill">'.$sj["count"].'</span></a></button></li>';
   if(++$i > 60) break;
 };
 echo "</ul>";
-echo "<h3>Assuntos tratados pelo Vocabulário Controlado</h3></br><ul class=\"list-inline-button\"";
+echo "<h3>Assuntos tratados pelo Vocabulário Controlado</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_assunto_tematres["result"] as $aterm) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?assunto_tematres='.$aterm["_id"].'" style="color:white">'.$aterm["_id"].'<span class="label label-warning label-pill pull-xs-right">'.$aterm["count"].'</span></a></button></li>';
+  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?assunto_tematres='.$aterm["_id"].'" style="color:white">'.$aterm["_id"].' <span class="label label-default label-pill">'.$aterm["count"].'</span></a></button></li>';
   if(++$i > 60) break;
 };
 echo "</ul>";
