@@ -122,9 +122,9 @@ $facet_facebook = $c->aggregate($aggregate_facebook);
 echo '<ul class="list-group">';
 echo '<a href="#" class="list-group-item active">Interações no Facebook</a>';
 foreach ($facet_facebook["result"] as $fb) {
-  echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$fb["likes"].'</span>Curtidas</li></a>';
-  echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$fb["shares"].'</span>Compartilhamentos</li>';
-  echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$fb["comments"].'</span>Comentários</li>';
+  echo '<li class="list-group-item"><span class="label label-success label-pill pull-xs-right">'.$fb["likes"].'</span>Curtidas</li></a>';
+  echo '<li class="list-group-item"><span class="label label-warning label-pill pull-xs-right">'.$fb["shares"].'</span>Compartilhamentos</li>';
+  echo '<li class="list-group-item"><span class="label label-danger label-pill pull-xs-right">'.$fb["comments"].'</span>Comentários</li>';
   echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$fb["total"].'</span>Total</li>';
 };
 echo "</ul>";
@@ -186,7 +186,7 @@ foreach ($cursor as $r) {
   echo '<div class="card " >';
 
   /* Journal or Event Title */
-      echo '<div class="card-footer card-inverse card-primary text-muted"><a href="result.php?journalci_title='.$r["journalci_title"][0].'" style="color:white">'.$r["journalci_title"][0].'</a></div>';
+      echo '<div class="card-footer card-inverse card-primary text-muted" style="color:white;"><a href="result.php?journalci_title='.$r["journalci_title"][0].'" style="color:white">'.$r["journalci_title"][0].'</a> | <a href="result.php?tipo='.$r["tipo"][0].'" style="color:white">'.$r["tipo"][0].'</a></div>';
 echo '<div class="card-block">';
 /* List titles */
 
