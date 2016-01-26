@@ -54,14 +54,18 @@ $sort  = array('createdAt' => -1);
 
 <div class="row">
   <div class="col-xs-6 col-md-3">
-    <div>
-      <h3>Filtros</h3>
-      <?php
-        var_dump($query);
+    <ul class="list-group">
+    <a href="#" class="list-group-item active">Filtros ativos</a>
+    <?php
+      foreach ($_GET as $filters) {
+        echo '<li class="list-group-item">'.$filters.'</a>';
+        echo '<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+        echo '</li>';
+      }
        ?>
-      </div>
-    <h3>Facetas</h3>
-    <p>
+     </ul>
+     <br/>
+
 
 <?php
 
@@ -88,7 +92,7 @@ function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_
 
 $facet = $c->aggregate($aggregate_facet);
 
-echo '<ul class=\"list-group\">';
+echo '<ul class="list-group">';
 echo '<a href="#" class="list-group-item active">'.$facet_display_name.'</a>';
 $i = 0;
 foreach ($facet["result"] as $facets) {
@@ -115,7 +119,7 @@ $aggregate_facebook=array(
 
 $facet_facebook = $c->aggregate($aggregate_facebook);
 
-echo '<ul class=\"list-group\">';
+echo '<ul class="list-group">';
 echo '<a href="#" class="list-group-item active">Interações no Facebook</a>';
 foreach ($facet_facebook["result"] as $fb) {
   echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$fb["likes"].'</span>Curtidas</li></a>';
@@ -124,17 +128,17 @@ foreach ($facet_facebook["result"] as $fb) {
   echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$fb["total"].'</span>Total</li>';
 };
 echo "</ul>";
-generateFacet($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",0);
-generateFacet($url,$c,$query,"\$journalci_title","count",-1,"Publicação",0);
+generateFacet($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",10);
+generateFacet($url,$c,$query,"\$journalci_title","count",-1,"Publicação",20);
 generateFacet($url,$c,$query,"\$autor","count",-1,"Autores",20);
 generateFacet($url,$c,$query,"\$instituicao","count",-1,"Instituições",20);
 generateFacet($url,$c,$query,"\$year","_id",-1,"Ano de publicação",20);
 generateFacet($url,$c,$query,"\$subject","count",-1,"Principais assuntos",20);
-generateFacet($url,$c,$query,"\$language","count",-1,"Idioma",0);
+generateFacet($url,$c,$query,"\$language","count",-1,"Idioma",10);
 
 
  ?>
-</p>
+
 </div>
 <div class="col-xs-12 col-sm-6 col-md-9">
 
@@ -180,17 +184,30 @@ echo '<div class="card-columns">';
 $i_card=0;
 foreach ($cursor as $r) {
   echo '<div class="card " >';
-  echo '<div class="card-block">';
+
+  /* Journal or Event Title */
+      echo '<div class="card-footer card-inverse card-primary text-muted"><a href="result.php?journalci_title='.$r["journalci_title"][0].'" style="color:white">'.$r["journalci_title"][0].'</a></div>';
+echo '<div class="card-block">';
 /* List titles */
 
     if (!empty($r["title"][2])) {
-      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a></h5>';
-      echo '<small class="text-muted">Outros títulos:'.$r["title"][1].'</small><br/>';
-      echo '<small class="text-muted">Outros títulos:'.$r["title"][0].'</small>';
+      $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].'');
+      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a> <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#'.$id.'" aria-expanded="false" aria-controls="'.$id.'">+</button></h5>';
+      echo '<div class="collapse" id="'.$id.'">';
+      echo '<div class="card card-block">';
+      echo '<small class="text-muted"><b>Outros títulos:</b> '.$r["title"][1].'</small><br/>';
+      echo '<small class="text-muted"><b>Outros títulos:</b> '.$r["title"][0].'</small>';
+      echo '</div>';
+      echo '</div>';
     }
     elseif (empty($r["title"][2]) && !empty($r["title"][1])) {
-      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a></h5>';
-      echo '<small class="text-muted">Outros títulos:'.$r["title"][0].'</small>';
+      $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].'');
+      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a> <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#'.$id.'" aria-expanded="false" aria-controls="'.$id.'">+</button></h5>';
+      echo '<div class="collapse" id="'.$id.'">';
+      echo '<div class="card card-block">';
+      echo '<small class="text-muted"><b>Outros títulos:</b> '.$r["title"][0].'</small>';
+      echo '</div>';
+      echo '</div>';
     }
     else {
       echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'" >'.$r["title"][0].' ('.$r["year"][0].')</a></h5>';
@@ -220,8 +237,6 @@ foreach ($cursor as $r) {
 
 
     echo '</div>';
-/* Journal or Event Title */
-    echo '<div class="card-footer card-inverse card-success text-muted"><a href="result.php?journalci_title='.$r["journalci_title"][0].'" style="color:white">'.$r["journalci_title"][0].'</a></div>';
 echo '</div>';
 
 }

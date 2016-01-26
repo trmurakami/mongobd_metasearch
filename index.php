@@ -16,27 +16,24 @@
 <div class="card-deck-wrapper">
   <div class="card-deck">
     <div class="card">
-      <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22241%22%20height%3D%22200%22%20viewBox%3D%220%200%20241%20200%22%20preserveAspectRatio%3D%22none%22%3E%3C!--%0ASource%20URL%3A%20holder.js%2F100px200%2F%0ACreated%20with%20Holder.js%202.8.2.%0ALearn%20more%20at%20http%3A%2F%2Fholderjs.com%0A(c)%202012-2015%20Ivan%20Malopinsky%20-%20http%3A%2F%2Fimsky.co%0A--%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%3C!%5BCDATA%5B%23holder_1527a28094f%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A12pt%20%7D%20%5D%5D%3E%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1527a28094f%22%3E%3Crect%20width%3D%22241%22%20height%3D%22200%22%20fill%3D%22%23777%22%2F%3E%3Cg%3E%3Ctext%20x%3D%2290%22%20y%3D%22105.4%22%3E241x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+      <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="images/harvesting.png" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
       <div class="card-block">
         <h4 class="card-title">Coleta</h4>
         <p class="card-text">Os dados dos periódicos disponíveis em OAI-PHM são coletados utilizando a ferramenta <a href="http://librecat.org/">Librecat/Catmandu</a> e armazenados em um banco de dados NoSQL <a href="https://www.mongodb.org/">MongoDB.</a></p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
     </div>
     <div class="card">
-      <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22242%22%20height%3D%22200%22%20viewBox%3D%220%200%20242%20200%22%20preserveAspectRatio%3D%22none%22%3E%3C!--%0ASource%20URL%3A%20holder.js%2F100px200%2F%0ACreated%20with%20Holder.js%202.8.2.%0ALearn%20more%20at%20http%3A%2F%2Fholderjs.com%0A(c)%202012-2015%20Ivan%20Malopinsky%20-%20http%3A%2F%2Fimsky.co%0A--%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%3C!%5BCDATA%5B%23holder_1527a282b02%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A12pt%20%7D%20%5D%5D%3E%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1527a282b02%22%3E%3Crect%20width%3D%22242%22%20height%3D%22200%22%20fill%3D%22%23777%22%2F%3E%3Cg%3E%3Ctext%20x%3D%2290.5%22%20y%3D%22105.4%22%3E242x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+      <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="images/openrefine.jpg" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
       <div class="card-block">
         <h4 class="card-title">Tratamento</h4>
         <p class="card-text">Os dados são tratados utilizando o webservice do <a href="http://bdpife2.sibi.usp.br/vocabci/vocab/">Vocabulário Controlado de Ciência da Informação no Brasil</a> que foi criado utilizando o software livre para vocabulários controlados <a href="http://www.vocabularyserver.com">Tematres</a> e são incluídos dados altmétricos do Facebook recuperados de sua API.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
     </div>
     <div class="card">
-      <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22242%22%20height%3D%22200%22%20viewBox%3D%220%200%20242%20200%22%20preserveAspectRatio%3D%22none%22%3E%3C!--%0ASource%20URL%3A%20holder.js%2F100px200%2F%0ACreated%20with%20Holder.js%202.8.2.%0ALearn%20more%20at%20http%3A%2F%2Fholderjs.com%0A(c)%202012-2015%20Ivan%20Malopinsky%20-%20http%3A%2F%2Fimsky.co%0A--%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%3C!%5BCDATA%5B%23holder_1527a28515b%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A12pt%20%7D%20%5D%5D%3E%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1527a28515b%22%3E%3Crect%20width%3D%22242%22%20height%3D%22200%22%20fill%3D%22%23777%22%2F%3E%3Cg%3E%3Ctext%20x%3D%2290.5%22%20y%3D%22105.4%22%3E242x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+      <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="images/data-visualization-examples.png" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
       <div class="card-block">
         <h4 class="card-title">Visualização de dados</h4>
         <p class="card-text">Dados são visualizados por meio de facetas nos resultados de busca. São adicionados gráficos utilizando as bibliotecas <a href="http://d3js.org/">d3.js</a> e <a href="https://developers.google.com/chart/">Google Charts</a>.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
     </div>
   </div>
