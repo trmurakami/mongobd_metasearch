@@ -14,4 +14,4 @@
 <meta property="og:type"          content="website" />
 <meta property="og:title"         content="MetaBuscaCI" />
 <meta property="og:description"   content="Metabuscador em periódicos e eventos de Ciência da Informação." />
-<meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />
+<meta property="og:image"         content="http://bdpife2.sibi.usp.br/metabuscaci/images/cover.jpg" />
