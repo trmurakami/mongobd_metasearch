@@ -176,78 +176,58 @@ echo '</ul>';
 echo '</nav>';
 
 /* Pagination - End */
-
+echo '<div class="card-columns">';
+$i_card=0;
 foreach ($cursor as $r) {
-  echo '<div class="card-group">';
-    echo '<div class="card">';
-      echo '<div class="card-header">';
-        if (!empty($r["title"][2])) {
-          echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a></h5>';
-        }
-        elseif (empty($r["title"][2]) && !empty($r["title"][1])) {
-          echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a></h5>';
-        }
-        else {
-          echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].' ('.$r["year"][0].')</a></h5>';
-        }
-        echo '<p class="card-text"></p>';
-        echo '</div>';
-        echo '<div class="card-block">';
-      echo '</div>';
-    echo '</div>';
-  echo '</div>';
+  echo '<div class="card " >';
+  echo '<div class="card-block">';
+/* List titles */
 
-/*  echo '<div class="media"><div class="media-left"><a href="single.php?idx=_id&q='.$r["_id"].'"><button type="button" class="list-group-item"><center><span class="glyphicon glyphicon-file" aria-hidden="true"></span></center><br/>'.$r["tipo"][0].'</button></a></div><div class="media-body">';
-  echo '<div class="panel panel-info">';
-  if (!empty($r["title"][2])) {
-     echo '<div class="panel-heading"><h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a></h4>';
-     echo '<small>Outros títulos:'.$r["title"][1].'</small><br/>';
-     echo '<small>Outros títulos:'.$r["title"][0].'</small><br/></div>';
-  }
-  elseif (empty($r["title"][2]) && !empty($r["title"][1])) {
-    echo '<div class="panel-heading"><h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a></h4>';
-    echo '<small>Outros títulos:'.$r["title"][0].'</small><br/></div>';
-  }
-  else {
-    echo '<div class="panel-heading"><h4 class="media-heading"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][0].' ('.$r["year"][0].')</a></h4></div>';
-  }
-  echo '</div><div class="panel-body">';
-  echo '<span class="badge">'.$r["journalci_title"][0].'</span><br/>';
-  echo "<br/>";
-
-  if (!empty($r["autor"])) {
-    foreach ($r["autor"] as $autores){
-      echo '<b>Autor</b>:'.$autores.'<br/>';
+    if (!empty($r["title"][2])) {
+      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a></h5>';
+      echo '<small class="text-muted">Outros títulos:'.$r["title"][1].'</small><br/>';
+      echo '<small class="text-muted">Outros títulos:'.$r["title"][0].'</small>';
     }
-  }
-  else
-  {
-    foreach ($r["creator"] as $autores){
-        echo '<b>Autor</b>:'.$autores.'<br/>';
-   }
-  }
+    elseif (empty($r["title"][2]) && !empty($r["title"][1])) {
+      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a></h5>';
+      echo '<small class="text-muted">Outros títulos:'.$r["title"][0].'</small>';
+    }
+    else {
+      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'" >'.$r["title"][0].' ('.$r["year"][0].')</a></h5>';
+    }
+/* List authors */
+    echo '<small><h6 class="card-subtitle text-muted">';
+    if (!empty($r["autor"])) {
+      echo '<ul class="list-inline"><li>Autores:</li>';
+      foreach ($r["autor"] as $autores){
+        echo "<li><a href=\"result.php?autor=$autores\">$autores</a></li>";
+      }
+        echo '</ul></h6></small>';
+    }
+    else
+    {
+      foreach ($r["creator"] as $autores){
+          echo '<b>Autor</b>:'.$autores.'<br/>';
+     }
+    }
+    echo '<small><ul class="nav nav-pills list-inline-facebook" role="tablist">';
+    echo '<li role="presentation" class="active">Facebook:</li>';
+    echo '<li role="presentation"><span class="label label-success label-pill pull-xs-right">'.$r["facebook_url_comments"].'</span></li>';
+    echo '<li role="presentation"><span class="label label-warning label-pill pull-xs-right">'.$r["facebook_url_likes"].'</span></li>';
+    echo '<li role="presentation"><span class="label label-danger label-pill pull-xs-right">'.$r["facebook_url_shares"].'</span></li>';
+    echo '</ul></small>';
+    echo '<a href="'.$r["url_principal"].'" class="btn btn-info">Acesso online</a>';
 
 
+    echo '</div>';
+/* Journal or Event Title */
+    echo '<div class="card-footer card-inverse card-success text-muted"><a href="result.php?journalci_title='.$r["journalci_title"][0].'" style="color:white">'.$r["journalci_title"][0].'</a></div>';
+echo '</div>';
 
-  echo '<b>Acesso online</b>: <a href="'.$r["url_principal"].'">'.$r["url_principal"].'</a><br/>';
-
-  if (!empty($r["doi"])) {
-    echo '<b>DOI</b>: <a href="http://dx.doi.org/'.$r["doi"].'">'.$r["doi"].'</a><br/>';
-  }
-
-  echo '<small><br/><ul class="nav nav-pills" role="tablist">';
-  echo '<li role="presentation" class="active"><a href="#">Facebook</a></li>';
-  echo '<li role="presentation"><a href="#">Comentários <span class="badge">'.$r["facebook_url_comments"].'</span></a></li>';
-  echo '<li role="presentation"><a href="#">Curtidas <span class="badge">'.$r["facebook_url_likes"].'</span></a></li>';
-  echo '<li role="presentation"><a href="#">Compartilhamentos <span class="badge">'.$r["facebook_url_shares"].'</span></a></li>';
-  echo '</ul></small>';
-  echo '</div>';
-  echo '</div>';
-*/
 }
 
 /* Pagination - Start */
-
+echo '</div>';
 echo '<nav>';
 echo '<ul class="pager">';
 if($page > 1){
