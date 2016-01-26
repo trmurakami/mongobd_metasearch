@@ -41,7 +41,7 @@ $limit = 12;
 $skip  = ($page - 1) * $limit;
 $next  = ($page + 1);
 $prev  = ($page - 1);
-$sort  = array('createdAt' => -1);
+$sort  = array('facebook_url_total' => -1);
 
 ?>
 
@@ -181,7 +181,6 @@ echo '</nav>';
 
 /* Pagination - End */
 echo '<div class="card-columns">';
-$i_card=0;
 foreach ($cursor as $r) {
   echo '<div class="card " >';
 
@@ -213,13 +212,13 @@ echo '<div class="card-block">';
       echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'" >'.$r["title"][0].' ('.$r["year"][0].')</a></h5>';
     }
 /* List authors */
-    echo '<small><h6 class="card-subtitle text-muted">';
+    echo '<small><h6 class="card-subtitle text-muted">Autor(es):</h6>';
     if (!empty($r["autor"])) {
-      echo '<ul class="list-inline"><li>Autores:</li>';
+      echo '<ul>';
       foreach ($r["autor"] as $autores){
         echo "<li><a href=\"result.php?autor=$autores\">$autores</a></li>";
       }
-        echo '</ul></h6></small>';
+        echo '</ul></small>';
     }
     else
     {

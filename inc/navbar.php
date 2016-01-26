@@ -1,5 +1,5 @@
 <!-- Barra de navegação -->
-<nav class="navbar navbar-top navbar-light bg-faded">
+<nav class="navbar navbar-fixed-top navbar-light bg-faded">
   <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
     &#9776;
   </button>
@@ -23,10 +23,10 @@
   </form>
   </div>
 </nav>
-
+<br/><br/>
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4" style="color: white">MetaBuscaCI</h1>
+    <h1 class="display-4"><a href="index.php" style="color: white">MetaBuscaCI</a></h1>
     <p class="lead" style="background-color: white">Metabuscador em periódicos e eventos de Ciência da Informação.</p>
   </div>
 </div>

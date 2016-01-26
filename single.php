@@ -5,7 +5,7 @@
 <title>MetaBuscaCI - Detalhes do registro</title>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 <?php
   include "inc/navbar.php";
 ?>
