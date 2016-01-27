@@ -26,7 +26,7 @@
 <br/><br/>
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4"><a href="index.php" style="color: white">MetaBuscaCI</a></h1>
-    <p class="lead" style="background-color: white">Metabuscador em periódicos e eventos de Ciência da Informação.</p>
+    <h1 class="display-4"><a href="index.php" style="color: white">MetaBuscaCI (Beta)</a></h1>
+    <p class="lead" style="background-color: white">Metabuscador em periódicos de Ciência da Informação disponíveis em OAI-PMH.</p>
   </div>
 </div>

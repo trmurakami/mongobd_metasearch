@@ -2,7 +2,7 @@
   include ('inc/config.php');
   include ('inc/header.php');
 ?>
-<title>MetaBuscaCI - Metabuscador em periódicos e eventos de Ciência da Informação</title>
+<title>MetaBuscaCI - Metabuscador em periódicos de Ciência da Informação</title>
 </head>
 <body>
 <?php include_once("inc/analyticstracking.php") ?>
