@@ -18,3 +18,38 @@
 
 .list-inline-button{display:block;}
 .list-inline-button li{display:inline-block;}
+
+
+/* center search */
+
+   .global-search {
+    text-align:center;
+    padding:10px;
+  }
+   .global-search * {
+    display:inline-block;
+    margin-bottom:0;
+  }
+
+   .global-search .form-control {
+      width:120px;
+  }
+
+   .global-search a {
+    display:block;
+    padding-top:10px;
+  }
+
+
+
+@media (min-width:400px){
+   .global-search {
+    padding: 20px 0;
+    text-align:center;
+    }
+
+   .global-search .form-control {
+    width:300px;
+   }
+
+}

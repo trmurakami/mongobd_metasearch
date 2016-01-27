@@ -19,7 +19,24 @@
   include ('inc/navbar.php');
 ?>
 
+
+<!-- Global Search -->
+
+     <form class="form-inline global-search" role="form" action="result.php" method="get">
+         <div class="form-group">
+             <label class="sr-only" for="">Digite os termos de busca</label>
+             <input type="search" class="form-control" id="global_search" name="full_text" placeholder="Digite os termos de busca">
+        </div>
+         <button type="submit" id="s" class="btn btn-default">Buscar
+
+         </button> <a href="#">Ajuda</a>
+
+     </form>
+
+
+<br/>
 <div class="container">
+
 <div class="card-deck-wrapper">
   <div class="card-deck">
     <div class="card">
