@@ -27,7 +27,7 @@
              <label class="sr-only" for="">Digite os termos de busca</label>
              <input type="search" class="form-control" id="global_search" name="full_text" placeholder="Digite os termos de busca">
         </div>
-         <button type="submit" id="s" class="btn btn-default">Buscar
+         <button type="submit" id="s" class="btn btn-primary-outline">Buscar
 
          </button> <a href="#">Ajuda</a>
 
