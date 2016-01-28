@@ -242,6 +242,11 @@ foreach ($facet_journal_title["result"] as $jt) {
   echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?journalci_title='.$jt["_id"].'" style="color:white">'.$jt["_id"].' <span class="label label-pill label-default">'.$jt["count"].'</span></a></button></li>';
 };
 echo '</ul>';
+echo "<h3>Ano</h3></br><ul class=\"list-inline-button\">";
+foreach ($facet_year["result"] as $yr) {
+  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year='.$yr["_id"].'" style="color:white">'.$yr["_id"].' <span class="label label-default label-pill">'.$yr["count"].'</span></a></button></li>';
+};
+echo "</ul>";
 echo "<h3>Autores</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_autor["result"] as $at) {
@@ -258,11 +263,6 @@ foreach ($facet_instituicao ["result"] as $it) {
 };
 echo "</ul>";
 echo '<p><a href="instituicoes.php">Ver todas as instituições</a></p>';
-echo "<h3>Ano</h3></br><ul class=\"list-inline-button\">";
-foreach ($facet_year["result"] as $yr) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year='.$yr["_id"].'" style="color:white">'.$yr["_id"].' <span class="label label-default label-pill">'.$yr["count"].'</span></a></button></li>';
-};
-echo "</ul>";
 ?>
 
 <!-- [...] -->
