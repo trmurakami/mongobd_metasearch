@@ -175,6 +175,9 @@ $aggregate_facebook_total=array(
 );
 
 
+
+
+
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 $facet_year = $c->aggregate($aggregate_year_total);
 $facet_subject = $c->aggregate($aggregate_query_subject);
@@ -182,7 +185,6 @@ $facet_assunto_tematres = $c->aggregate($aggregate_query_assunto_tematres);
 $facet_autor = $c->aggregate($aggregate_query_autor);
 $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 $facet_facebook = $c->aggregate($aggregate_facebook_total);
-
 
 
 $facebook = array();
@@ -225,7 +227,13 @@ function drawMaterial() {
     }
 </script>
 
+
+
  <div id="chart_div" style="width: 100%; height: 1000px;"></div>
+
+
+
+ 
 
 <?php
 

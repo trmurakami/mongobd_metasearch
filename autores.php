@@ -39,8 +39,64 @@
     )
   );
 
-$facet_autor = $c->aggregate($aggregate_query_autor);
+  $aggregate_creator_total=array(
+    array(
+      '$unwind'=>'$creator_total'
+    ),
+    array(
+      '$group' => array(
+        "_id"=>'$creator_total',
+        "count"=>array('$sum'=>1)
+        )
+    ),
+    array(
+      '$sort' => array("_id"=>1)
+    )
+  );
 
+$facet_autor = $c->aggregate($aggregate_query_autor);
+$facet_creator_total = $c->aggregate($aggregate_creator_total);
+
+$creator_count = array();
+array_push($creator_count,['Número de autores','quantidade']);
+foreach ($facet_creator_total["result"] as $cc) {
+  array_push($creator_count,[$cc['_id'],$cc['count']]);
+};
+?>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawMaterial);
+
+function drawMaterial() {
+      var data = google.visualization.arrayToDataTable(
+        <?= json_encode($creator_count); ?>
+        );
+
+      var options = {
+        chart: {
+          title: 'Quantidade de autores por trabalhos',
+          subtitle: '',
+        },
+        hAxis: {
+          title: 'Quantidade',
+          minValue: 0,
+        },
+        vAxis: {
+          title: 'Número de autores por trabalho'
+        },
+        bars: 'horizontal'
+      };
+      var material = new google.charts.Bar(document.getElementById('chart_div_1'));
+      material.draw(data, options);
+    }
+</script>
+<div id="chart_div_1" style="width: 100%; height: 1000px;"></div>
+
+<?php
 echo "<h3>Autores</h3></br><ul class=\"list-inline-button\">";
 foreach ($facet_autor["result"] as $at) {
   echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at["_id"].'" style="color:white">'.$at["_id"].' <span class="label label-default label-pill">'.$at["count"].'</span></a></button></li>';
