@@ -238,16 +238,18 @@ echo "<h3>Autores</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_autor["result"] as $at) {
   echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at["_id"].'" style="color:white">'.$at["_id"].' <span class="label label-default label-pill">'.$at["count"].'</span></a></button></li>';
-  if(++$i > 60) break;
+  if(++$i > 15) break;
 };
 echo '</ul>';
+echo '<p><a href="autores.php">Ver todos os autores</a></p>';
 echo "<h3>Instituições</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_instituicao ["result"] as $it) {
   echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao='.$it["_id"].'" style="color:white">'.$it["_id"].' <span class="label label-default label-pill">'.$it["count"].'</span></a></button></li>';
-  if(++$i > 60) break;
+  if(++$i > 15) break;
 };
 echo "</ul>";
+echo '<p><a href="instituicoes.php">Ver todas as instituições</a></p>';
 echo "<h3>Ano</h3></br><ul class=\"list-inline-button\">";
 foreach ($facet_year["result"] as $yr) {
   echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year='.$yr["_id"].'" style="color:white">'.$yr["_id"].' <span class="label label-default label-pill">'.$yr["count"].'</span></a></button></li>';
@@ -257,16 +259,18 @@ echo "<h3>Principais assuntos</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_subject["result"] as $sj) {
   echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?subject='.$sj["_id"].'" style="color:white">'.$sj["_id"].' <span class="label label-default label-pill">'.$sj["count"].'</span></a></button></li>';
-  if(++$i > 60) break;
+  if(++$i > 25) break;
 };
 echo "</ul>";
+echo '<p><a href="assuntos.php">Ver todos os assuntos</a></p>';
 echo "<h3>Assuntos tratados pelo Vocabulário Controlado</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
 foreach ($facet_assunto_tematres["result"] as $aterm) {
   echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?assunto_tematres='.$aterm["_id"].'" style="color:white">'.$aterm["_id"].' <span class="label label-default label-pill">'.$aterm["count"].'</span></a></button></li>';
-  if(++$i > 60) break;
+  if(++$i > 25) break;
 };
 echo "</ul>";
+echo '<p><a href="assuntos_tematres.php">Ver todos os assuntos tratados pelo Vocabulário Controlado</a></p>';
 ?>
 
 <?php
