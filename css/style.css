@@ -7,6 +7,12 @@
     overflow: hidden;
 }
 
+
+.sigma-container {
+  width: 100%;
+  height: 600px;
+}
+
 .list-inline{display:block;}
 .list-inline li{display:inline-block;}
 .list-inline first-child {content: ""; }
