@@ -220,7 +220,7 @@ echo '<div class="card-block">';
       foreach ($r["autor"] as $autores){
         echo "<li><a href=\"result.php?autor=$autores\">$autores</a></li>";
       }
-        echo '</ul></small>';
+        echo '</ul>';
     }
     else
     {
@@ -228,6 +228,7 @@ echo '<div class="card-block">';
           echo '<b>Autor</b>:'.$autores.'<br/>';
      }
     }
+    echo '</small>';
     echo '<small><ul class="nav nav-pills list-inline-facebook" role="tablist">';
     echo '<li role="presentation" class="active">Facebook:</li>';
     echo '<li role="presentation"><span class="label label-success label-pill pull-xs-right">'.$r["facebook_url_comments"].'</span></li>';
