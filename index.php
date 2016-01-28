@@ -1,3 +1,5 @@
+<!-- Homepage -->
+
 <?php
   include ('inc/config.php');
   include ('inc/header.php');
@@ -57,7 +59,7 @@
       <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="images/data-visualization-examples.png" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
       <div class="card-block">
         <h4 class="card-title">Visualização de dados</h4>
-        <p class="card-text">Dados são visualizados por meio de facetas nos resultados de busca. São adicionados gráficos utilizando as bibliotecas <a href="http://d3js.org/">d3.js</a> e <a href="https://developers.google.com/chart/">Google Charts</a>.</p>
+        <p class="card-text">Dados são visualizados por meio de facetas nos resultados de busca. São adicionados gráficos utilizando as bibliotecas <a href="http://sigmajs.org/">Sigma.js</a> e <a href="https://developers.google.com/chart/">Google Charts</a>.</p>
       </div>
     </div>
   </div>
@@ -194,47 +196,6 @@ foreach ($facet_facebook["result"] as $fb) {
 };
 
 ?>
-<br/>
-<h3>Facebook</h3></br>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawMaterial);
-
-function drawMaterial() {
-      var data = google.visualization.arrayToDataTable(
-        <?= json_encode($facebook); ?>
-        );
-
-      var options = {
-        chart: {
-          title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI',
-          subtitle: 'Atualizado em 2016-01-23',
-          isStacked: true,
-        },
-        hAxis: {
-          title: 'Interações',
-          minValue: 0,
-        },
-        vAxis: {
-          title: 'Título'
-        },
-        bars: 'horizontal'
-      };
-      var material = new google.charts.Bar(document.getElementById('chart_div'));
-      material.draw(data, options);
-    }
-</script>
-
-
-
- <div id="chart_div" style="width: 100%; height: 1000px;"></div>
-
-
-
-
-
 <?php
 
 echo "<h3>Periódicos indexados</h3></br><ul class=\"list-inline-button\">";
@@ -347,7 +308,7 @@ echo '<p><a href="instituicoes.php">Ver todas as instituições</a></p>';
 </script>
 <!-- [...] -->
 <div id="sigma-container" class="sigma-container">
-  <h3>Rede de colaboração entre as instituições</h3>
+  <h3>Rede de colaboração entre as instituições (Incompleto, está somente com as afiliações identificadas)</h3>
 </div>
 
 
@@ -369,6 +330,41 @@ foreach ($facet_assunto_tematres["result"] as $aterm) {
 echo "</ul>";
 echo '<p><a href="assuntos_tematres.php">Ver todos os assuntos tratados pelo Vocabulário Controlado</a></p>';
 ?>
+
+<br/>
+<h3>Facebook</h3></br>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawMaterial);
+
+function drawMaterial() {
+      var data = google.visualization.arrayToDataTable(
+        <?= json_encode($facebook); ?>
+        );
+
+      var options = {
+        chart: {
+          title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI',
+          subtitle: 'Atualizado em 2016-01-23',
+          isStacked: true,
+        },
+        hAxis: {
+          title: 'Interações',
+          minValue: 0,
+        },
+        vAxis: {
+          title: 'Título'
+        },
+        bars: 'horizontal'
+      };
+      var material = new google.charts.Bar(document.getElementById('chart_div'));
+      material.draw(data, options);
+    }
+</script>
+
+<div id="chart_div" style="width: 100%; height: 1000px;"></div>
 
 <?php
   include "inc/footer.php";

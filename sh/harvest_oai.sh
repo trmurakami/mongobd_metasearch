@@ -72,6 +72,13 @@ catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informac
 echo "ITEC OK" >> ../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Informacao e Tecnologia - ITEC"}).count()' | mongo journals >> ../export/oai_result.txt
 sleep 2
+# IRIS - Revista de Informação, Memória e Tecnologia
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","IRIS")' --fix 'set_array("qualis2014","B3")' --url http://www.repositorios.ufpe.br/revistas/index.php/IRIS/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
+echo "IRIS OK" >> ../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"IRIS"}).count()' | mongo journals >> ../export/oai_result.txt
+sleep 2
+
+
 # Liinc em Revista - Liinc
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Liinc em Revista")' --fix 'set_array("qualis2014","B1")' --url http://revista.ibict.br/liinc/index.php/liinc/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
 echo "Liinc em Revista OK" >> ../export/oai_result.txt
