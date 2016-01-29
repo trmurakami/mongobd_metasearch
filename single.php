@@ -23,7 +23,7 @@ ini_set('display_errors', 1);
 $mongodb    = new MongoClient();
 $database   = $mongodb->journals;
 $collection = $database->ci;
-$query =  array(''.$_GET['idx'].'' => ''.$_GET['q'].'');
+$query =  array('_id' => ''.$_GET['_id'].'');
 $cursor = $database->ci->findOne($query);
 
 
@@ -116,6 +116,11 @@ if (!empty($cursor["rights"])) {
     echo '<b>Direitos Autorais</b>: '.$direitos_autorais."<br />";
   }
 }
+if (!empty($cursor["references"])) {
+  foreach ($cursor["references"] as $referencias){
+    echo '<b>Referências</b>: '.$referencias."<br />";
+  }
+}
 foreach ($cursor["type"] as $tipo){
   echo '<b>Tipo</b>: '.$tipo."<br />";
 }
@@ -123,6 +128,12 @@ foreach ($cursor["_setSpec"] as $set_oai){
   echo '<b>Set OAI</b>: '.$set_oai."<br />";
 }
 echo "</br></br>";
+if (!empty($cursor["references"])) {
+echo '<form method="get" action="edit.php">';
+echo '<input type="hidden">';
+echo '<button type="submit" name="_id" class="btn btn-primary-outline" value="'.$cursor["_id"].'">Editar referências</button>';
+}
+
 
 $mongodb->close();
 ?>

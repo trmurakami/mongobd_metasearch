@@ -193,7 +193,7 @@ echo '<div class="card-block">';
 
     if (!empty($r["title"][2])) {
       $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].'');
-      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a> <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#'.$id.'" aria-expanded="false" aria-controls="'.$id.'">+</button></h5>';
+      echo '<h5 class="card-title"><a href="single.php?_id='.$r["_id"].'">'.$r["title"][2].' ('.$r["year"][0].')</a> <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#'.$id.'" aria-expanded="false" aria-controls="'.$id.'">+</button></h5>';
       echo '<div class="collapse" id="'.$id.'">';
       echo '<div class="card card-block">';
       echo '<small class="text-muted"><b>Outros títulos:</b> '.$r["title"][1].'</small><br/>';
@@ -203,7 +203,7 @@ echo '<div class="card-block">';
     }
     elseif (empty($r["title"][2]) && !empty($r["title"][1])) {
       $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].'');
-      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a> <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#'.$id.'" aria-expanded="false" aria-controls="'.$id.'">+</button></h5>';
+      echo '<h5 class="card-title"><a href="single.php?_id='.$r["_id"].'">'.$r["title"][1].' ('.$r["year"][0].')</a> <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#'.$id.'" aria-expanded="false" aria-controls="'.$id.'">+</button></h5>';
       echo '<div class="collapse" id="'.$id.'">';
       echo '<div class="card card-block">';
       echo '<small class="text-muted"><b>Outros títulos:</b> '.$r["title"][0].'</small>';
@@ -211,7 +211,7 @@ echo '<div class="card-block">';
       echo '</div>';
     }
     else {
-      echo '<h5 class="card-title"><a href="single.php?idx=_id&q='.$r["_id"].'" >'.$r["title"][0].' ('.$r["year"][0].')</a></h5>';
+      echo '<h5 class="card-title"><a href="single.php?_id='.$r["_id"].'" >'.$r["title"][0].' ('.$r["year"][0].')</a></h5>';
     }
 /* List authors */
     echo '<small><h6 class="card-subtitle text-muted">Autor(es):</h6>';
