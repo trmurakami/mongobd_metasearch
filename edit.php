@@ -51,6 +51,10 @@ $cursor = $c->findOne($query);
 if (!empty($cursor["references"])) {
 $count_references = count($cursor["references"]);
 }
+else {
+  $count_references = 0;
+  $references_count=1;
+}
 ?>
 
 <div class="row">
@@ -93,7 +97,7 @@ else {
   echo '<label for="inputAutor" class="col-sm-2 form-control-label">Referências</label>';
   echo '<div class="col-sm-10">';
   echo '<div id="field">';
-  echo '<textarea class="form-control" id="field0" rows="5" placeholder="Referências" name="references[]" ></textarea><button id="b0" class="btn add-more" type="button">+</button><button id="remove0" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
+  echo '<textarea class="form-control" id="field1" rows="5" placeholder="Referências" name="references[]" ></textarea><button id="b1" class="btn add-more" type="button">+</button><button id="remove1" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
   echo '</div></div></div></div>';
 }
 
