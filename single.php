@@ -128,11 +128,10 @@ foreach ($cursor["_setSpec"] as $set_oai){
   echo '<b>Set OAI</b>: '.$set_oai."<br />";
 }
 echo "</br></br>";
-if (!empty($cursor["references"])) {
+
 echo '<form method="get" action="edit.php">';
 echo '<input type="hidden">';
 echo '<button type="submit" name="_id" class="btn btn-primary-outline" value="'.$cursor["_id"].'">Editar referências</button>';
-}
 
 
 $mongodb->close();

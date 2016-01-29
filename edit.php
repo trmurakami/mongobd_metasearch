@@ -48,7 +48,9 @@ $query =  array('_id' => ''.$_GET['_id'].'');
 }
 $cursor = $c->findOne($query);
 
+if (!empty($cursor["references"])) {
 $count_references = count($cursor["references"]);
+}
 ?>
 
 <div class="row">
@@ -68,6 +70,7 @@ $count_references = count($cursor["references"]);
   </div>
 
 <?php
+if (!empty($cursor["references"])) {
 $references_count=0;
 for ($references_count = 1; $references_count <= $count_references; $references_count++) {
 echo '<input type="hidden" name="count" value="1" />';
@@ -81,6 +84,19 @@ echo '<div id="field">';
 echo '<textarea class="form-control" id="field'.$references_count.'" rows="5" placeholder="Referências" name="references[]" >'.$cursor["references"][$references_count-1].'</textarea><button id="b'.$references_count.'" class="btn add-more" type="button">+</button><button id="remove'.$references_count.'" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
 echo '</div></div></div></div>';
 }
+}
+else {
+  echo '<input type="hidden" name="count" value="1" />';
+  echo '<div class="form-group row">';
+  echo '<div class="control-group" id="fields">';
+  echo '<div class="controls" id="profs">';
+  echo '<label for="inputAutor" class="col-sm-2 form-control-label">Referências</label>';
+  echo '<div class="col-sm-10">';
+  echo '<div id="field">';
+  echo '<textarea class="form-control" id="field0" rows="5" placeholder="Referências" name="references[]" ></textarea><button id="b0" class="btn add-more" type="button">+</button><button id="remove0" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
+  echo '</div></div></div></div>';
+}
+
 
 ?>
 
