@@ -52,6 +52,11 @@ catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Encontro
 echo "Encontros Bibli OK" >> ../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Encontros Bibli"}).count()' | mongo journals >> ../export/oai_result.txt
 sleep 2
+# Folha de Rosto
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Folha de Rosto")' --fix 'set_array("qualis2014","Nao possui")' --url http://periodicos.ufca.edu.br/ojs/index.php/folhaderosto/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
+echo "Folha de Rosto OK" >> ../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Folha de Rosto"}).count()' | mongo journals >> ../export/oai_result.txt
+sleep 2
 # Informação e Informação
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informacao e Informacao")' --fix 'set_array("qualis2014","B1")' --url http://www.uel.br/revistas/uel/index.php/informacao/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
 echo "Informação e Informação OK" >> ../export/oai_result.txt
