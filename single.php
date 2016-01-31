@@ -8,14 +8,7 @@
 <div class="container-fluid">
 <?php
   include "inc/navbar.php";
-?>
 
-  <div class="row">
-    <div class="col-md-4"><h3>Exportar</h3></div>
-    <div class="col-md-8">
-
-<h3>Detalhes do registro</h3>
-<?php
 /*
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', 1);
@@ -25,6 +18,28 @@ $database   = $mongodb->journals;
 $collection = $database->ci;
 $query =  array('_id' => ''.$_GET['_id'].'');
 $cursor = $database->ci->findOne($query);
+
+
+?>
+
+  <div class="row">
+    <div class="col-md-4">
+	<h3>Almetrics</h3>
+<?php
+echo "<b>Facebook:</b><ul>";
+echo '<li>Data de atualização dos dados obtidos no facebook: '.$cursor["facebook_atualizacao"]."</li>";
+echo '<li>Comentários no facebook: '.$cursor["facebook_url_comments"]."</li>";
+echo '<li>Likes no facebook: '.$cursor["facebook_url_likes"]."</li>";
+echo '<li>Compartilhamentos no facebook: '.$cursor["facebook_url_shares"]."</li>";
+echo '<li>Total de interações no facebook: '.$cursor["facebook_url_total"]."</li></ul>";
+?>
+
+	<h3>Exportar</h3>
+    </div>
+    <div class="col-md-8">
+
+<h3>Detalhes do registro</h3>
+<?php
 
 
 echo '<div class="media"><div class="media"><a href="single.php?idx=_id&q='.$cursor["_id"].'"><button type="button" class="list-group-item"><center><span class="glyphicon glyphicon-file" aria-hidden="true"></span> '.$cursor["tipo"][0].'</button></a></center></div><br/>';
@@ -47,34 +62,34 @@ else {
   echo '<h4 class="card-title">'.$cursor["title"][0].' ('.$cursor["year"][0].')</h4>';
 }
 
-echo '<div class="form-group row">';
-echo '<label class="col-sm-2 form-control-label">Autores</label>';
-echo '<div class="col-sm-10">';
-
 
 if (!empty($cursor["autor"])) {
-  foreach ($cursor["autor"] as $autores){
-    echo '<li>'.$autores.'</li>';    
-  }
-echo '</div>';
-echo '</div>';
-echo '<div class="form-group row">';
-echo '<label class="col-sm-2 form-control-label">Instituições</label>';
-echo '<div class="col-sm-10">';
+    echo '<div class="form-group row">';
+    echo '<label class="col-sm-2 form-control-label">Autores</label>';
+    echo '<div class="col-sm-10">';
+        foreach ($cursor["autor"] as $autores){
+            echo '<li><a href="result.php?autor='.$autores.'">'.$autores.'</a></li>';    
+    }
+    echo '</div>';
+    echo '</div>';
 
-  foreach ($cursor["instituicao"] as $instituicoes){
-    echo '<li>'.$instituicoes.'</li>';
-  }
-echo '</div>';
-echo '</div>';
-
+    if (!empty($cursor["instituicao"])) {
+    echo '<div class="form-group row">';
+    echo '<label class="col-sm-2 form-control-label">Instituições</label>';
+    echo '<div class="col-sm-10">';
+        foreach ($cursor["instituicao"] as $instituicoes){
+    	    echo '<li>'.$instituicoes.'</li>';
+  	}
+    echo '</div>';
+    echo '</div>';
+    }
 
 }
 else
 {
-  foreach ($cursor["creator"] as $autores){
-    echo '<b>Autor</b>:'.$autores.'<br/>';
- }
+    foreach ($cursor["creator"] as $autores){
+        echo '<b>Autor</b>:'.$autores.'<br/>';
+    }
 }
 
 echo '<div class="form-group row">';
@@ -93,21 +108,28 @@ if (!empty($cursor["relation"])) {
 echo '</div>';
 echo '</div>';
 
+echo '<div class="form-group row">';
+    echo '<label class="col-sm-2 form-control-label">Publicado em</label>';
+    echo '<div class="col-sm-10">';
+    echo '<p>'.$cursor["journalci_title"][0].'</p>';
+    echo '<p>Qualis2014: '.$cursor["qualis2014"][0]."</p>";
+    echo '</div>';
+echo '</div>';
 
-echo '<span class="badge">'.$cursor["journalci_title"][0].'</span><br/>';
+
+
+
 echo '<b>_id:</b> '.$cursor["_id"]."<br />";
-echo '<b>Qualis2014</b>: '.$cursor["qualis2014"][0]."<br />";
-echo "<b>Facebook:</b><ul>";
-echo '<li>Data de atualização dos dados obtidos no facebook: '.$cursor["facebook_atualizacao"]."</li>";
-echo '<li>Comentários no facebook: '.$cursor["facebook_url_comments"]."</li>";
-echo '<li>Likes no facebook: '.$cursor["facebook_url_likes"]."</li>";
-echo '<li>Compartilhamentos no facebook: '.$cursor["facebook_url_shares"]."</li>";
-echo '<li>Total de interações no facebook: '.$cursor["facebook_url_total"]."</li></ul>";
 
 if (!empty($cursor["description"])) {
+echo '<div class="form-group row">';
+echo '<label class="col-sm-2 form-control-label">Resumo(s)</label>';
+echo '<div class="col-sm-10">';
   foreach ($cursor["description"] as $cursoresumo){
-    echo '<b>Resumo</b>: <p>'.$cursoresumo."</p>";
+    echo '<p>'.$cursoresumo."</p>";
   }
+echo '</div>';
+echo '</div>';
 }
 foreach ($cursor["language"] as $idioma){
   echo '<b>Idioma</b>: '.$idioma."<br />";

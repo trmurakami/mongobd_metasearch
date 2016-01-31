@@ -5,6 +5,16 @@
     height: 100%;
     background-size: cover;
     overflow: hidden;
+    padding: 0.4em 0.5em;
+    h1 {
+        font-size: 1em;
+    }
+    p {
+        font-size: 0.8em;
+        .btn {
+            padding: 0.3em;
+        }
+    }
 }
 
 
