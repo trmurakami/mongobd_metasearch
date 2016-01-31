@@ -29,27 +29,46 @@ $cursor = $database->ci->findOne($query);
 
 echo '<div class="media"><div class="media"><a href="single.php?idx=_id&q='.$cursor["_id"].'"><button type="button" class="list-group-item"><center><span class="glyphicon glyphicon-file" aria-hidden="true"></span> '.$cursor["tipo"][0].'</button></a></center></div><br/>';
 
+
+echo '<div class="card">';
+echo '<div class="card-block">';
+
+
 if (!empty($cursor["title"][2])) {
-   echo '<h4 class="media-heading"><a href="'.$cursor["url_principal"].'">'.$cursor["title"][2].' ('.$cursor["year"][0].')</a></h4>';
-   echo '<small>Outros títulos:'.$cursor["title"][1].'</small><br/>';
-   echo '<small>Outros títulos:'.$cursor["title"][0].'</small><br/>';
+   echo '<h4 class="card-title">'.$cursor["title"][2].' ('.$cursor["year"][0].')</h4>';
+   echo '<h6 class="card-subtitle text-muted"><p>Outros títulos:'.$cursor["title"][1].'</p></h6>';
+   echo '<h6 class="card-subtitle text-muted">Outros títulos:'.$cursor["title"][0].'</h6>';
 }
 elseif (empty($cursor["title"][2]) && !empty($cursor["title"][1])) {
-  echo '<h4 class="media-heading"><a href="'.$cursor["url_principal"].'">'.$cursor["title"][1].' ('.$cursor["year"][0].')</a></h4>';
-  echo '<small>Outros títulos:'.$cursor["title"][0].'</small><br/>';
+  echo '<h4 class="card-title">'.$cursor["title"][1].' ('.$cursor["year"][0].')</h4>';
+  echo '<h6 class="card-subtitle text-muted">Outros títulos:'.$cursor["title"][0].'</h6>';
 }
 else {
-  echo '<h4 class="media-heading"><a href="'.$cursor["url_principal"].'">'.$cursor["title"][0].' ('.$cursor["year"][0].')</a></h4>';
+  echo '<h4 class="card-title">'.$cursor["title"][0].' ('.$cursor["year"][0].')</h4>';
 }
-echo "<br/>";
+
+echo '<div class="form-group row">';
+echo '<label class="col-sm-2 form-control-label">Autores</label>';
+echo '<div class="col-sm-10">';
+
 
 if (!empty($cursor["autor"])) {
   foreach ($cursor["autor"] as $autores){
-    echo '<b>Autor</b>:'.$autores.'<br/>';
+    echo '<li>'.$autores.'</li>';    
   }
+echo '</div>';
+echo '</div>';
+echo '<div class="form-group row">';
+echo '<label class="col-sm-2 form-control-label">Instituições</label>';
+echo '<div class="col-sm-10">';
+
   foreach ($cursor["instituicao"] as $instituicoes){
-    echo '<b>Instituições em que os autores estão vinculados</b>:'.$instituicoes.'<br/>';
+    echo '<li>'.$instituicoes.'</li>';
   }
+echo '</div>';
+echo '</div>';
+
+
 }
 else
 {
@@ -58,13 +77,22 @@ else
  }
 }
 
-
-
-echo '<b>URL</b>: <a href="'.$cursor["url_principal"].'">'.$cursor["url_principal"]."</a><br />";
-
+echo '<div class="form-group row">';
+echo '<label class="col-sm-2 form-control-label">URLs</label>';
+echo '<div class="col-sm-10">';
+echo '<b>URL principal</b>: <a href="'.$cursor["url_principal"].'">'.$cursor["url_principal"]."</a><br />";
 if (!empty($cursor["doi"])) {
   echo '<b>DOI</b>: <a href="'.$cursor["doi"].'">'.$cursor["doi"]."</a><br />";
 }
+if (!empty($cursor["relation"])) {
+  foreach ($cursor["relation"] as $cursorelation){
+    echo '<b>URL relacionada</b>: <a href="'.$cursorelation.'">'.$cursorelation.'</a><br />';
+  }
+}
+
+echo '</div>';
+echo '</div>';
+
 
 echo '<span class="badge">'.$cursor["journalci_title"][0].'</span><br/>';
 echo '<b>_id:</b> '.$cursor["_id"]."<br />";
@@ -76,11 +104,6 @@ echo '<li>Likes no facebook: '.$cursor["facebook_url_likes"]."</li>";
 echo '<li>Compartilhamentos no facebook: '.$cursor["facebook_url_shares"]."</li>";
 echo '<li>Total de interações no facebook: '.$cursor["facebook_url_total"]."</li></ul>";
 
-if (!empty($cursor["relation"])) {
-  foreach ($cursor["relation"] as $cursorelation){
-    echo '<b>URL relacionada</b>: <a href="'.$cursorelation.'">'.$cursorelation.'</a><br />';
-  }
-}
 if (!empty($cursor["description"])) {
   foreach ($cursor["description"] as $cursoresumo){
     echo '<b>Resumo</b>: <p>'.$cursoresumo."</p>";
@@ -95,11 +118,20 @@ foreach ($cursor["publisher"] as $publisher){
 foreach ($cursor["source"] as $source){
   echo '<b>Fonte</b>: '.$source."<br />";
 }
+
+echo '<div class="form-group row">';
+echo '<label class="col-sm-2 form-control-label">Assuntos</label>';
+echo '<div class="col-sm-10">';
 if (!empty($cursor["subject"])) {
   foreach ($cursor["subject"] as $subject){
-    echo '<b>Assuntos</b>: '.$subject."<br />";
+    echo '<li>'.$subject."</li>";
   }
 }
+echo '</div>';
+echo '</div>';
+
+
+
 if (!empty($cursor["assunto_tematres"])) {
   foreach ($cursor["assunto_tematres"] as $assunto_tematres){
     echo '<b>Assuntos do Vocabulário Controlado</b>: '.$assunto_tematres."<br />";
@@ -111,16 +143,7 @@ foreach ($cursor["date"] as $data_de_publicacao){
 foreach ($cursor["format"] as $formato){
   echo '<b>Formato</b>: '.$formato."<br />";
 }
-if (!empty($cursor["rights"])) {
-  foreach ($cursor["rights"] as $direitos_autorais){
-    echo '<b>Direitos Autorais</b>: '.$direitos_autorais."<br />";
-  }
-}
-if (!empty($cursor["references"])) {
-  foreach ($cursor["references"] as $referencias){
-    echo '<b>Referências</b>: '.$referencias."<br />";
-  }
-}
+
 foreach ($cursor["type"] as $tipo){
   echo '<b>Tipo</b>: '.$tipo."<br />";
 }
@@ -128,6 +151,24 @@ foreach ($cursor["_setSpec"] as $set_oai){
   echo '<b>Set OAI</b>: '.$set_oai."<br />";
 }
 echo "</br></br>";
+
+
+
+
+if (!empty($cursor["references"])) {
+echo '<div class="form-group row">';
+echo '<label class="col-sm-2 form-control-label">Referências</label>';
+echo '<div class="col-sm-10">';
+  foreach ($cursor["references"] as $referencias){
+    echo '<li>'.$referencias."</li>";
+  }
+echo '</div>';
+echo '</div>';
+}
+
+
+
+
 
 echo '<form method="get" action="edit.php">';
 echo '<input type="hidden">';
