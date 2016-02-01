@@ -113,7 +113,7 @@ echo '</div>';
 echo '<div class="form-group row">';
     echo '<label class="col-sm-2 form-control-label">Dados da publicação</label>';
     echo '<div class="col-sm-10">';
-    echo 'Título do periódico:'.$cursor["journalci_title"][0].'<br />';
+    echo 'Título do periódico:<a href="result.php?journalci_title='.$cursor["journalci_title"][0].'">'.$cursor["journalci_title"][0].'</a><br />';
     echo 'Qualis2014: '.$cursor["qualis2014"][0].'<br />';
     foreach ($cursor["publisher"] as $publisher){
         echo 'Editora: '.$publisher."<br />";
