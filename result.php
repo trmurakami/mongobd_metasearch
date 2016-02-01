@@ -9,13 +9,9 @@
 <?php
 /* recupera as variáveis do GET */
 
+
 if(isset($_GET['full_text'])) {
   $query_array = array();
-/*
-   foreach ($_GET as $key=>$value) {
-      $query[$key] = $value;
-  }
-*/
   $qstring = "?";
   foreach($_GET as $key => $val)
   {
@@ -23,8 +19,12 @@ if(isset($_GET['full_text'])) {
   }
 
   $query = array ('$text' => array('$search'=>''.$qstring.''));
-}
-else {
+
+} elseif (isset($_GET['references']) == 1 ) {
+
+$query = array('references' => new MongoRegex('/'.$_GET['references'].'/i'));
+
+} else {
   $query_array = array();
     foreach ($_GET as $key=>$value) {
       $query[$key] = $value;
@@ -153,6 +153,7 @@ generateFacet($url,$c,$query,"\$references_ok","count",-1,"Referências",10);
 $cursor = $c->find($query)->skip($skip)->limit($limit)->sort($sort);
 $total= $cursor->count();
 
+
 print_r("<div class=\"page-header\"><h3>Resultado da busca <small>($total)</small></h3></div>");
 
 
@@ -242,8 +243,8 @@ echo '<div class="card-block">';
     }
     if (!empty($r["references_ok"])) {
     echo '<small>Referências OK: '.$r["references_ok"].'</small></br>';
-    }   
-   
+    }
+
     echo '<a href="'.$r["url_principal"].'" class="btn btn-info">Acesso online</a><br/>';
 
 
