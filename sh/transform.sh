@@ -124,7 +124,7 @@ creator=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"\",\"\"/|/g' | sed 
 					fi
 
 			fi
-
+    echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {autor_completo: {autor:\"$autor_tematres\",autor_id:\"$autor_tematres_id\",insituicao:\"$instituicao_tematres\",instituicao_id:\"$instituicao_tematres_id\"}}})" | mongo journals
       echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {autor: \"$autor_tematres\"}})" | mongo journals
       echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {instituicao: \"$instituicao_tematres\"}})" | mongo journals
       printf "%s\n" "$line" >> $2

@@ -11,14 +11,15 @@
 
 if(isset($_GET['full_text'])) {
   $query_array = array();
-    foreach ($_GET as $key=>$value) {
+/*
+   foreach ($_GET as $key=>$value) {
       $query[$key] = $value;
   }
-
+*/
   $qstring = "?";
   foreach($_GET as $key => $val)
   {
-      $qstring .= '"' . $val . '"&';
+      $qstring .= '' . $val . ' ';
   }
 
   $query = array ('$text' => array('$search'=>''.$qstring.''));
@@ -119,6 +120,7 @@ $aggregate_facebook=array(
   )
 );
 
+
 $facet_facebook = $c->aggregate($aggregate_facebook);
 
 echo '<ul class="list-group">';
@@ -137,7 +139,7 @@ generateFacet($url,$c,$query,"\$instituicao","count",-1,"Instituições",20);
 generateFacet($url,$c,$query,"\$year","_id",-1,"Ano de publicação",20);
 generateFacet($url,$c,$query,"\$subject","count",-1,"Principais assuntos",20);
 generateFacet($url,$c,$query,"\$language","count",-1,"Idioma",10);
-
+generateFacet($url,$c,$query,"\$references_ok","count",-1,"Referências",10);
 
  ?>
 
@@ -235,7 +237,15 @@ echo '<div class="card-block">';
     echo '<li role="presentation"><span class="label label-warning label-pill pull-xs-right">'.$r["facebook_url_likes"].'</span></li>';
     echo '<li role="presentation"><span class="label label-danger label-pill pull-xs-right">'.$r["facebook_url_shares"].'</span></li>';
     echo '</ul></small>';
-    echo '<a href="'.$r["url_principal"].'" class="btn btn-info">Acesso online</a>';
+    if (!empty($r["references"])) {
+    echo '<small>Referências cadastradas: '.sizeof($r["references"]).'</small></br>';
+    }
+    if (!empty($r["references_ok"])) {
+    echo '<small>Referências OK: '.$r["references_ok"].'</small></br>';
+    }   
+   
+    echo '<a href="'.$r["url_principal"].'" class="btn btn-info">Acesso online</a><br/>';
+
 
 
     echo '</div>';

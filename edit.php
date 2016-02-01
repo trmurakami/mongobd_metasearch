@@ -32,7 +32,8 @@ $query =  array('_id' => ''.$_POST['_id'].'');
 
 $c->update(array('_id'=>$_id),
            array('$set'=>array(
-             'references'=>$_POST["references"]
+             'references'=>$_POST["references"],
+	     'references_ok'=>$_POST["references_ok"]
            )));
 
 echo '
@@ -66,6 +67,20 @@ else {
 <a href="single.php?_id=<?php echo "$_id"; ?>">Ver registro</a>
 
 <form action="edit.php" method="POST">
+  <div class="form-group row">
+  <div class="checkbox">
+    <label>
+      <?php 
+      if ($cursor["references_ok"] == "true") {
+      echo '<input type="checkbox" name="references_ok" value="true" checked>Referência completa';
+      } else
+      {
+      echo '<input type="checkbox" name="references_ok" value="true">Referência completa';
+      }
+      ?>
+    </label>
+  </div>
+</div>
   <div class="form-group row">
     <label for="disabledTextInput" class="col-sm-2 form-control-label">Sysno ou ID</label>
     <div class="col-sm-10">
