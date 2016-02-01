@@ -19,6 +19,9 @@
 
 <?php
   include ('inc/navbar.php');
+
+$num_documentos=($c->count());
+
 ?>
 
 
@@ -58,7 +61,7 @@
       <img class="card-img-top" data-src="holder.js/100px200/" alt="100%x200" src="images/harvesting.png" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
       <div class="card-block">
         <h4 class="card-title">Coleta</h4>
-        <p class="card-text">Os dados dos periódicos disponíveis em OAI-PHM são coletados utilizando a ferramenta <a href="http://librecat.org/">Librecat/Catmandu</a> e armazenados em um banco de dados NoSQL <a href="https://www.mongodb.org/">MongoDB.</a></p>
+        <p class="card-text">Os dados dos periódicos disponíveis em OAI-PHM são coletados utilizando a ferramenta <a href="http://librecat.org/">Librecat/Catmandu</a> e armazenados em um banco de dados NoSQL <a href="https://www.mongodb.org/">MongoDB.</a>. Os dados são coletados automaticamente, totalizando: <?php echo $num_documentos; ?> documentos </p>
       </div>
     </div>
     <div class="card">
