@@ -5,6 +5,10 @@
 <title>MetaBuscaCI - Detalhes do registro</title>
 </head>
 <body>
+<div class="container-fluid">
+<?php
+  include "inc/navbar.php";
+?>
 <?php
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', 1);
@@ -41,12 +45,8 @@ $query =  array('_id' => ''.$_GET['_id'].'');
 $cursor = $c->findOne($query);
 ?>
 
-<<<<<<< HEAD
-<div class="container-fluid">
-<?php
-  include "inc/navbar.php";
-?>
-<a href="single.php?_id=<?php echo "$_id"; ?>">Ver registro</a>
+
+<a href="single.php?_id=<?php echo "$_id"; ?>">Voltar ao registro</a>
 
 <form action="edit.php" method="POST">
   <div class="form-group row">
