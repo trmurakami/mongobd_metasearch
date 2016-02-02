@@ -30,11 +30,18 @@ if (!empty($_POST)) {
 
 $query =  array('_id' => ''.$_POST['_id'].'');
 
-$c->update(array('_id'=>$_id),
-           array('$set'=>array(
-             'references'=>$_POST["references"],
-	     'references_ok'=>$_POST["references_ok"]
-           )));
+
+$new_citation = array(
+  "references_id" => $_POST["references_id"],
+  "references_citation" => $_POST["references_citation"]
+);
+$c->update(
+  array("_id" =>$_id),
+  array('$push' => array("references" => $new_citation)),
+  array('references_ok'=>$_POST["references_ok"])
+);
+
+
 
 echo '
 <div class="alert alert-success" role="alert">
@@ -59,8 +66,7 @@ else {
 ?>
 
 <div class="row">
-  <div class="col-md-4"><h3>Exportar</h3></div>
-  <div class="col-md-8">
+  <div class="col-md-12">
 
 <h3>Detalhes do registro</h3>
 
@@ -70,12 +76,14 @@ else {
   <div class="form-group row">
   <div class="checkbox">
     <label>
-      <?php 
-      if ($cursor["references_ok"] == "true") {
-      echo '<input type="checkbox" name="references_ok" value="true" checked>Referência completa';
-      } else
-      {
-      echo '<input type="checkbox" name="references_ok" value="true">Referência completa';
+      <?php
+      if (!empty($cursor["references_ok"])) {
+        if ($cursor["references_ok"] == "true") {
+        echo '<input type="checkbox" name="references_ok" value="true" checked>Referência completa';
+        } else
+        {
+        echo '<input type="checkbox" name="references_ok" value="true">Referência completa';
+        }
       }
       ?>
     </label>
@@ -90,6 +98,7 @@ else {
 
 <?php
 if (!empty($cursor["references"])) {
+
 $references_count=0;
 for ($references_count = 1; $references_count <= $count_references; $references_count++) {
 echo '<input type="hidden" name="count" value="1" />';
@@ -99,9 +108,10 @@ echo '<div class="controls" id="profs">';
 echo '<label for="inputAutor" class="col-sm-2 form-control-label">Referências</label>';
 echo '<div class="col-sm-10">';
 /*echo '<input type="text" class="form-control" id="inputPassword3" placeholder="Autor" name="references[]" value="'.$cursor["references"][$references_count-1].'">';*/
-echo '<div id="field">';
-echo '<textarea class="form-control" id="field'.$references_count.'" rows="5" placeholder="Referências" name="references[]" >'.$cursor["references"][$references_count-1].'</textarea><button id="b'.$references_count.'" class="btn add-more" type="button">+</button><button id="remove'.$references_count.'" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
-echo '</div></div></div></div>';
+echo '<div id="field'.$references_count.'">';
+echo '<input type="text" class="form-control" id="field'.$references_count.'" placeholder="ID no MetabuscaCI" name="references_id" value="'.$cursor["references"][$references_count-1]["references_id"].'">';
+echo '<textarea class="form-control" id="field'.$references_count.'" rows="5" placeholder="Referência completa" name="references_citation" >'.$cursor["references"][$references_count-1]["references_citation"].'</textarea><button id="remove'.$references_count.'" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
+echo '</div></div></div></div><button id="b'.$references_count.'" class="btn add-more" type="button">+</button>';
 }
 }
 else {
@@ -111,8 +121,9 @@ else {
   echo '<div class="controls" id="profs">';
   echo '<label for="inputAutor" class="col-sm-2 form-control-label">Referências</label>';
   echo '<div class="col-sm-10">';
-  echo '<div id="field">';
-  echo '<textarea class="form-control" id="field1" rows="5" placeholder="Referências" name="references[]" ></textarea><button id="b1" class="btn add-more" type="button">+</button><button id="remove1" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
+  echo '<div id="field1">';
+  echo '<input type="text" class="form-control" id="field1" placeholder="ID no MetabuscaCI" name="references_id">';
+  echo '<textarea class="form-control" id="field1" rows="5" placeholder="Referências" name="references_citation" ></textarea><button id="b1" class="btn add-more" type="button">+</button><button id="remove1" class="btn btn-danger remove-me" >-</button></div><div id="field"></div>';
   echo '</div></div></div></div>';
 }
 
@@ -127,12 +138,12 @@ $(document).ready(function(){
         var addto = "#field" + next;
         var addRemove = "#field" + (next);
         next = next + 1;
-        var newIn = '<textarea class="form-control" id="field' + next + '" rows="3" placeholder="Referências" name="references[]"></textarea>';
+        var newIn = '<div id="field' + next + '"><input type="text" class="form-control" id="field' + next + '" placeholder="ID no MetabuscaCI" name="references_id"><textarea class="form-control" id="field' + next + '" rows="3" placeholder="Referências" name="references_citation"></textarea><button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div></div>';
         var newInput = $(newIn);
-        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
-        var removeButton = $(removeBtn);
+  /*    var removeBtn = '<button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div>';
+        var removeButton = $(removeBtn); */
         $(addto).after(newInput);
-        $(addRemove).after(removeButton);
+    /*    $(addRemove).after(removeButton); */
         $("#field" + next).attr('data-source',$(addto).attr('data-source'));
         $("#count").val(next);
 
