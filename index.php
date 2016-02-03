@@ -4,7 +4,7 @@
   include ('inc/config.php');
   include ('inc/header.php');
 ?>
-<title>MetaBuscaCI - Metabuscador em periódicos de Ciência da Informação</title>
+<title><?php echo gettext("branch");?> - Metabuscador em periódicos de Ciência da Informação</title>
 </head>
 <body>
 <?php include_once("inc/analyticstracking.php") ?>
@@ -21,7 +21,6 @@
   include ('inc/navbar.php');
 
 $num_documentos=($c->count());
-
 ?>
 
 
