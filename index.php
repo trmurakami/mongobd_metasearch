@@ -27,28 +27,22 @@ $num_documentos=($c->count());
 
 <!-- Global Search -->
 
-     <form class="form-inline global-search" role="form" action="result.php" method="get">
-         <div class="form-group">
-             <label class="sr-only" for="">Digite os termos de busca</label>
-             <input type="search" class="form-control" id="global_search" name="full_text" placeholder="Digite os termos de busca nos artigos" style="width:400px;">
-        </div>
-         <button type="submit" id="s" class="btn btn-primary-outline">Buscar
-
-         </button> <a href="#">Ajuda</a>
-
-     </form>
+<form class="form-inline global-search" role="form" action="result.php" method="get">
+  <div class="form-group">
+    <label class="sr-only" for="">Digite os termos de busca</label>
+    <input type="search" class="form-control" id="global_search" name="full_text" placeholder="Digite os termos de busca nos artigos" style="width:400px;">
+  </div>
+  <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
+</form>
 
 <!-- Busca por referências -->
 
 <form class="form-inline global-search" role="form" action="result.php" method="get">
-    <div class="form-group">
-        <label class="sr-only" for="">Digite os termos de busca</label>
-        <input type="search" class="form-control" id="global_search" name="references" placeholder="Faça uma busca nas referências" style="width:400px;">
-   </div>
-    <button type="submit" id="s" class="btn btn-primary-outline">Buscar
-
-    </button> <a href="#">Ajuda</a>
-
+  <div class="form-group">
+    <label class="sr-only" for="">Digite os termos de busca</label>
+    <input type="search" class="form-control" id="global_search" name="references" placeholder="Faça uma busca nas referências" style="width:400px;">
+  </div>
+  <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
 </form>
 
 
@@ -174,42 +168,12 @@ $aggregate_query_instituicao=array(
   )
 );
 
-$aggregate_facebook_total=array(
-  array(
-    '$unwind'=>'$journalci_title'
-  ),
-  array(
-    '$group' => array(
-      "_id"=>'$journalci_title',
-      "likes"=>array('$sum'=>'$facebook_url_likes'),
-      "shares"=>array('$sum'=>'$facebook_url_shares'),
-      "comments"=>array('$sum'=>'$facebook_url_comments'),
-      "interacoes"=>array('$sum'=>'$facebook_url_total')
-      )
-  ),
-  array(
-    '$sort' => array("_id"=>1)
-  )
-);
-
-
-
-
-
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 $facet_year = $c->aggregate($aggregate_year_total);
 $facet_subject = $c->aggregate($aggregate_query_subject);
 $facet_assunto_tematres = $c->aggregate($aggregate_query_assunto_tematres);
 $facet_autor = $c->aggregate($aggregate_query_autor);
 $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
-$facet_facebook = $c->aggregate($aggregate_facebook_total);
-
-
-$facebook = array();
-array_push($facebook,['Titulo do periódico','Curtidas','Compartilhamentos','Comentários']);
-foreach ($facet_facebook["result"] as $fb) {
-  array_push($facebook,[$fb['_id'],$fb['likes'],$fb['shares'],$fb['comments']]);
-};
 
 ?>
 <?php
@@ -242,92 +206,6 @@ echo "</ul>";
 echo '<p><a href="instituicoes.php">Ver todas as instituições</a></p>';
 ?>
 
-<!-- [...] -->
-<script src="sigmajs/sigma.min.js"></script>
-<script src="sigmajs/plugins/sigma.parsers.gexf.min.js"></script>
-<script>
-  // Add a method to the graph model that returns an
-  // object with every neighbors of a node inside:
-  sigma.classes.graph.addMethod('neighbors', function(nodeId) {
-    var k,
-        neighbors = {},
-        index = this.allNeighborsIndex[nodeId] || {};
-
-    for (k in index)
-      neighbors[k] = this.nodesIndex[k];
-
-    return neighbors;
-  });
-
-  sigma.parsers.gexf(
-    'export/instituicoes.gexf',
-    {
-      container: 'sigma-container'
-    },
-    function(s) {
-      // We first need to save the original colors of our
-      // nodes and edges, like this:
-      s.graph.nodes().forEach(function(n) {
-        n.originalColor = n.color;
-      });
-      s.graph.edges().forEach(function(e) {
-        e.originalColor = e.color;
-      });
-
-      // When a node is clicked, we check for each node
-      // if it is a neighbor of the clicked one. If not,
-      // we set its color as grey, and else, it takes its
-      // original color.
-      // We do the same for the edges, and we only keep
-      // edges that have both extremities colored.
-      s.bind('clickNode', function(e) {
-        var nodeId = e.data.node.id,
-            toKeep = s.graph.neighbors(nodeId);
-        toKeep[nodeId] = e.data.node;
-
-        s.graph.nodes().forEach(function(n) {
-          if (toKeep[n.id])
-            n.color = n.originalColor;
-          else
-            n.color = '#eee';
-        });
-
-        s.graph.edges().forEach(function(e) {
-          if (toKeep[e.source] && toKeep[e.target])
-            e.color = e.originalColor;
-          else
-            e.color = '#eee';
-        });
-
-        // Since the data has been modified, we need to
-        // call the refresh method to make the colors
-        // update effective.
-        s.refresh();
-      });
-
-      // When the stage is clicked, we just color each
-      // node and edge with its original color.
-      s.bind('clickStage', function(e) {
-        s.graph.nodes().forEach(function(n) {
-          n.color = n.originalColor;
-        });
-
-        s.graph.edges().forEach(function(e) {
-          e.color = e.originalColor;
-        });
-
-        // Same as in the previous event:
-        s.refresh();
-      });
-    }
-  );
-</script>
-<!-- [...] -->
-<div id="sigma-container" class="sigma-container">
-  <h3>Rede de colaboração entre as instituições (Incompleto, está somente com as afiliações identificadas)</h3>
-</div>
-
-
 <?php
 echo "<h3>Principais assuntos</h3></br><ul class=\"list-inline-button\">";
 $i = 0;
@@ -348,39 +226,7 @@ echo '<p><a href="assuntos_tematres.php">Ver todos os assuntos tratados pelo Voc
 ?>
 
 <br/>
-<h3>Facebook</h3></br>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
 
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawMaterial);
-
-function drawMaterial() {
-      var data = google.visualization.arrayToDataTable(
-        <?= json_encode($facebook); ?>
-        );
-
-      var options = {
-        chart: {
-          title: 'Interações (Curtidas, Comentários e Compartilhamentos) no Facebook dos Periódicos de CI',
-          subtitle: 'Atualizado em 2016-01-23',
-          isStacked: true,
-        },
-        hAxis: {
-          title: 'Interações',
-          minValue: 0,
-        },
-        vAxis: {
-          title: 'Título'
-        },
-        bars: 'horizontal'
-      };
-      var material = new google.charts.Bar(document.getElementById('chart_div'));
-      material.draw(data, options);
-    }
-</script>
-
-<div id="chart_div" style="width: 100%; height: 1000px;"></div>
 
 <?php
   include "inc/footer.php";
