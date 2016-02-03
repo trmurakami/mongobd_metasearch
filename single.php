@@ -34,8 +34,6 @@ echo '<li class="list-group-item"><a href="single.php?_id='.$cit_data["_id"].'">
 echo '</ul>';
 }
 ?>
-
-<h3>Almetrics</h3>
 <?php
 echo '<ul class="list-group">';
 echo '<a href="#" class="list-group-item active">Facebook</a>';

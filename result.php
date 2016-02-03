@@ -139,7 +139,9 @@ generateFacet($url,$c,$query,"\$instituicao","count",-1,"Instituições",20);
 generateFacet($url,$c,$query,"\$year","_id",-1,"Ano de publicação",20);
 generateFacet($url,$c,$query,"\$subject","count",-1,"Principais assuntos",20);
 generateFacet($url,$c,$query,"\$language","count",-1,"Idioma",10);
+generateFacet($url,$c,$query,"\$citation","count",-1,"Principais citações",20);
 generateFacet($url,$c,$query,"\$references_ok","count",-1,"Referências",10);
+
 
  ?>
 
