@@ -13,18 +13,29 @@
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', 1);
 */
-$mongodb    = new MongoClient();
-$database   = $mongodb->journals;
-$collection = $database->ci;
 $query =  array('_id' => ''.$_GET['_id'].'');
-$cursor = $database->ci->findOne($query);
+$cursor = $d->ci->findOne($query);
 
+$query_citation = array('citation' => ''.$_GET['_id'].'');
+$cursor_citation = $d->ci->find($query_citation);
 
 ?>
 
   <div class="row">
     <div class="col-md-4">
-	<h3>Almetrics</h3>
+
+<?php
+if (!empty($cursor_citation)) {
+echo '<ul class="list-group">';
+echo '<a href="#" class="list-group-item active">Citado por</a>';
+foreach ($cursor_citation as $cit_data) {
+echo '<li class="list-group-item"><a href="single.php?_id='.$cit_data["_id"].'">'.$cit_data["title"][0].'</a></li>';
+}
+echo '</ul>';
+}
+?>
+
+<h3>Almetrics</h3>
 <?php
 echo '<ul class="list-group">';
 echo '<a href="#" class="list-group-item active">Facebook</a>';
@@ -189,6 +200,16 @@ echo '</div>';
 echo '</div>';
 }
 
+if (!empty($cursor["citation"])) {
+echo '<div class="form-group row">';
+echo '<label class="col-sm-2 form-control-label">Citações de trabalhos no MetabuscaCI</label>';
+echo '<div class="col-sm-10">';
+  foreach ($cursor["citation"] as $citation){
+    echo '<li><a href="single.php?_id='.$citation.'">'.$citation.'</a></li>';
+  }
+echo '</div>';
+echo '</div>';
+}
 
 
 
@@ -197,8 +218,6 @@ echo '<form method="get" action="edit.php">';
 echo '<input type="hidden">';
 echo '<button type="submit" name="_id" class="btn btn-primary-outline" value="'.$cursor["_id"].'">Editar referências</button>';
 
-
-$mongodb->close();
 ?>
 
 </div>

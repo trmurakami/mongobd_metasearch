@@ -4,6 +4,7 @@ add_field("facebook_url_comments",0);
 add_field("facebook_url_likes",0);
 add_field("facebook_url_shares",0);
 add_field("facebook_url_total",0);
+add_field("references_ok","false");
 split_field("subject.*",";");
 set_array("tipo","Artigo de periódico");
 set_array("instituicao");
@@ -19,7 +20,7 @@ flatten(language);
 trim("subject.*")
 copy_field("creator","creator_total");
 count("creator_total");
-replace_all("creator.*",";","%") 
+replace_all("creator.*",";","%")
 copy_field("date","year");
 substring("year.0",0,4);
 vacuum();
