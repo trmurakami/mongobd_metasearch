@@ -35,7 +35,7 @@ $num_documentos=($c->count());
   <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
 </form>
 
-<!-- Busca por referências -->
+<!-- Busca por referências
 
 <form class="form-inline global-search" role="form" action="result.php" method="get">
   <div class="form-group">
@@ -44,7 +44,7 @@ $num_documentos=($c->count());
   </div>
   <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
 </form>
-
+-->
 
 <br/>
 <div class="container">
