@@ -9,23 +9,22 @@
 <body>
 <?php include_once("inc/analyticstracking.php") ?>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=90128977252";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=90128977252";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 <?php
   include ('inc/navbar.php');
-
-$num_documentos=($c->count());
+/* Conta a quantidade de artigos na base */
+  $num_documentos=($c->count());
 ?>
 
-
 <!-- Global Search -->
-
 <form class="form-inline global-search" role="form" action="result.php" method="get">
   <div class="form-group">
     <label class="sr-only" for="">Digite os termos de busca</label>
@@ -35,7 +34,6 @@ $num_documentos=($c->count());
 </form>
 
 <!-- Busca por referências
-
 <form class="form-inline global-search" role="form" action="result.php" method="get">
   <div class="form-group">
     <label class="sr-only" for="">Digite os termos de busca</label>
@@ -75,6 +73,7 @@ $num_documentos=($c->count());
 </div>
 
 <?php
+/* Cria as consultas para o aggregate */
 
 $aggregate_journal_title_total=array(
   array(
@@ -167,70 +166,63 @@ $aggregate_query_instituicao=array(
   )
 );
 
+/* Consultas */
 $facet_journal_title = $c->aggregate($aggregate_journal_title_total);
 $facet_year = $c->aggregate($aggregate_year_total);
 $facet_subject = $c->aggregate($aggregate_query_subject);
 $facet_assunto_tematres = $c->aggregate($aggregate_query_assunto_tematres);
 $facet_autor = $c->aggregate($aggregate_query_autor);
 $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
-
-?>
-<?php
-
-echo "<h3>Periódicos indexados</h3></br><ul class=\"list-inline-button\">";
-foreach ($facet_journal_title["result"] as $jt) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?journalci_title='.$jt["_id"].'" style="color:white">'.$jt["_id"].' <span class="label label-pill label-default">'.$jt["count"].'</span></a></button></li>';
-};
-echo '</ul>';
-echo "<h3>Ano</h3></br><ul class=\"list-inline-button\">";
-foreach ($facet_year["result"] as $yr) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year='.$yr["_id"].'" style="color:white">'.$yr["_id"].' <span class="label label-default label-pill">'.$yr["count"].'</span></a></button></li>';
-};
-echo "</ul>";
-echo "<h3>Autores</h3></br><ul class=\"list-inline-button\">";
-$i = 0;
-foreach ($facet_autor["result"] as $at) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at["_id"].'" style="color:white">'.$at["_id"].' <span class="label label-default label-pill">'.$at["count"].'</span></a></button></li>';
-  if(++$i > 15) break;
-};
-echo '</ul>';
-echo '<p><a href="autores.php">Ver todos os autores</a></p>';
-echo "<h3>Instituições</h3></br><ul class=\"list-inline-button\">";
-$i = 0;
-foreach ($facet_instituicao ["result"] as $it) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao='.$it["_id"].'" style="color:white">'.$it["_id"].' <span class="label label-default label-pill">'.$it["count"].'</span></a></button></li>';
-  if(++$i > 15) break;
-};
-echo "</ul>";
-echo '<p><a href="instituicoes.php">Ver todas as instituições</a></p>';
 ?>
 
-<?php
-echo "<h3>Principais assuntos</h3></br><ul class=\"list-inline-button\">";
-$i = 0;
-foreach ($facet_subject["result"] as $sj) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?subject='.$sj["_id"].'" style="color:white">'.$sj["_id"].' <span class="label label-default label-pill">'.$sj["count"].'</span></a></button></li>';
-  if(++$i > 25) break;
-};
-echo "</ul>";
-echo '<p><a href="assuntos.php">Ver todos os assuntos</a></p>';
-echo "<h3>Assuntos tratados pelo Vocabulário Controlado</h3></br><ul class=\"list-inline-button\">";
-$i = 0;
-foreach ($facet_assunto_tematres["result"] as $aterm) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?assunto_tematres='.$aterm["_id"].'" style="color:white">'.$aterm["_id"].' <span class="label label-default label-pill">'.$aterm["count"].'</span></a></button></li>';
-  if(++$i > 25) break;
-};
-echo "</ul>";
-echo '<p><a href="assuntos_tematres.php">Ver todos os assuntos tratados pelo Vocabulário Controlado</a></p>';
-?>
+<h3>Periódicos indexados</h3>
+<ul class="list-inline-button">
+<?php foreach ($facet_journal_title["result"] as $jt): ?>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?journalci_title=<?php echo $jt["_id"]; ?>" style="color:white"><?php echo $jt["_id"]; ?> <span class="label label-pill label-default"><?php echo $jt["count"]; ?></span></a></button></li>
+<?php endforeach; ?>
+</ul>
 
+<h3>Ano</h3>
+  <ul class="list-inline-button">
+  <?php foreach ($facet_year["result"] as $yr): ?>
+    <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year=<?php echo $yr["_id"]; ?>" style="color:white"><?php echo $yr["_id"]; ?> <span class="label label-default label-pill"><?php echo $yr["count"]; ?></span></a></button></li>
+  <?php endforeach; ?>
+  </ul>
+
+<h3>Autores</h3>
+<ul class="list-inline-button">
+<?php $i = 0; foreach ($facet_autor["result"] as $at): ?>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor=<?php echo $at["_id"]; ?>" style="color:white"><?php echo $at["_id"]; ?> <span class="label label-default label-pill"><?php echo $at["count"]; ?></span></a></button></li>
+<?php if(++$i > 15) break; endforeach; ?>
+</ul>
+<p><a href="autores.php">Ver todos os autores</a></p>
+
+<h3>Instituições</h3>
+<ul class="list-inline-button">
+<?php $i = 0; foreach ($facet_instituicao ["result"] as $it): ?>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao=<?php echo $it["_id"]; ?>" style="color:white"><?php echo $it["_id"]; ?> <span class="label label-default label-pill"><?php echo $it["count"]; ?></span></a></button></li>
+  <?php if(++$i > 15) break; endforeach; ?>
+</ul>
+<p><a href="instituicoes.php">Ver todas as instituições</a></p>
+
+<h3>Principais assuntos</h3>
+<ul class="list-inline-button">
+<?php $i = 0; foreach ($facet_subject["result"] as $sj): ?>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?subject=<?php echo $sj["_id"]; ?>" style="color:white"><?php echo $sj["_id"];?> <span class="label label-default label-pill"><?php echo $sj["count"];?></span></a></button></li>
+<?php if(++$i > 25) break; endforeach; ?>
+</ul>
+<p><a href="assuntos.php">Ver todos os assuntos</a></p>
+<h3>Assuntos tratados pelo Vocabulário Controlado</h3>
+<ul class="list-inline-button">
+<?php $i = 0; foreach ($facet_assunto_tematres["result"] as $aterm): ?>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?assunto_tematres=<?php  echo $aterm["_id"];?>" style="color:white"><?php echo $aterm["_id"];?> <span class="label label-default label-pill"><?php echo $aterm["count"];?></span></a></button></li>
+<?php if(++$i > 25) break; endforeach; ?>
+</ul>
+<p><a href="assuntos_tematres.php">Ver todos os assuntos tratados pelo Vocabulário Controlado</a></p>
 <br/>
-
-
 <?php
   include "inc/footer.php";
 ?>
-
 </div>
 </body>
 </html>

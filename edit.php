@@ -8,6 +8,7 @@
 <div class="container-fluid">
 <?php
   include "inc/navbar.php";
+
 ?>
 <?php
 error_reporting(E_ALL|E_STRICT);
