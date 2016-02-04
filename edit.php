@@ -123,10 +123,10 @@ Não
 <?php
 if (!empty($cursor["references"])) {
   foreach ($cursor["references"] as $rf) {
-    echo '<div><textarea class="form-control" id="exampleTextarea" rows="4" name="references[]">'.$rf.'</textarea><a href="#" class="remove_field">Remover</a></div>';
+    echo '<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]">'.$rf.'</textarea><a href="#" class="remove_field">Remover</a></div>';
   }
 } else {
-  echo '<div><textarea class="form-control" id="exampleTextarea" rows="4" name="references[]"></textarea><a href="#" class="remove_field">Remover</a></div>';
+  echo '<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]"></textarea><a href="#" class="remove_field">Remover</a></div>';
 }
 ?>
     </div>
@@ -167,7 +167,7 @@ $(document).ready(function() {
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div><textarea class="form-control" id="exampleTextarea" rows="4" name="references[]"></textarea><a href="#" class="remove_field">Remover</a></div>'); //add input box
+            $(wrapper).append('<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]"></textarea><a href="#" class="remove_field">Remover</a></div>'); //add input box
         }
     });
 
