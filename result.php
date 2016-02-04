@@ -187,7 +187,7 @@ echo '</nav>';
       </div>
       </div>
     <?php else: ?>
-      <h5 class="card-title"><a href="single.php?_id='<?php $r["_id"];?>" ><?php echo $r["title"][0];?>  (<?php echo $r["year"][0];?>)</a></h5>
+      <h5 class="card-title"><a href="single.php?_id=<?php echo $r["_id"]; ?>" ><?php echo $r["title"][0];?>  (<?php echo $r["year"][0];?>)</a></h5>
     <?php endif; ?>
     <!--List authors -->
     <small><h6 class="card-subtitle text-muted">Autor(es):</h6>

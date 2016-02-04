@@ -25,14 +25,25 @@ else{
 /* Update */
 if (!empty($_POST)) {
 $query =  array('_id' => ''.$_POST['_id'].'');
-
+if (empty($_POST["references"]) && empty($_POST["citation"])) {
+  $c->update(array('_id'=>$_id),
+             array('$set'=>array(
+               'references_ok'=>$_POST["references_ok"]
+             )));
+} elseif (empty($_POST["citation"])) {
+  $c->update(array('_id'=>$_id),
+             array('$set'=>array(
+               'references_ok'=>$_POST["references_ok"],
+               'references'=>$_POST["references"]
+             )));
+} else {
 $c->update(array('_id'=>$_id),
            array('$set'=>array(
              'references_ok'=>$_POST["references_ok"],
              'references'=>$_POST["references"],
              'citation'=>$_POST["citation"]
            )));
-
+}
 echo '
 <div class="alert alert-success" role="alert">
   <strong>Sucesso!</strong> Registro alterado com sucesso.
