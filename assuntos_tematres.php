@@ -2,7 +2,7 @@
   include ('inc/config.php');
   include ('inc/header.php');
 ?>
-<title>MetaBuscaCI - Assuntos</title>
+<title><?php echo gettext("branch");?> - Assuntos</title>
 </head>
 <body>
 <?php include_once("inc/analyticstracking.php") ?>

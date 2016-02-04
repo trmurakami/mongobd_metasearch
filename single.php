@@ -2,7 +2,7 @@
   include ('inc/config.php');
   include ('inc/header.php');
 ?>
-<title>MetaBuscaCI - Detalhes do registro</title>
+<title><?php echo gettext("branch");?> - Detalhes do registro</title>
 </head>
 <body>
 <div class="container-fluid">

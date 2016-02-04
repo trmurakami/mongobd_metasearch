@@ -11,7 +11,10 @@
       <a class="nav-link" href="about.php">Sobre</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Contato</a>
+      <a class="nav-link" href="contact.php">Contato</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="statistics.php">Estatísticas</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Login</a>

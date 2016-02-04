@@ -3,7 +3,7 @@
   include ('inc/header.php');
 
 ?>
-<title>MetaBuscaCI - Estatísticas</title>
+<title><?php echo gettext("branch");?> - Estatísticas</title>
 </head>
 <body>
 <?php include_once("inc/analyticstracking.php") ?>

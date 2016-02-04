@@ -2,7 +2,7 @@
   include ('inc/config.php');
   include ('inc/header.php');
 ?>
-<title>MetaBuscaCI - Resultados de Busca</title>
+<title><?php echo gettext("branch");?> - Resultados de Busca</title>
 <?php
 /* recupera as variáveis do GET */
   if(isset($_GET['full_text'])) {

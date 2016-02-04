@@ -3,7 +3,7 @@
   include ('inc/header.php');
 
 ?>
-<title>MetaBuscaCI - Rede de colaboração entre instituições</title>
+<title><?php echo gettext("branch");?> - Rede de colaboração entre instituições</title>
 </head>
 <body>
 <?php include_once("inc/analyticstracking.php") ?>
