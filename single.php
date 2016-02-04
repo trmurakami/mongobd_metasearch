@@ -211,11 +211,11 @@ echo '</div>';
 
 
 
-
+if ($cursor["references_ok"] == "false") {
 echo '<form method="get" action="edit.php">';
 echo '<input type="hidden">';
 echo '<button type="submit" name="_id" class="btn btn-primary-outline" value="'.$cursor["_id"].'">Editar referências</button>';
-
+}
 ?>
 
 </div>
