@@ -20,3 +20,6 @@ db.ci.createIndex({title:"text",autor:"text",subject:"text",instituicao:"text",d
 
 #pegar as citações
 db.ci.aggregate([{ "$unwind" : "$citation" },{ "$group" : { "_id" : "$citation", count : { "$sum" : 1 } } },{ "$sort" : { "_id" : 1 } }])
+
+#apagar campos vazios
+db.ci.update({"citation":""},{$unset: { citation: ""}},{multi:true})

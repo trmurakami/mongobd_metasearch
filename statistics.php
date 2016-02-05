@@ -55,7 +55,7 @@ $aggregate_citations=array(
       )
   ),
   array(
-    '$sort' => array('count'=>-1)
+    '$sort' => array('cited.journalci_title'=>1,'count'=>-1)
   )
 );
 
