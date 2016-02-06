@@ -123,6 +123,8 @@ echo '<div class="form-group row">';
     echo '<label class="col-sm-2 form-control-label">Dados da publicação</label>';
     echo '<div class="col-sm-10">';
     echo 'Título do periódico:<a href="result.php?journalci_title='.$cursor["journalci_title"][0].'">'.$cursor["journalci_title"][0].'</a><br />';
+    echo 'Fascículo: '.$cursor["fasciculo"][0].'<br />';
+    echo 'Paginação: '.$cursor["paginas"][0].'<br />';
     echo 'Qualis2014: '.$cursor["qualis2014"][0].'<br />';
     foreach ($cursor["publisher"] as $publisher){
         echo 'Editora: '.$publisher."<br />";
@@ -137,9 +139,9 @@ echo '<div class="form-group row">';
     foreach ($cursor["format"] as $formato){
         echo 'Formato: '.$formato."<br />";
     }
-    foreach ($cursor["source"] as $source){
-        echo 'Fonte: '.$source."<br />";
-    }
+#    foreach ($cursor["source"] as $source){
+#        echo 'Fonte: '.$source."<br />";
+#    }
     echo '</div>';
 echo '</div>';
 

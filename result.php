@@ -118,6 +118,7 @@ echo "</ul>";
 ?>
 <?php
 /* Gerar facetas */
+  generateFacet($url,$c,$query,"\$fasciculo","_id",-1,"Fascículo",30);
   generateFacet($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",10);
   generateFacet($url,$c,$query,"\$journalci_title","count",-1,"Publicação",20);
   generateFacet($url,$c,$query,"\$autor","count",-1,"Autores",20);
