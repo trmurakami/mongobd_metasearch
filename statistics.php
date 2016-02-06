@@ -83,7 +83,7 @@ $citations = $c->aggregate($aggregate_citations);
 <?php endforeach;?>
     </tbody>
 </table>
-
+<br/>
 <p><a href="facebook.php">Facebook</a></p>
 <p><a href="network.php">Rede de colaboração entre instituições</a></p>
 
