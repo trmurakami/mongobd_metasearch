@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ontem=`date -d yesterday --iso-8601`
 hoje=`date --iso-8601`
 
@@ -136,4 +136,3 @@ echo 'db.ci.remove( { "_status" : "deleted" } )' | mongo journals
 #echo 'db.ci.createIndex( { "$**": "text" },{ language_override: "dummy" } )' | mongo journals
 #cria o índice de texto completo
 echo 'db.ci.createIndex({title:"text",autor:"text",subject:"text",instituicao:"text",description:"text"},{language_override:"pt",weights:{title: 10,autor: 9,subject:9,instituicao:9,description:1},name:"TextIndex"})' | mongo journals
-    
