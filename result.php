@@ -206,9 +206,9 @@ echo '</nav>';
     </small>
     <small><ul class="nav nav-pills list-inline-facebook" role="tablist">
     <li role="presentation" class="active">Facebook:</li>
-    <li role="presentation"><span class="label label-success label-pill pull-xs-right"><?php echo $r["facebook_url_comments"];?></span></li>
-    <li role="presentation"><span class="label label-warning label-pill pull-xs-right"><?php echo $r["facebook_url_likes"];?></span></li>
-    <li role="presentation"><span class="label label-danger label-pill pull-xs-right"><?php echo $r["facebook_url_shares"];?></span></li>
+    <li role="presentation"><span class="label label-success label-pill pull-xs-right"><?php echo $r["facebook_url_likes"];?></span></li>
+    <li role="presentation"><span class="label label-warning label-pill pull-xs-right"><?php echo $r["facebook_url_shares"];?></span></li>
+    <li role="presentation"><span class="label label-danger label-pill pull-xs-right"><?php echo $r["facebook_url_comments"];?></span></li>
     </ul></small>
     <?php if (!empty($r["references"])): ?>
       <small>Referências cadastradas: <?php echo sizeof($r["references"]);?></small></br>
