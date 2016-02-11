@@ -28,7 +28,7 @@
 <form class="form-inline global-search" role="form" action="result.php" method="get">
   <div class="form-group">
     <label class="sr-only" for="">Digite os termos de busca</label>
-    <input type="search" class="form-control" id="global_search" name="full_text" placeholder="Digite os termos de busca nos artigos" style="width:400px;">
+    <input type="search" class="form-control" id="global_search" name="buscaindice" placeholder="Digite os termos de busca nos artigos" style="width:400px;">
   </div>
   <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
 </form>
@@ -42,6 +42,14 @@
   <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
 </form>
 
+<!-- Busca em texto completo -->
+<form class="form-inline global-search" role="form" action="result.php" method="get">
+  <div class="form-group">
+    <label class="sr-only" for="">Digite os termos de busca</label>
+    <input type="search" class="form-control" id="global_search" name="full_text" placeholder="Faça uma busca no texto completo" style="width:400px;">
+  </div>
+  <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
+</form>
 
 <br/>
 <div class="container">
@@ -178,21 +186,21 @@ $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 <h3>Periódicos indexados</h3>
 <ul class="list-inline-button">
 <?php foreach ($facet_journal_title["result"] as $jt): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?journalci_title=<?php echo $jt["_id"]; ?>" style="color:white"><?php echo $jt["_id"]; ?> <span class="label label-pill label-default"><?php echo $jt["count"]; ?></span></a></button></li>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result_facet.php?journalci_title=<?php echo $jt["_id"]; ?>" style="color:white"><?php echo $jt["_id"]; ?> <span class="label label-pill label-default"><?php echo $jt["count"]; ?></span></a></button></li>
 <?php endforeach; ?>
 </ul>
 
 <h3>Ano</h3>
   <ul class="list-inline-button">
   <?php foreach ($facet_year["result"] as $yr): ?>
-    <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year=<?php echo $yr["_id"]; ?>" style="color:white"><?php echo $yr["_id"]; ?> <span class="label label-default label-pill"><?php echo $yr["count"]; ?></span></a></button></li>
+    <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result_facet.php?year=<?php echo $yr["_id"]; ?>" style="color:white"><?php echo $yr["_id"]; ?> <span class="label label-default label-pill"><?php echo $yr["count"]; ?></span></a></button></li>
   <?php endforeach; ?>
   </ul>
 
 <h3>Autores</h3>
 <ul class="list-inline-button">
 <?php $i = 0; foreach ($facet_autor["result"] as $at): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor=<?php echo $at["_id"]; ?>" style="color:white"><?php echo $at["_id"]; ?> <span class="label label-default label-pill"><?php echo $at["count"]; ?></span></a></button></li>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result_facet.php?autor=<?php echo $at["_id"]; ?>" style="color:white"><?php echo $at["_id"]; ?> <span class="label label-default label-pill"><?php echo $at["count"]; ?></span></a></button></li>
 <?php if(++$i > 15) break; endforeach; ?>
 </ul>
 <p><a href="autores.php">Ver todos os autores</a></p>
@@ -200,7 +208,7 @@ $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 <h3>Instituições</h3>
 <ul class="list-inline-button">
 <?php $i = 0; foreach ($facet_instituicao ["result"] as $it): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao=<?php echo $it["_id"]; ?>" style="color:white"><?php echo $it["_id"]; ?> <span class="label label-default label-pill"><?php echo $it["count"]; ?></span></a></button></li>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result_facet.php?instituicao=<?php echo $it["_id"]; ?>" style="color:white"><?php echo $it["_id"]; ?> <span class="label label-default label-pill"><?php echo $it["count"]; ?></span></a></button></li>
   <?php if(++$i > 15) break; endforeach; ?>
 </ul>
 <p><a href="instituicoes.php">Ver todas as instituições</a></p>
@@ -208,14 +216,14 @@ $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 <h3>Principais assuntos</h3>
 <ul class="list-inline-button">
 <?php $i = 0; foreach ($facet_subject["result"] as $sj): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?subject=<?php echo $sj["_id"]; ?>" style="color:white"><?php echo $sj["_id"];?> <span class="label label-default label-pill"><?php echo $sj["count"];?></span></a></button></li>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result_facet.php?subject=<?php echo $sj["_id"]; ?>" style="color:white"><?php echo $sj["_id"];?> <span class="label label-default label-pill"><?php echo $sj["count"];?></span></a></button></li>
 <?php if(++$i > 25) break; endforeach; ?>
 </ul>
 <p><a href="assuntos.php">Ver todos os assuntos</a></p>
 <h3>Assuntos tratados pelo Vocabulário Controlado</h3>
 <ul class="list-inline-button">
 <?php $i = 0; foreach ($facet_assunto_tematres["result"] as $aterm): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?assunto_tematres=<?php  echo $aterm["_id"];?>" style="color:white"><?php echo $aterm["_id"];?> <span class="label label-default label-pill"><?php echo $aterm["count"];?></span></a></button></li>
+  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result_facet.php?assunto_tematres=<?php  echo $aterm["_id"];?>" style="color:white"><?php echo $aterm["_id"];?> <span class="label label-default label-pill"><?php echo $aterm["count"];?></span></a></button></li>
 <?php if(++$i > 25) break; endforeach; ?>
 </ul>
 <p><a href="assuntos_tematres.php">Ver todos os assuntos tratados pelo Vocabulário Controlado</a></p>

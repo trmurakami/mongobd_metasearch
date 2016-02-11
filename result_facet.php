@@ -5,46 +5,8 @@
 <title><?php echo gettext("branch");?> - Resultados de Busca</title>
 <?php
 
-if (!empty($_GET["subject"])) {
-  $q_sub='"subject":"'.$_GET["subject"].'",';
-}
-if (!empty($_GET["instituicao"])) {
-  $q_ins = '"instituicao":"'.$_GET["instituicao"].'",';
-}
-if (!empty($_GET["autor"])) {
-  $q_aut='"autor":"'.$_GET["autor"].'",';
-}
-if (!empty($_GET["year"])) {
-  $q_yr='"year":"'.$_GET["year"].'",';
-}
-if (!empty($_GET["journalci_title"])) {
-  $q_jt='"journalci_title":"'.$_GET["journalci_title"].'",';
-}
-
-switch (true) {
-    case ($_GET["full_text"] && ($_GET["subject"] || $_GET["instituicao"] || $_GET["autor"] || $_GET["year"] || $_GET["journalci_title"])):
-        $query = json_decode('{'.$q_sub.''.$q_ins.''.$q_aut.''.$q_yr.''.$q_jt.'"full_text": {"$regex": "'.$_GET["full_text"].'", "$options": "i"}}');
-    break;
-    case (!empty($_GET["full_text"])):
-        $query = json_decode('{"full_text": {"$regex": "'.$_GET["full_text"].'", "$options": "i"}}');
-    break;
-    case ($_GET["references"] && ($_GET["subject"] || $_GET["instituicao"] || $_GET["autor"] || $_GET["year"] || $_GET["journalci_title"])):
-        $query = json_decode('{'.$q_sub.''.$q_ins.''.$q_aut.''.$q_yr.''.$q_jt.'"references": {"$regex": "'.$_GET["references"].'", "$options": "i"}}');
-    break;
-    case (!empty($_GET["references"])):
-        $query = json_decode('{"references": {"$regex": "'.$_GET["references"].'", "$options": "i"}}');
-    break;
-    case ($_GET["buscaindice"] && ($_GET["subject"] || $_GET["instituicao"] || $_GET["autor"] || $_GET["year"] || $_GET["journalci_title"])):
-          $query = json_decode('{'.$q_sub.''.$q_ins.''.$q_aut.''.$q_yr.''.$q_jt.'"$text": {"$search":"'.$_GET["buscaindice"].'"}}');
-    break;
-    case (!empty($_GET["buscaindice"])):
-          $query = array ('$text' => array('$search'=>''.$_GET["buscaindice"].''));
-    break;
-    default:
-    echo "default";
-        foreach ($_GET as $key=>$value) {
-          $query[$key] = $value;
-    }
+foreach ($_GET as $key=>$value) {
+      $query[$key] = $value;
 }
 
 /* Pegar a URL atual */
