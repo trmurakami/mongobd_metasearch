@@ -83,151 +83,48 @@
 <?php
 /* Cria as consultas para o aggregate */
 
-$aggregate_journal_title_total=array(
-  array(
-    '$unwind'=>'$journalci_title'
-  ),
-  array(
-    '$group' => array(
-      "_id"=>'$journalci_title',
-      "count"=>array('$sum'=>1)
-      )
-  ),
-  array(
-    '$sort' => array("_id"=>1)
-  )
-);
+function generateFacetInit($c,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit,$link){
 
-$aggregate_year_total=array(
-  array(
-    '$unwind'=>'$year'
-  ),
-  array(
-    '$group' => array(
-      "_id"=>'$year',
-      "count"=>array('$sum'=>1)
-      )
-  ),
-  array(
-    '$sort' => array("_id"=>1)
-  )
-);
+  $aggregate_facet_init=array(
+    array(
+      '$unwind'=>$facet_name
+    ),
+    array(
+      '$group' => array(
+        "_id"=>$facet_name,
+        "count"=>array('$sum'=>1)
+        )
+    ),
+    array(
+      '$sort' => array($sort_name=>$sort_value)
+    )
+  );
 
-$aggregate_query_subject=array(
-  array(
-    '$unwind'=>'$subject'
-  ),
-  array(
-    '$group' => array(
-      "_id"=>'$subject',
-      "count"=>array('$sum'=>1)
-      )
-  ),
-  array(
-    '$sort' => array("count"=>-1)
-  )
-);
+$facet_init = $c->aggregate($aggregate_facet_init);
 
-$aggregate_query_assunto_tematres=array(
-  array(
-    '$unwind'=>'$assunto_tematres'
-  ),
-  array(
-    '$group' => array(
-      "_id"=>'$assunto_tematres',
-      "count"=>array('$sum'=>1)
-      )
-  ),
-  array(
-    '$sort' => array("count"=>-1)
-  )
-);
+echo '<h3><a href="'.$link.'">'.$facet_display_name.'</a></h3>';
+echo '<ul class="list-inline-button">';
+$i = 0;
+foreach ($facet_init["result"] as $facets) {
+  echo '<li style="padding:5px;">
+        <button type="button" class="btn btn-primary">
+        <a href="result.php?'.substr($facet_name, 1).'='.$facets["_id"].'" style="color:white">'.$facets["_id"].'
+        <span class="label label-pill label-default">'.$facets["count"].'</span></a>
+        </button>
+        </li>';
+        if(++$i > $limit) break;
+};
+echo "</ul>";
+};
 
+generateFacetInit($c,"\$journalci_title","_id",1,"Periódicos indexados",100,"#");
+generateFacetInit($c,"\$year","_id",-1,"Ano de publicação",100,"#");
+generateFacetInit($c,"\$autor","count",-1,"Autores",20,"autores.php");
+generateFacetInit($c,"\$instituicao","count",-1,"Instituições",20,"instituicoes.php");
+generateFacetInit($c,"\$subject","count",-1,"Principais assuntos",20,"assuntos.php");
+generateFacetInit($c,"\$assunto_tematres","count",-1,"Assuntos tratados pelo Vocabulário Controlado",20,"assuntos_tematres.php");
 
-$aggregate_query_autor=array(
-  array(
-    '$unwind'=>'$autor'
-  ),
-  array(
-    '$group' => array(
-      "_id"=>'$autor',
-      "count"=>array('$sum'=>1)
-      )
-  ),
-  array(
-    '$sort' => array("count"=>-1)
-  )
-);
-
-$aggregate_query_instituicao=array(
-  array(
-    '$unwind'=>'$instituicao'
-  ),
-  array(
-    '$group' => array(
-      "_id"=>'$instituicao',
-      "count"=>array('$sum'=>1)
-      )
-  ),
-  array(
-    '$sort' => array("count"=>-1)
-  )
-);
-
-/* Consultas */
-$facet_journal_title = $c->aggregate($aggregate_journal_title_total);
-$facet_year = $c->aggregate($aggregate_year_total);
-$facet_subject = $c->aggregate($aggregate_query_subject);
-$facet_assunto_tematres = $c->aggregate($aggregate_query_assunto_tematres);
-$facet_autor = $c->aggregate($aggregate_query_autor);
-$facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 ?>
-
-<h3>Periódicos indexados</h3>
-<ul class="list-inline-button">
-<?php foreach ($facet_journal_title["result"] as $jt): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?journalci_title=<?php echo $jt["_id"]; ?>" style="color:white"><?php echo $jt["_id"]; ?> <span class="label label-pill label-default"><?php echo $jt["count"]; ?></span></a></button></li>
-<?php endforeach; ?>
-</ul>
-
-<h3>Ano</h3>
-  <ul class="list-inline-button">
-  <?php foreach ($facet_year["result"] as $yr): ?>
-    <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?year=<?php echo $yr["_id"]; ?>" style="color:white"><?php echo $yr["_id"]; ?> <span class="label label-default label-pill"><?php echo $yr["count"]; ?></span></a></button></li>
-  <?php endforeach; ?>
-  </ul>
-
-<h3>Autores</h3>
-<ul class="list-inline-button">
-<?php $i = 0; foreach ($facet_autor["result"] as $at): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor=<?php echo $at["_id"]; ?>" style="color:white"><?php echo $at["_id"]; ?> <span class="label label-default label-pill"><?php echo $at["count"]; ?></span></a></button></li>
-<?php if(++$i > 15) break; endforeach; ?>
-</ul>
-<p><a href="autores.php">Ver todos os autores</a></p>
-
-<h3>Instituições</h3>
-<ul class="list-inline-button">
-<?php $i = 0; foreach ($facet_instituicao ["result"] as $it): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao=<?php echo $it["_id"]; ?>" style="color:white"><?php echo $it["_id"]; ?> <span class="label label-default label-pill"><?php echo $it["count"]; ?></span></a></button></li>
-  <?php if(++$i > 15) break; endforeach; ?>
-</ul>
-<p><a href="instituicoes.php">Ver todas as instituições</a></p>
-
-<h3>Principais assuntos</h3>
-<ul class="list-inline-button">
-<?php $i = 0; foreach ($facet_subject["result"] as $sj): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?subject=<?php echo $sj["_id"]; ?>" style="color:white"><?php echo $sj["_id"];?> <span class="label label-default label-pill"><?php echo $sj["count"];?></span></a></button></li>
-<?php if(++$i > 25) break; endforeach; ?>
-</ul>
-<p><a href="assuntos.php">Ver todos os assuntos</a></p>
-<h3>Assuntos tratados pelo Vocabulário Controlado</h3>
-<ul class="list-inline-button">
-<?php $i = 0; foreach ($facet_assunto_tematres["result"] as $aterm): ?>
-  <li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?assunto_tematres=<?php  echo $aterm["_id"];?>" style="color:white"><?php echo $aterm["_id"];?> <span class="label label-default label-pill"><?php echo $aterm["count"];?></span></a></button></li>
-<?php if(++$i > 25) break; endforeach; ?>
-</ul>
-<p><a href="assuntos_tematres.php">Ver todos os assuntos tratados pelo Vocabulário Controlado</a></p>
-<br/>
 <?php
   include "inc/footer.php";
 ?>
