@@ -31,7 +31,6 @@ switch (true) {
           $query = json_decode('{'.$consult.'"$text": {"$search":"'.$_GET["buscaindice"].'"}}');
     break;
     default:
-    echo "default";
         foreach ($_GET as $key=>$value) {
           $query[$key] = $value;
     }
