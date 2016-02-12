@@ -30,6 +30,6 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4"><a href="index.php" style="color: white"><?php echo gettext("branch");?> (Beta)</a></h1>
-    <p class="lead" style="background-color: white">Metabuscador em periódicos de Ciência da Informação disponíveis em OAI-PMH.</p>
+    <p class="lead" style="background-color: white">Repertório da Produção Periódica Brasileira de Ciência da Informação disponíveis em OAI-PMH.</p>
   </div>
 </div>

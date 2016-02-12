@@ -4,7 +4,7 @@
   include ('inc/config.php');
   include ('inc/header.php');
 ?>
-<title><?php echo gettext("branch");?> - Metabuscador em periódicos de Ciência da Informação</title>
+<title><?php echo gettext("branch");?> - Repertório da Produção Periódica Brasileira de Ciência da Informação</title>
 </head>
 <body>
 <?php include_once("inc/analyticstracking.php") ?>

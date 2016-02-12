@@ -1,5 +1,5 @@
 msgid "branch"
-msgstr "MetabuscaCI"
+msgstr "RPPBCI"
 
 msgid "signup"
 msgstr "Sign up for free"
