@@ -23,36 +23,25 @@
 /* Conta a quantidade de artigos na base */
   $num_documentos=($c->count());
 ?>
-
+<div class="container">
 <!-- Global Search -->
 <form class="form-inline global-search" role="form" action="result.php" method="get">
-  <div class="form-group">
-    <label class="sr-only" for="">Digite os termos de busca</label>
-    <input type="search" class="form-control" id="global_search" name="buscaindice" placeholder="Digite os termos de busca nos artigos" style="width:400px;">
-  </div>
-  <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
+<div class="form-group">
+  <div class="input-group">
+    <input class="form-control" name="q" type="text" placeholder="Digite os termos de busca" style="width:400px;">
+    </div>
+      <select class="form-control" name="category">
+        <option value="buscaindice">Título, autores e resumos</option>
+        <option value="references">Referências</option>
+        <option value="full_text">Texto completo dos artigos</option>
+        <option value="autor">Nome do autor</option>
+        <option value="subject">Assunto</option>
+      </select>
+    <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
+</div>
 </form>
 
-<!-- Busca por referências -->
-<form class="form-inline global-search" role="form" action="result.php" method="get">
-  <div class="form-group">
-    <label class="sr-only" for="">Digite os termos de busca</label>
-    <input type="search" class="form-control" id="global_search" name="references" placeholder="Faça uma busca nas referências" style="width:400px;">
-  </div>
-  <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
-</form>
 
-<!-- Busca em texto completo -->
-<form class="form-inline global-search" role="form" action="result.php" method="get">
-  <div class="form-group">
-    <label class="sr-only" for="">Digite os termos de busca</label>
-    <input type="search" class="form-control" id="global_search" name="full_text" placeholder="Faça uma busca no texto completo" style="width:400px;">
-  </div>
-  <button type="submit" id="s" class="btn btn-primary-outline">Buscar</button> <a href="#">Ajuda</a>
-</form>
-
-<br/>
-<div class="container">
 
 <div class="card-deck-wrapper">
   <div class="card-deck">

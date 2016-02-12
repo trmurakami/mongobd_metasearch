@@ -6,6 +6,52 @@
 </head>
 <body>
 <?php
+if (isset($_GET["category"])) {
+  if ($_GET["category"] === "buscaindice") {
+    $_GET["buscaindice"] = $_GET["q"];
+    unset ($_GET["category"]);
+    unset ($_GET["q"]);
+    unset ($_REQUEST["q"]);
+    unset ($_REQUEST["category"]);
+    $consult="";
+  }
+
+  if ($_GET["category"] == "full_text") {
+    $_GET["full_text"] = $_GET["q"];
+    unset ($_GET["category"]);
+    unset ($_GET["q"]);
+    unset ($_REQUEST["q"]);
+    unset ($_REQUEST["category"]);
+    $consult="";
+  }
+
+  if ($_GET["category"] == "references") {
+    $_GET["references"] = $_GET["q"];
+    unset ($_GET["category"]);
+    unset ($_GET["q"]);
+    unset ($_REQUEST["q"]);
+    unset ($_REQUEST["category"]);
+    $consult="";
+  }
+
+  if ($_GET["category"] == "autor") {
+    $_GET["autor"] = $_GET["q"];
+    unset ($_GET["category"]);
+    unset ($_GET["q"]);
+    unset ($_REQUEST["q"]);
+    unset ($_REQUEST["category"]);
+    $consult="";
+  }
+
+  if ($_GET["category"] == "subject") {
+    $_GET["subject"] = $_GET["q"];
+    unset ($_GET["category"]);
+    unset ($_GET["q"]);
+    unset ($_REQUEST["q"]);
+    unset ($_REQUEST["category"]);
+    $consult="";
+  }
+}
 
 if (!empty($_GET["buscaindice"])) {
   unset ($_REQUEST["buscaindice"]);
@@ -30,10 +76,17 @@ switch (true) {
     case (!empty($_GET["buscaindice"])):
           $query = json_decode('{'.$consult.'"$text": {"$search":"'.$_GET["buscaindice"].'"}}');
     break;
+    case (!empty($_GET["autor"])):
+        $query = json_decode('{'.$consult.'"autor": {"$regex": "'.$_GET["autor"].'", "$options": "i"}}');
+    break;
+    case (!empty($_GET["subject"])):
+        $query = json_decode('{'.$consult.'"subject": {"$regex": "'.$_GET["subject"].'", "$options": "i"}}');
+    break;
     default:
         foreach ($_GET as $key=>$value) {
           $query[$key] = $value;
     }
+
 }
 
 /* Pegar a URL atual */
@@ -49,6 +102,7 @@ switch (true) {
   /* Consultas */
     $cursor = $c->find($query)->skip($skip)->limit($limit)->sort($sort);
     $total= $cursor->count();
+
 /* Function to generate facets */
 function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
   $aggregate_facet=array(
