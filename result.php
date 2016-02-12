@@ -6,6 +6,12 @@
 </head>
 <body>
 <?php
+if (isset($_POST["page"])) {
+  unset ($_REQUEST["page"]);
+  unset ($_REQUEST["extra_submit_value"]);
+  unset ($_REQUEST["extra_submit_param"]);
+}
+
 if (isset($_GET["category"])) {
   if ($_GET["category"] === "buscaindice") {
     $_GET["buscaindice"] = $_GET["q"];
