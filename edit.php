@@ -1,58 +1,55 @@
 <?php
-  include ('inc/config.php');
-  include ('inc/header.php');
+  include 'inc/config.php';
+  include 'inc/header.php';
 ?>
-<title><?php echo gettext("branch");?> - Detalhes do registro</title>
+<title><?php echo gettext('branch');?> - Detalhes do registro</title>
 </head>
 <body>
 <div class="container-fluid">
 <?php
-  include "inc/navbar.php";
+  include 'inc/navbar.php';
 
 ?>
 <?php
-error_reporting(E_ALL|E_STRICT);
+error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 1);
-if (!empty($_GET["_id"])) {
-$_id = ''.$_GET['_id'].'';
-}
-elseif (!empty($_POST["_id"])) {
-$_id = ''.$_POST['_id'].'';
-}
-else{
+if (!empty($_GET['_id'])) {
+    $_id = ''.$_GET['_id'].'';
+} elseif (!empty($_POST['_id'])) {
+    $_id = ''.$_POST['_id'].'';
+} else {
 }
 
 /* Update */
 if (!empty($_POST)) {
-$query =  array('_id' => ''.$_POST['_id'].'');
-if (empty($_POST["references"]) && empty($_POST["citation"])) {
-  $c->update(array('_id'=>$_id),
-             array('$set'=>array(
-               'references_ok'=>$_POST["references_ok"]
+    $query = array('_id' => ''.$_POST['_id'].'');
+    if (empty($_POST['references']) && empty($_POST['citation'])) {
+        $c->update(array('_id' => $_id),
+             array('$set' => array(
+               'references_ok' => $_POST['references_ok'],
              )));
-} elseif (empty($_POST["citation"])) {
-  $c->update(array('_id'=>$_id),
-             array('$set'=>array(
-               'references_ok'=>$_POST["references_ok"],
-               'references'=>$_POST["references"]
+    } elseif (empty($_POST['citation'])) {
+        $c->update(array('_id' => $_id),
+             array('$set' => array(
+               'references_ok' => $_POST['references_ok'],
+               'references' => $_POST['references'],
              )));
-} else {
-$c->update(array('_id'=>$_id),
-           array('$set'=>array(
-             'references_ok'=>$_POST["references_ok"],
-             'references'=>$_POST["references"],
-             'citation'=>$_POST["citation"]
+    } else {
+        $c->update(array('_id' => $_id),
+           array('$set' => array(
+             'references_ok' => $_POST['references_ok'],
+             'references' => $_POST['references'],
+             'citation' => $_POST['citation'],
            )));
-}
-echo '
+    }
+    echo '
 <div class="alert alert-success" role="alert">
   <strong>Sucesso!</strong> Registro alterado com sucesso.
   <a href="single.php?_id='.$_id.'">Ver registro</a>
 </div>
 ';
-}
-else{
-$query =  array('_id' => ''.$_GET['_id'].'');
+} else {
+    $query = array('_id' => ''.$_GET['_id'].'');
 }
 $cursor = $c->findOne($query);
 ?>
@@ -76,14 +73,13 @@ $cursor = $c->findOne($query);
     <label class="col-sm-2">Referências completas?</label>
     <div class="col-sm-10">
 <?php
-if (!empty($cursor["references"])) {
-
+if (!empty($cursor['references'])) {
 } else {
-  $cursor["references_ok"]='false';
+    $cursor['references_ok'] = 'false';
 }
 
-if ($cursor["references_ok"] == "true") {
-echo '
+if ($cursor['references_ok'] == 'true') {
+    echo '
 <div class="radio">
 <label>
 <input type="radio" name="references_ok" id="gridRadios1" value="true" checked>
@@ -98,7 +94,7 @@ Não
 </div>
 ';
 } else {
-echo '
+    echo '
 <div class="radio">
 <label>
 <input type="radio" name="references_ok" id="gridRadios1" value="true">
@@ -121,12 +117,12 @@ Não
     <div class="col-sm-10">
     <div class="input_fields_wrap form-group">
 <?php
-if (!empty($cursor["references"])) {
-  foreach ($cursor["references"] as $rf) {
-    echo '<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]">'.$rf.'</textarea><a href="#" class="remove_field">Remover</a></div>';
-  }
+if (!empty($cursor['references'])) {
+    foreach ($cursor['references'] as $rf) {
+        echo '<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]">'.$rf.'</textarea><a href="#" class="remove_field">Remover</a></div>';
+    }
 } else {
-  echo '<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]"></textarea><a href="#" class="remove_field">Remover</a></div>';
+    echo '<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]"></textarea><a href="#" class="remove_field">Remover</a></div>';
 }
 ?>
     </div>
@@ -138,12 +134,12 @@ if (!empty($cursor["references"])) {
   <div class="col-sm-10">
   <div class="input_fields_citation form-group">
     <?php
-    if (!empty($cursor["citation"])) {
-      foreach ($cursor["citation"] as $ct) {
-      echo '<div><input type="text" class="form-control" id="exampleTextarea" name="citation[]" placeholder="ID da citação" value="'.$ct.'"><a href="#" class="remove_field">Remover</a></div>';
-      }
+    if (!empty($cursor['citation'])) {
+        foreach ($cursor['citation'] as $ct) {
+            echo '<div><input type="text" class="form-control" id="exampleTextarea" name="citation[]" placeholder="ID da citação" value="'.$ct.'"><a href="#" class="remove_field">Remover</a></div>';
+        }
     } else {
-      echo '<div><input type="text" class="form-control" id="exampleTextarea" name="citation[]" placeholder="ID da citação"><a href="#" class="remove_field">Remover</a></div>';
+        echo '<div><input type="text" class="form-control" id="exampleTextarea" name="citation[]" placeholder="ID da citação"><a href="#" class="remove_field">Remover</a></div>';
     }
     ?>
   </div>
@@ -199,7 +195,7 @@ $(document).ready(function() {
 </script>
 
 <?php
-  include "inc/footer.php";
+  include 'inc/footer.php';
 ?>
 
 

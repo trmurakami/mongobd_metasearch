@@ -1,11 +1,11 @@
 <?php
-  include ('inc/config.php');
-  include ('inc/header.php');
+  include 'inc/config.php';
+  include 'inc/header.php';
 ?>
-<title><?php echo gettext("branch");?> - Autores</title>
+<title><?php echo gettext('branch');?> - Autores</title>
 </head>
 <body>
-<?php include_once("inc/analyticstracking.php") ?>
+<?php include_once('inc/analyticstracking.php') ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -16,7 +16,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <?php
-  include ('inc/navbar.php');
+  include 'inc/navbar.php';
 ?>
 
 <div class="container">
@@ -24,43 +24,43 @@
   <?php
   /* Listar facetas de instituições */
 
-  $aggregate_query_autor=array(
+  $aggregate_query_autor = array(
     array(
-      '$unwind'=>'$autor'
+      '$unwind' => '$autor',
     ),
     array(
       '$group' => array(
-        "_id"=>'$autor',
-        "count"=>array('$sum'=>1)
-        )
+        '_id' => '$autor',
+        'count' => array('$sum' => 1),
+        ),
     ),
     array(
-      '$sort' => array("count"=>-1)
-    )
+      '$sort' => array('count' => -1),
+    ),
   );
 
-  $aggregate_creator_total=array(
+  $aggregate_creator_total = array(
     array(
-      '$unwind'=>'$creator_total'
+      '$unwind' => '$creator_total',
     ),
     array(
       '$group' => array(
-        "_id"=>'$creator_total',
-        "count"=>array('$sum'=>1)
-        )
+        '_id' => '$creator_total',
+        'count' => array('$sum' => 1),
+        ),
     ),
     array(
-      '$sort' => array("_id"=>1)
-    )
+      '$sort' => array('_id' => 1),
+    ),
   );
 
 $facet_autor = $c->aggregate($aggregate_query_autor);
 $facet_creator_total = $c->aggregate($aggregate_creator_total);
 
 $creator_count = array();
-array_push($creator_count,['Número de autores','quantidade']);
-foreach ($facet_creator_total["result"] as $cc) {
-  array_push($creator_count,[$cc['_id'],$cc['count']]);
+array_push($creator_count, ['Número de autores', 'quantidade']);
+foreach ($facet_creator_total['result'] as $cc) {
+    array_push($creator_count, [$cc['_id'], $cc['count']]);
 };
 ?>
 
@@ -97,16 +97,16 @@ function drawMaterial() {
 <div id="chart_div_1" style="width: 100%; height: 1000px;"></div>
 
 <?php
-echo "<h3>Autores</h3></br><ul class=\"list-inline-button\">";
-foreach ($facet_autor["result"] as $at) {
-  echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at["_id"].'" style="color:white">'.$at["_id"].' <span class="label label-default label-pill">'.$at["count"].'</span></a></button></li>';
+echo '<h3>Autores</h3></br><ul class="list-inline-button">';
+foreach ($facet_autor['result'] as $at) {
+    echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at['_id'].'" style="color:white">'.$at['_id'].' <span class="label label-default label-pill">'.$at['count'].'</span></a></button></li>';
 };
 echo '</ul>';
 
 ?>
 
 <?php
-  include "inc/footer.php";
+  include 'inc/footer.php';
 ?>
 
 </body>

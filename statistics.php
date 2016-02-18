@@ -63,9 +63,8 @@ $citations = $c->aggregate($aggregate_citations);
 
 ?>
 
-<div class="container">
-
-  <table class="table table-sm">
+<div class="ui container">
+<table class="ui celled table">
     <thead>
       <tr>
         <th>Revista que fez a citação</th>
@@ -86,7 +85,7 @@ $citations = $c->aggregate($aggregate_citations);
 <br/>
 <p><a href="facebook.php">Facebook</a></p>
 <p><a href="network.php">Rede de colaboração entre instituições</a></p>
-
+</div>
 <?php
   include "inc/footer.php";
 ?>

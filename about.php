@@ -1,15 +1,15 @@
 <?php
-  include ('inc/config.php');
-  include ('inc/header.php');
+  include 'inc/config.php';
+  include 'inc/header.php';
 ?>
-<title><?php echo gettext("branch");?> - Sobre</title>
+<title><?php echo gettext('branch');?> - Sobre</title>
 </head>
 <body>
-<?php include_once("inc/analyticstracking.php") ?>
-<div class="container">
+<?php include_once('inc/analyticstracking.php') ?>
 <?php
-  include "inc/navbar.php";
+  include 'inc/navbar.php';
 ?>
+<div class="ui container">
   <div class="row">
     <div class="col-md-12">
       <p>O MetaBuscaCI é uma metabusca em periódicos da Ciência da Informação brasileiros que disponibilizam seus dados por meio de OAI-PMH.</p>
@@ -18,10 +18,10 @@
       <p><a href="https://c2.staticflickr.com/2/1413/608563522_474c1d277e_b.jpg">Creditos da imagem</a></p>
     </div>
  </div>
-
-<?php
-  include "inc/footer.php";
-?>
 </div>
+<?php
+  include 'inc/footer.php';
+?>
+
 </body>
 </html>

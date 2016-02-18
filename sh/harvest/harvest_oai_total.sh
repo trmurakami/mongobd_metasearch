@@ -102,6 +102,26 @@ catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")'
 echo "PBCIB OK" >> ../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals >> ../export/oai_result.txt
 sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:AR --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+echo "PBCIB OK" >> ../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals >> ../export/oai_result.txt
+sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:M --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+echo "PBCIB OK" >> ../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals >> ../export/oai_result.txt
+sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:ED --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+echo "PBCIB OK" >> ../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals >> ../export/oai_result.txt
+sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:APT --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+echo "PBCIB OK" >> ../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals >> ../export/oai_result.txt
+sleep 2
 # PontodeAcesso
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PontodeAcesso")' --fix 'set_array("qualis2014","B1")' --url http://www.portalseer.ufba.br/index.php/revistaici/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci
 echo "PontodeAcesso OK" >> ../export/oai_result.txt

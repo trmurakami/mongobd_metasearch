@@ -4,7 +4,7 @@ hoje=`date --iso-8601`
 
 # AtoZ: novas práticas em informação e conhecimento
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","AtoZ: novas praticas em informacao e conhecimento")' --fix 'set_array("qualis2014","B5")' --url http://ojs.c3sl.ufpr.br/ojs2/index.php/atoz/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
-echo 'db.ci.find({"journalci_title":"AtoZ: novas práticas em informação e conhecimento"}).count()' | mongo journals 
+echo 'db.ci.find({"journalci_title":"AtoZ: novas práticas em informação e conhecimento"}).count()' | mongo journals
 sleep 2
 # BIBLOS
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Biblos")' --fix 'set_array("qualis2014","B3")' --url http://www.seer.furg.br/biblos/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
@@ -80,6 +80,22 @@ echo 'db.ci.find({"journalci_title":"Perspectivas em Gestao e Conhecimento"}).co
 sleep 2
 # Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:PA --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals
+sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:AR --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals
+sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:M --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals
+sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:ED --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
+echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals
+sleep 2
+# Pesquisa Brasileira em Ciência da Informação e Biblioteconomia - PBCIB
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","PBCIB")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.ufpb.br/ojs2/index.php/pbcib/oai --set pbcib:APT --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
 echo 'db.ci.find({"journalci_title":"PBCIB"}).count()' | mongo journals
 sleep 2
 # PontodeAcesso

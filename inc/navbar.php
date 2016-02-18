@@ -1,35 +1,23 @@
-<!-- Barra de navegação -->
-<nav class="navbar navbar-fixed-top navbar-light bg-faded">
-  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-    &#9776;
-  </button>
-  <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-
-  <a class="navbar-brand" href="index.php"><?php echo gettext("branch");?></a>
-  <ul class="nav navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="about.php">Sobre</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="contact.php">Contato</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="statistics.php">Estatísticas</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Login</a>
-    </li>
-  </ul>
-  <form class="form-inline pull-xs-right" action="result.php" method="get">
-    <input class="form-control" type="text" name="full_text" placeholder="Buscar" >
-    <button class="btn btn-primary-outline" type="submit">Buscar</button>
-  </form>
-  </div>
-</nav>
-<br/><br/>
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4"><a href="index.php" style="color: white"><?php echo gettext("branch");?> (Beta)</a></h1>
-    <p class="lead" style="background-color: white">Repertório da Produção Periódica Brasileira de Ciência da Informação disponíveis em OAI-PMH.</p>
+<div class="ui large top fixed hidden menu">
+  <div class="ui container">
+    <a class="active item" href="index.php"><?php echo gettext("branch");?></a>
+    <a class="item" href="statistics.php">Estatísticas</a>
+    <a class="item" href="contact.php">Contato</a>
+    <a class="item" href="about.php">Sobre</a>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui transparent icon input">
+          <form class="form-inline pull-xs-right" action="result.php" method="get">
+          <i class="search icon"></i>
+          <input type="text" name="buscaindice" placeholder="Buscar em Títulos, Autores e Resumos">
+          <button class="ui button">Buscar</button>
+          </form>
+        </div>
+      </div>
+      <div class="item">
+        <a class="ui button">Log in</a>
+      </div>
+    </div>
   </div>
 </div>
+<br/><br/><br/>

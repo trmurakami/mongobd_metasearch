@@ -1,12 +1,12 @@
 <?php
-  include ('inc/config.php');
-  include ('inc/header.php');
+  include 'inc/config.php';
+  include 'inc/header.php';
 
 ?>
-<title><?php echo gettext("branch");?> - Estatísticas</title>
+<title><?php echo gettext('branch');?> - Estatísticas</title>
 </head>
 <body>
-<?php include_once("inc/analyticstracking.php") ?>
+<?php include_once('inc/analyticstracking.php') ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -17,39 +17,38 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <?php
-  include ('inc/navbar.php');
+  include 'inc/navbar.php';
 ?>
 
 <div class="container">
 
 <?php
 
-$aggregate_facebook_total=array(
+$aggregate_facebook_total = array(
   array(
-    '$unwind'=>'$journalci_title'
+    '$unwind' => '$journalci_title',
   ),
   array(
     '$group' => array(
-      "_id"=>'$journalci_title',
-      "likes"=>array('$sum'=>'$facebook_url_likes'),
-      "shares"=>array('$sum'=>'$facebook_url_shares'),
-      "comments"=>array('$sum'=>'$facebook_url_comments'),
-      "interacoes"=>array('$sum'=>'$facebook_url_total')
-      )
+      '_id' => '$journalci_title',
+      'likes' => array('$sum' => '$facebook_url_likes'),
+      'shares' => array('$sum' => '$facebook_url_shares'),
+      'comments' => array('$sum' => '$facebook_url_comments'),
+      'interacoes' => array('$sum' => '$facebook_url_total'),
+      ),
   ),
   array(
-    '$sort' => array("_id"=>1)
-  )
+    '$sort' => array('_id' => 1),
+  ),
 );
 
 $facet_facebook = $c->aggregate($aggregate_facebook_total);
 
 $facebook = array();
-array_push($facebook,['Titulo do periódico','Curtidas','Compartilhamentos','Comentários']);
-foreach ($facet_facebook["result"] as $fb) {
-  array_push($facebook,[$fb['_id'],$fb['likes'],$fb['shares'],$fb['comments']]);
+array_push($facebook, ['Titulo do periódico', 'Curtidas', 'Compartilhamentos', 'Comentários']);
+foreach ($facet_facebook['result'] as $fb) {
+    array_push($facebook, [$fb['_id'], $fb['likes'], $fb['shares'], $fb['comments']]);
 };
-
 
 ?>
 
@@ -89,7 +88,7 @@ function drawMaterial() {
 
 
 <?php
-  include "inc/footer.php";
+  include 'inc/footer.php';
 ?>
 
 </body>

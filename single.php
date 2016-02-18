@@ -5,7 +5,6 @@
 <title><?php echo gettext("branch");?> - Detalhes do registro</title>
 </head>
 <body>
-<div class="container-fluid">
 <?php
   include "inc/navbar.php";
 
@@ -20,9 +19,8 @@ $query_citation = array('citation' => ''.$_GET['_id'].'');
 $cursor_citation = $d->ci->find($query_citation);
 
 ?>
-
-  <div class="row">
-    <div class="col-md-4">
+<div class="ui two column stackable grid">
+<div class="four wide column">
 
 <?php
 if (!empty($cursor_citation)) {
@@ -35,19 +33,19 @@ echo '</ul>';
 }
 ?>
 <?php
-echo '<ul class="list-group">';
-echo '<a href="#" class="list-group-item active">Facebook</a>';
-echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$cursor["facebook_atualizacao"].'</span>Data de atualização</li>';
-echo '<li class="list-group-item"><span class="label label-success label-pill pull-xs-right">'.$cursor["facebook_url_likes"].'</span>Curtidas</li>';
-echo '<li class="list-group-item"><span class="label label-warning label-pill pull-xs-right">'.$cursor["facebook_url_shares"].'</span>Compartilhamentos</li>';
-echo '<li class="list-group-item"><span class="label label-danger label-pill pull-xs-right">'.$cursor["facebook_url_comments"].'</span>Comentários</li>';
-echo '<li class="list-group-item"><span class="label label-default label-pill pull-xs-right">'.$cursor["facebook_url_total"].'</span>Total de interações</li>';
-echo '</ul>';
+echo '<div class="ui list">';
+echo '<a href="#" class="list-group-item active">Interações no Facebook</a>';
+  echo '<div class="item">Curtidas <span class="yellow ui label">'.$cursor["facebook_url_likes"].'</span></div>';
+  echo '<div class="item">Compartilhamentos <span class="green ui label">'.$cursor["facebook_url_shares"].'</span></div>';
+  echo '<div class="item">Comentários <span class="red ui label">'.$cursor["facebook_url_comments"].'</span></div>';
+  echo '<div class="item">Total <span class="blue ui label">'.$cursor["facebook_url_total"].'</span></div>';
+  echo '<small>Data de atualização: '.$cursor["facebook_atualizacao"].'</small>';
+echo "</div>";
 ?>
 
 	<h3>Exportar</h3>
-    </div>
-    <div class="col-md-8">
+</div>
+<div class="ten wide column">
 
 <h3>Detalhes do registro</h3>
 <?php
@@ -222,12 +220,10 @@ echo '<button type="submit" name="_id" class="btn btn-primary-outline" value="'.
 
 </div>
 </div>
-
+</div></div>
+</div>
 <?php
   include "inc/footer.php";
 ?>
-
-
-</div>
 </body>
 </html>
