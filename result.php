@@ -12,6 +12,10 @@ if (isset($_POST["page"])) {
   unset ($_REQUEST["extra_submit_param"]);
 }
 
+if (isset($_GET["buscaindice"])) {
+  $_GET["buscaindice"] = str_replace('"','\\"',$_GET["buscaindice"]);
+}
+
 if (isset($_GET["category"])) {
   if ($_GET["category"] === "buscaindice") {
     $_GET["buscaindice"] = str_replace('"','\\"',$_GET["q"]);
