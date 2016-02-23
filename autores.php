@@ -19,7 +19,7 @@
   include 'inc/navbar.php';
 ?>
 
-<div class="container">
+<div class="ui container">
 
   <?php
   /* Listar facetas de instituições */
@@ -97,11 +97,12 @@ function drawMaterial() {
 <div id="chart_div_1" style="width: 100%; height: 1000px;"></div>
 
 <?php
-echo '<h3>Autores</h3></br><ul class="list-inline-button">';
+echo '<h3>Autores</h3></br>
+      <div class="ui small horizontal divided list">';
 foreach ($facet_autor['result'] as $at) {
-    echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?autor='.$at['_id'].'" style="color:white">'.$at['_id'].' <span class="label label-default label-pill">'.$at['count'].'</span></a></button></li>';
+    echo '<div class="item"><div class="content"><div class="header"><a href="result.php?autor='.$at['_id'].'">'.$at['_id'].' ('.$at['count'].')</a></div></div></div>';
 };
-echo '</ul>';
+echo '</div>';
 
 ?>
 
