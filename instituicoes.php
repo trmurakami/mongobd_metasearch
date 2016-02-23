@@ -19,7 +19,7 @@
   include 'inc/navbar.php';
 ?>
 
-<div class="container">
+<div class="ui container">
 
   <?php
   /* Listar facetas de instituições */
@@ -41,11 +41,12 @@
 
   $facet_instituicao = $c->aggregate($aggregate_query_instituicao);
 
-  echo '<h3>Instituições</h3></br><ul class="list-inline-button">';
+  echo '<h3>Instituições</h3></br>
+        <div class="ui small horizontal divided list">';
   foreach ($facet_instituicao ['result'] as $it) {
-      echo '<li style="padding:5px;"><button type="button" class="btn btn-primary" ><a href="result.php?instituicao='.$it['_id'].'" style="color:white">'.$it['_id'].' <span class="label label-default label-pill">'.$it['count'].'</span></a></button></li>';
+      echo '<div class="item"><div class="content"><div class="header"><a href="result.php?instituicao='.$it['_id'].'">'.$it['_id'].' ('.$it['count'].')</a></div></div></div>';
   };
-  echo '</ul>';
+  echo '</div>';
 
 ?>
 
