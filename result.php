@@ -14,12 +14,13 @@ if (isset($_POST["page"])) {
 
 if (isset($_GET["category"])) {
   if ($_GET["category"] === "buscaindice") {
-    $_GET["buscaindice"] = $_GET["q"];
+    $_GET["buscaindice"] = str_replace('"','\\"',$_GET["q"]);
     unset ($_GET["category"]);
     unset ($_GET["q"]);
     unset ($_REQUEST["q"]);
     unset ($_REQUEST["category"]);
     $consult="";
+
   }
 
   if ($_GET["category"] == "full_text") {
