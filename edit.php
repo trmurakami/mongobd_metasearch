@@ -5,11 +5,11 @@
 <title><?php echo gettext('branch');?> - Detalhes do registro</title>
 </head>
 <body>
-<div class="container-fluid">
 <?php
   include 'inc/navbar.php';
 
 ?>
+<div class="ui container">
 <?php
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 1);
@@ -57,21 +57,20 @@ $cursor = $c->findOne($query);
 
 <a href="single.php?_id=<?php echo "$_id"; ?>">Voltar ao registro</a>
 
-<form action="edit.php" method="POST">
-  <div class="form-group row">
+<form action="edit.php" method="POST" class="ui form">
+  <div class="inline fields">
     <label for="disabledTextInput" class="col-sm-2 form-control-label">Sysno ou ID</label>
-    <div class="col-sm-10">
-    <div class="radio">
-       <label>
-         <input type="radio" name="_id" id="radio_id" value="<?php echo "$_id";  ?>" checked>
-         <?php echo "$_id";  ?>
-       </label>
+    <div class="field">
+    <div class="ui radio checkbox">
+      <input type="radio" name="_id" id="radio_id" tabindex="0" class="hidden" value="<?php echo "$_id";  ?>" checked>
+      <label><?php echo "$_id";  ?></label>
      </div>
    </div>
-</div>
-  <div class="form-group row">
-    <label class="col-sm-2">Referências completas?</label>
-    <div class="col-sm-10">
+ </div>
+
+
+<div class="inline fields">
+    <label for="references_ok">Referências completas?</label>
 <?php
 if (!empty($cursor['references'])) {
 } else {
@@ -80,42 +79,43 @@ if (!empty($cursor['references'])) {
 
 if ($cursor['references_ok'] == 'true') {
     echo '
-<div class="radio">
-<label>
-<input type="radio" name="references_ok" id="gridRadios1" value="true" checked>
-Sim
-</label>
-</div>
-<div class="radio">
-<label>
-<input type="radio" name="references_ok" id="gridRadios2" value="false">
-Não
-</label>
-</div>
+    <div class="field">
+      <div class="ui radio checkbox">
+        <input type="radio" name="references_ok" id="gridRadios1" value="true" tabindex="0" class="hidden" checked>
+        <label>Sim</label>
+    </div>
+    </div>
+    <div class="field">
+      <div class="ui radio checkbox">
+      <input type="radio" name="references_ok" id="gridRadios2" value="false" tabindex="0" class="hidden">
+      <label>Não</label>
+      </div>
+    </div>
 ';
 } else {
     echo '
-<div class="radio">
-<label>
-<input type="radio" name="references_ok" id="gridRadios1" value="true">
-Sim
-</label>
-</div>
-<div class="radio">
-<label>
-<input type="radio" name="references_ok" id="gridRadios2" value="false" checked>
-Não
-</label>
-</div>
+    <div class="field">
+      <div class="ui radio checkbox">
+        <input type="radio" name="references_ok" id="gridRadios1" value="true" tabindex="0" class="hidden">
+        <label>Sim</label>
+    </div>
+    </div>
+    <div class="field">
+      <div class="ui radio checkbox">
+      <input type="radio" name="references_ok" id="gridRadios2" value="false" tabindex="0" class="hidden" checked>
+      <label>Não</label>
+      </div>
+    </div>
 ';
 }
 ?>
   </div>
-  </div>
-  <div class="form-group row list-inline">
-    <label for="references" class="col-sm-2 form-control-label">Referências</label>
-    <div class="col-sm-10">
-    <div class="input_fields_wrap form-group">
+
+
+  <div class="ui form">
+    <div class="field">
+      <label for="references">Referências</label>
+      <div class="input_fields_wrap form-group">
 <?php
 if (!empty($cursor['references'])) {
     foreach ($cursor['references'] as $rf) {
@@ -193,12 +193,15 @@ $(document).ready(function() {
     })
 });
 </script>
-
+</div>
 <?php
   include 'inc/footer.php';
 ?>
+<script>
+$('.ui.checkbox')
+  .checkbox()
+;
+</script>
 
-
-</div>
 </body>
 </html>
