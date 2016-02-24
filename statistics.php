@@ -63,7 +63,34 @@ $citations = $c->aggregate($aggregate_citations);
 
 ?>
 
+<?php
+/*   include ('inc/navbar.php');
+Conta a quantidade de artigos na base */
+  $num_documentos = ($c->count());
+?>
+
 <div class="ui container">
+
+<h3>Alguns números</h3>
+<div class="ui statistics">
+  <div class="statistic">
+    <div class="value">
+      31
+    </div>
+    <div class="label">
+      Periódicos coletados
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <i class="file icon"></i> <?php echo $num_documentos; ?>
+    </div>
+    <div class="label">
+      Documentos
+    </div>
+  </div>
+</div>
+<h3>Citações entre as revistas indexadas pelo <?php echo gettext("branch");?></h3>
 <table class="ui celled table">
     <thead>
       <tr>
