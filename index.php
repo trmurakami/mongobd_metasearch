@@ -6,6 +6,14 @@
 ?>
 <title><?php echo gettext('branch');?> - Repertório da Produção Periódica Brasileira de Ciência da Informação</title>
 <style type="text/css">
+  .ui.inverted.segment {
+    background-image: url("https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xta1/v/t1.0-9/12495246_1221323127896573_4188915509226264323_n.jpg?oh=f6a4344942cebd178387837b4765e2f5&oe=574E0236&__gda__=1466527691_36c68dad2d6910f657d788344c6d75c4");
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  }
 
   .hidden.menu {
     display: none;
@@ -157,7 +165,7 @@ Conta a quantidade de artigos na base */
         </div>
       </div>
       <div class="item">
-        <a class="ui button">Log in</a>
+        <a class="ui button">Login</a>
       </div>
     </div>
   </div>
@@ -207,13 +215,14 @@ Conta a quantidade de artigos na base */
         <?php echo gettext('branch');?> (Beta)
       </h1>
       <h2>Repertório da Produção Periódica Brasileira de Ciência da Informação disponível em OAI-PMH.</h2>
+      <a href="#search"><div class="ui huge primary button">Começe a pesquisar <i class="right arrow icon"></i></div></a>
     </div>
 
   </div>
 
-  <div class="ui vertical stripe segment">
+  <div class="ui vertical stripe segment" id="search">
     <div class="ui text container">
-      <h3 class="ui header">Faça uma busca no repertório</h3>
+      <h3 class="ui header" >Faça uma busca no repertório</h3>
       <form class="ui form" role="form" action="result.php" method="get">
         <div class="inline fields">
           <div class="eight wide field">
@@ -245,35 +254,66 @@ Conta a quantidade de artigos na base */
         <div class="ui relaxed divided items">
           <div class="item">
             <div class="ui small image">
-              <img src="images/harvesting.png">
+              <img src="inc/images/harvesting.png">
             </div>
             <div class="content">
               <a class="header">Coleta</a>
               <div class="description">
-                Os dados dos periódicos disponíveis em OAI-PHM são coletados utilizando a ferramenta <a href="http://librecat.org/">Librecat/Catmandu</a> e armazenados em um banco de dados NoSQL <a href="https://www.mongodb.org/">MongoDB.</a>. Os dados são coletados automaticamente, totalizando: <?php echo $num_documentos; ?> documentos
+                Os dados dos periódicos disponíveis em OAI-PHM são coletados utilizando a ferramenta <a href="http://librecat.org/">Librecat/Catmandu</a> e armazenados em um banco de dados NoSQL <a href="https://www.mongodb.org/">MongoDB</a>. Os dados são coletados automaticamente, totalizando: <?php echo $num_documentos; ?> documentos
               </div>
             </div>
           </div>
           <div class="item">
             <div class="ui small image">
-              <img src="images/openrefine.jpg">
+              <img src="inc/images/openrefine.jpg">
             </div>
             <div class="content">
               <a class="header">Tratamento</a>
               <div class="description">
-                Os dados são tratados utilizando o webservice do <a href="http://bdpife2.sibi.usp.br/vocabci/vocab/">Vocabulário Controlado de Ciência da Informação no Brasil</a> que foi criado utilizando o software livre para vocabulários controlados <a href="http://www.vocabularyserver.com">Tematres</a> e são incluídos dados altmétricos do Facebook recuperados de sua API.
+                Os dados são tratados utilizando o webservice do <a href="http://www.labimetrics.inf.br/vocabci/vocab/index.php">Vocabulário Controlado de Ciência da Informação no Brasil</a> que foi criado utilizando o software livre para vocabulários controlados <a href="http://www.vocabularyserver.com">Tematres</a> e são incluídos dados altmétricos do Facebook recuperados de sua API.
               </div>
             </div>
           </div>
           <div class="item">
             <div class="ui small image">
-              <img src="images/data-visualization-examples.png">
+              <img src="inc/images/data-visualization-examples.png">
             </div>
             <div class="content">
               <a class="header">Visualização de dados</a>
               <div class="description">
                 Dados são visualizados por meio de facetas nos resultados de busca. São adicionados gráficos utilizando as bibliotecas <a href="http://sigmajs.org/">Sigma.js</a> e <a href="https://developers.google.com/chart/">Google Charts</a>.
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui vertical stripe quote segment">
+  <div class="ui equal width stackable internally celled grid">
+    <div class="center aligned row">
+      <div class="column">
+        <div class="ui statistics">
+          <div class="statistic">
+            <div class="value">
+              31
+            </div>
+            <div class="label">
+              Periódicos coletados
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui statistics">
+          <div class="statistic">
+            <div class="value">
+              <i class="file icon"></i> <?php echo $num_documentos; ?>
+            </div>
+            <div class="label">
+              Documentos
             </div>
           </div>
         </div>
@@ -330,10 +370,10 @@ function generateFacetInit($c, $facet_name, $sort_name, $sort_value, $facet_disp
 
 generateFacetInit($c, '$journalci_title', '_id', 1, 'Periódicos indexados', 100, '#');
 generateFacetInit($c, '$year', '_id', -1, 'Ano de publicação', 100, '#');
-generateFacetInit($c, '$autor', 'count', -1, 'Autores', 20, 'autores.php');
-generateFacetInit($c, '$instituicao', 'count', -1, 'Instituições', 20, 'instituicoes.php');
-generateFacetInit($c, '$subject', 'count', -1, 'Principais assuntos', 20, 'assuntos.php');
-generateFacetInit($c, '$assunto_tematres', 'count', -1, 'Assuntos tratados pelo Vocabulário Controlado', 20, 'assuntos_tematres.php');
+generateFacetInit($c, '$autor', 'count', -1, 'Autores', 20, 'application/browse/autores.php');
+generateFacetInit($c, '$instituicao', 'count', -1, 'Instituições', 20, 'application/browse/instituicoes.php');
+generateFacetInit($c, '$subject', 'count', -1, 'Principais assuntos', 20, 'application/browse/assuntos.php');
+generateFacetInit($c, '$assunto_tematres', 'count', -1, 'Assuntos tratados pelo Vocabulário Controlado', 20, 'application/browse/assuntos_tematres.php');
 
 ?>
 </div>

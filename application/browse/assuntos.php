@@ -1,12 +1,12 @@
 <?php
-  include 'inc/config.php';
-  include 'inc/header.php';
+  include '../../inc/config.php';
+  include '../../inc/header.php';
 
 ?>
 <title><?php echo gettext('branch');?> - Assuntos</title>
 </head>
 <body>
-<?php include_once('inc/analyticstracking.php') ?>
+<?php include_once('../../inc/analyticstracking.php') ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -17,10 +17,10 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <?php
-  include 'inc/navbar.php';
+  include '../../inc/navbar.php';
 ?>
 
-<div class="container">
+<div class="ui container">
 
   <?php
   /* Listar facetas de instituições */
@@ -49,9 +49,9 @@ foreach ($facet_subject['result'] as $sj) {
 echo '</ul>';
 
 ?>
-
+</div>
 <?php
-  include 'inc/footer.php';
+  include '../../inc/footer.php';
 ?>
 
 </body>
