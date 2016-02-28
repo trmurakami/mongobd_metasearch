@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ontem=`date -d yesterday --iso-8601`
+ontem=`date -d "-7 day" --iso-8601`
 hoje=`date --iso-8601`
 
 # AtoZ: novas práticas em informação e conhecimento
