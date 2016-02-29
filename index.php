@@ -290,36 +290,28 @@ Conta a quantidade de artigos na base */
     </div>
   </div>
 </div>
-
-<div class="ui vertical stripe quote segment">
-  <div class="ui equal width stackable internally celled grid">
-    <div class="center aligned row">
-      <div class="column">
-        <div class="ui statistics">
-          <div class="statistic">
-            <div class="value">
-              31
-            </div>
-            <div class="label">
-              Periódicos coletados
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="ui statistics">
-          <div class="statistic">
-            <div class="value">
-              <i class="file icon"></i> <?php echo $num_documentos; ?>
-            </div>
-            <div class="label">
-              Documentos
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="ui vertical stripe segment">
+<div class="ui text container">
+<h3 class="ui header">Alguns números</h3><br/><br/>
+<div class="ui two statistics">
+  <div class="statistic">
+    <div class="value">
+      31
+    </div>
+    <div class="label">
+      Periódicos coletados
     </div>
   </div>
+  <div class="statistic">
+    <div class="value">
+      <i class="file icon"></i> <?php echo $num_documentos; ?>
+    </div>
+    <div class="label">
+      Artigos indexados
+    </div>
+  </div>
+</div>
+</div>
 </div>
 
   <div class="ui vertical stripe segment">
