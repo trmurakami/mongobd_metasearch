@@ -104,14 +104,14 @@ echo '</div>';
   <?php endforeach;?>
   <?php endif; ?>
   <h4>URLs</h4>
-  <div class="item">
+  <div class="item" style="color:black;">
     <i class="linkify icon"></i>
     <div class="content">
         <?php echo '<p>URL principal: <a href="'.$cursor['url_principal'].'">'.$cursor['url_principal'].'</a></p>'; ?>
       </div>
   </div>
   <?php if (!empty($cursor['doi'])): ?>
-    <div class="item">
+    <div class="item" style="color:black;">
       <i class="linkify icon"></i>
       <div class="content">
           <?php echo '<p>DOI: <a href="'.$cursor['doi'].'">'.$cursor['doi'].'</a></p>'; ?>
@@ -120,7 +120,7 @@ echo '</div>';
   <?php endif; ?>
   <?php if (!empty($cursor['relation'])): ?>
     <?php foreach ($cursor['relation'] as $cursorelation): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="linkify icon"></i>
         <div class="content">
             <?php echo '<p>URL relacionada: <a href="'.$cursorelation.'">'.$cursorelation.'</a></p>'; ?>
@@ -129,14 +129,14 @@ echo '</div>';
   <?php endforeach;?>
   <?php endif; ?>
   <h4>Dados da publicação</h4>
-  <div class="item">
+  <div class="item" style="color:black;">
     <i class="book icon"></i>
     <div class="content">
         <?php echo 'ID: '.$cursor['_id'].''; ?>
     </div>
   </div>
   <?php if (!empty($cursor['journalci_title'])): ?>
-    <div class="item">
+    <div class="item" style="color:black;">
       <i class="book icon"></i>
       <div class="content">
           <?php echo 'Título do periódico: <a href="result.php?journalci_title='.$cursor['journalci_title'][0].'">'.$cursor['journalci_title'][0].'</a>'; ?>
@@ -144,7 +144,7 @@ echo '</div>';
     </div>
   <?php endif; ?>
   <?php if (!empty($cursor['fasciculo'])): ?>
-    <div class="item">
+    <div class="item" style="color:black;">
       <i class="book icon"></i>
       <div class="content">
           <?php echo 'Fascículo: '.$cursor['fasciculo'][0].''; ?>
@@ -152,7 +152,7 @@ echo '</div>';
     </div>
   <?php endif; ?>
   <?php if (!empty($cursor['paginas'])): ?>
-    <div class="item">
+    <div class="item" style="color:black;">
       <i class="book icon"></i>
       <div class="content">
           <?php echo 'Paginação: '.$cursor['paginas'][0].''; ?>
@@ -160,7 +160,7 @@ echo '</div>';
     </div>
   <?php endif; ?>
   <?php if (!empty($cursor['qualis2014'])): ?>
-    <div class="item">
+    <div class="item" style="color:black;">
       <i class="book icon"></i>
       <div class="content">
           <?php echo 'Qualis 2014: '.$cursor['qualis2014'][0].''; ?>
@@ -169,7 +169,7 @@ echo '</div>';
   <?php endif; ?>
   <?php if (!empty($cursor['publisher'])): ?>
     <?php foreach ($cursor['publisher'] as $cursorpublisher): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="book icon"></i>
         <div class="content">
             <?php echo 'Editora: '.$cursorpublisher.''; ?>
@@ -179,7 +179,7 @@ echo '</div>';
   <?php endif; ?>
   <?php if (!empty($cursor['date'])): ?>
     <?php foreach ($cursor['date'] as $cursordate): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="book icon"></i>
         <div class="content">
             <?php echo 'Data de publicação: '.$cursordate.''; ?>
@@ -189,7 +189,7 @@ echo '</div>';
   <?php endif; ?>
   <?php if (!empty($cursor['language'])): ?>
     <?php foreach ($cursor['language'] as $cursorlanguage): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="book icon"></i>
         <div class="content">
             <?php echo 'Idioma: '.$cursorlanguage.''; ?>
@@ -200,7 +200,7 @@ echo '</div>';
   <?php if (!empty($cursor['subject'])): ?>
   <h4>Assuntos</h4>
     <?php foreach ($cursor['subject'] as $cursorsubject): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="book icon"></i>
         <div class="content">
             <?php echo ''.$cursorsubject.''; ?>
@@ -211,7 +211,7 @@ echo '</div>';
   <?php if (!empty($cursor['assunto_tematres'])): ?>
     <h4>Assuntos do Vocabulário Controlado</h4>
     <?php foreach ($cursor['assunto_tematres'] as $cursorassunto_tematres): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="book icon"></i>
         <div class="content">
             <?php echo ''.$cursorassunto_tematres.''; ?>
@@ -222,7 +222,7 @@ echo '</div>';
   <?php if (!empty($cursor['description'])): ?>
     <h4>Resumo(s)</h4>
     <?php foreach ($cursor['description'] as $cursordescription): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="book icon"></i>
         <div class="content">
             <?php echo ''.$cursordescription.''; ?>
@@ -233,7 +233,7 @@ echo '</div>';
   <?php if (!empty($cursor['references'])): ?>
     <h4>Referências</h4>
     <?php foreach ($cursor['references'] as $cursorreferences): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="quote left icon"></i>
         <div class="content">
             <?php echo ''.$cursorreferences.''; ?>
@@ -244,7 +244,7 @@ echo '</div>';
   <?php if (!empty($cursor['citation'])): ?>
     <h4>Citações de trabalhos no RPPBCI</h4>
     <?php foreach ($cursor['citation'] as $citation): ?>
-      <div class="item">
+      <div class="item" style="color:black;">
         <i class="quote left icon"></i>
         <div class="content">
             <?php echo '<a href="single.php?_id='.$citation.'">'.$citation.'</a>'; ?>

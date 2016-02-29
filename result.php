@@ -294,12 +294,12 @@ echo '</div>';
         <div class="extra">
         <?php if (!empty($r["autor"])): ?>
           <?php foreach ($r["autor"] as $autores): ?>
-            <div class="ui label"><i class="user icon"></i><a href="result.php?autor=<?php echo $autores;?>"><?php echo $autores;?></a></div>
+            <div class="ui label" style="color:black;"><i class="user icon"></i><a href="result.php?autor=<?php echo $autores;?>"><?php echo $autores;?></a></div>
           <?php endforeach;?>
           </ul>
         <?php else: ?>
         <?php foreach ($r["creator"] as $autores): ?>
-            <div class="ui label"><i class="user icon"></i><?php echo $autores;?></div>
+            <div class="ui label" style="color:black;"><i class="user icon"></i><?php echo $autores;?></div>
         <?php endforeach;?>
         <?php endif; ?>
       </div>
@@ -309,7 +309,7 @@ echo '</div>';
         <div class="extra">
           <?php if (!empty($r["subject"])): ?>
             <?php foreach ($r["subject"] as $assunto): ?>
-              <div class="ui label"><i class="globe icon"></i><a href="result.php?subject=<?php echo $assunto;?>"><?php echo $assunto;?></a></div>
+              <div class="ui label" style="color:black;"><i class="globe icon"></i><a href="result.php?subject=<?php echo $assunto;?>"><?php echo $assunto;?></a></div>
             <?php endforeach;?>
           <?php endif; ?>
         <a href="<?php echo $r["url_principal"];?>">
