@@ -110,8 +110,8 @@ Conta a quantidade de artigos na base */
     </tbody>
 </table>
 <br/>
-<p><a href="facebook.php">Facebook</a></p>
-<p><a href="network.php">Rede de colaboração entre instituições</a></p>
+<p><a href="application/statistics/facebook.php">Facebook</a></p>
+<p><a href="application/statistics/network.php">Rede de colaboração entre instituições</a></p>
 </div>
 <?php
   include "inc/footer.php";

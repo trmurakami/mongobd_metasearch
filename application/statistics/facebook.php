@@ -1,12 +1,12 @@
 <?php
-  include 'inc/config.php';
-  include 'inc/header.php';
+  include '../../inc/config.php';
+  include '../../inc/header.php';
 
 ?>
 <title><?php echo gettext('branch');?> - Estatísticas</title>
 </head>
 <body>
-<?php include_once('inc/analyticstracking.php') ?>
+<?php include_once('../../inc/analyticstracking.php') ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -17,10 +17,10 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <?php
-  include 'inc/navbar.php';
+  include '../../inc/navbar.php';
 ?>
 
-<div class="container">
+<div class="ui container">
 
 <?php
 
@@ -86,9 +86,9 @@ function drawMaterial() {
 
 <div id="chart_div" style="width: 100%; height: 1000px;"></div>
 
-
+</div>
 <?php
-  include 'inc/footer.php';
+  include '../../inc/footer.php';
 ?>
 
 </body>

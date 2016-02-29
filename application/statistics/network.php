@@ -1,12 +1,12 @@
 <?php
-  include 'inc/config.php';
-  include 'inc/header.php';
+  include '../../inc/config.php';
+  include '../../inc/header.php';
 
 ?>
 <title><?php echo gettext('branch');?> - Rede de colaboração entre instituições</title>
 </head>
 <body>
-<?php include_once('inc/analyticstracking.php') ?>
+<?php include_once('../../inc/analyticstracking.php') ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -18,12 +18,12 @@
 </script>
 
 <?php
-  include 'inc/navbar.php';
+  include '../../inc/navbar.php';
 ?>
 
-<div class="container">
-  <script src="sigmajs/sigma.min.js"></script>
-  <script src="sigmajs/plugins/sigma.parsers.gexf.min.js"></script>
+<div class="ui container">
+  <script src="../../inc/sigmajs/sigma.min.js"></script>
+  <script src="../../inc/sigmajs/plugins/sigma.parsers.gexf.min.js"></script>
   <script>
     // Add a method to the graph model that returns an
     // object with every neighbors of a node inside:
@@ -39,7 +39,7 @@
     });
 
     sigma.parsers.gexf(
-      'export/instituicoes.gexf',
+      '../../files/export/instituicoes.gexf',
       {
         container: 'sigma-container'
       },
@@ -106,10 +106,9 @@
     <h3>Rede de colaboração entre as instituições (Incompleto, está somente com as afiliações identificadas)</h3>
   </div>
 
-
+</div>
 <?php
-  include 'inc/footer.php';
+  include '../../inc/footer.php';
 ?>
-
 </body>
 </html>

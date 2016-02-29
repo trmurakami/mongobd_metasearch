@@ -316,7 +316,7 @@ Conta a quantidade de artigos na base */
 
   <div class="ui vertical stripe segment">
     <div class="ui text container">
-      <h3 class="ui header">Ou pode explorar o repertório pelos índices</h3>
+      <h3 class="ui header">Explorar o repertório pelos índices</h3>
 
 <?php
 /* Cria as consultas para o aggregate */
