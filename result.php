@@ -152,7 +152,7 @@ echo   '</div>
 }
 
 ?>
-
+<?php include_once('inc/analyticstracking.php') ?>
 <?php
   include ('inc/navbar.php');
 ?>

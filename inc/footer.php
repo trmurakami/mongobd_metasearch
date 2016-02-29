@@ -19,7 +19,7 @@
       <div class="seven wide column">
         <h4 class="ui inverted header"><a href="http://dgp.cnpq.br/dgp/espelhogrupo/5207019450670905">Laboratório de Estudos Métricos da Informação na Web (Lab-iMetrics)</a></h4>
         <p><?php echo gettext("branch");?> foi desenvolvido usando o software livre <a href="https://github.com/trmurakami/mongobd_metasearch">MongoDB-MetaSearch</a></p>
-        <div class="fb-like" data-href="http://www.labimetrics.inf.br/rppbci/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        <div class="fb-like" data-href="http://www.labimetrics.inf.br/rppbci" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
       </div>
     </div>
   </div>
