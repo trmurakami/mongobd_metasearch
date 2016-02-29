@@ -241,7 +241,7 @@ Conta a quantidade de artigos na base */
       </div>
       </form>
       <p>A equipe do Lab-iMetrics está constantemente estudando novas formas de disponibilizar os dados para os usuários. Atualmente, você pode fazer a busca nos campos "Título, Autores e Resumos", ou somente nas Referências (Regex), também é possível fazer uma busca no texto completo (Regex) ou nos campos de Autores (Regex) e Assunto (Regex).</p>
-      <a class="ui large button">Busca avançada</a>
+      <a class="ui large button" href="advanced_search.php">Busca avançada</a>
     </div>
   </div>
 

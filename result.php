@@ -252,71 +252,74 @@ echo '</div>';
 /* Pagination - End */
 ?>
 
-<div class="ui three stackable cards">
+
+
+<div class="ui divided items">
 <?php foreach ($cursor as $r): ?>
-  <div class="ui card">
-  <!-- Journal or Event Title -->
-  <div class="content" style="flex-grow:0;">
-    <a href="result.php?journalci_title=<?php echo $r["journalci_title"][0];?>"><?php echo $r["journalci_title"][0];?></a> | <a href="result.php?tipo=<?php echo $r["tipo"][0];?>"><?php echo $r["tipo"][0];?></a>
-    </div>
-    <div class="content" style="flex-grow:0;">
-    <div class="header">
-    <!-- List titles -->
-    <?php if (!empty($r["title"][2])): ?>
-      <?php $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].''); ?>
-      <a href="single.php?_id=<?php echo $r["_id"]; ?>"><?php echo $r["title"][2];?> (<?php echo $r["year"][0]; ?>)</a>
-    </div>
-      <div class="meta">
-      <small class="text-muted"><b>Outros títulos:</b> <?php echo $r["title"][1];?></small><br/>
-      <small class="text-muted"><b>Outros títulos:</b> <?php echo $r["title"][0];?></small>
-    </div>
-    <?php elseif (empty($r["title"][2]) && !empty($r["title"][1])): ?>
-      <?php $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].''); ?>
-      <a href="single.php?_id=<?php echo $r["_id"]; ?>"><?php echo $r["title"][1];?> (<?php echo $r["year"][0]; ?>)</a>
+  <div class="item">
+    <div class="image">
+      <h4 class="ui center aligned icon header">
+        <i class="circular file icon"></i>
+        <a href="result.php?journalci_title=<?php echo $r["journalci_title"][0];?>"><?php echo $r["journalci_title"][0];?></a> | <a href="result.php?tipo=<?php echo $r["tipo"][0];?>"><?php echo $r["tipo"][0];?></a>
+      </h4>
+      <div class="ui horizontal list">
+        <div class="item" style="margin-left:0px;">
+            <button class="ui circular facebook icon button">
+              <i class="facebook icon"></i>
+            </button>
+          </div>
+          <div class="item" style="margin-left:3px;"><span class="yellow ui label"><?php echo $r["facebook_url_likes"];?></span></div>
+          <div class="item" style="margin-left:3px;"><span class="green ui label"><?php echo $r["facebook_url_shares"];?></span></div>
+          <div class="item" style="margin-left:3px;"><span class="red ui label"><?php echo $r["facebook_url_comments"];?></span></div>
+        </div>
       </div>
-      <div class="meta">
-      <small class="text-muted"><b>Outros títulos:</b> <?php echo $r["title"][0];?></small>
+      <div class="content">
+        <?php if (!empty($r["title"][2])): ?>
+          <?php $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].''); ?>
+          <a class="header" href="single.php?_id=<?php echo $r["_id"]; ?>"><?php echo $r["title"][2];?> (<?php echo $r["year"][0]; ?>)</a>
+          <div class="meta">
+          <p><span class="cinema"><b>Outros títulos:</b> <?php echo $r["title"][1];?></span></p>
+          <p><span class="cinema"><b>Outros títulos:</b> <?php echo $r["title"][0];?></span></p>
+        </div>
+        <?php elseif (empty($r["title"][2]) && !empty($r["title"][1])): ?>
+          <?php $id = preg_replace('/[^A-Za-z0-9\-]/', '', ''.$r["_id"].''); ?>
+          <a class="header" href="single.php?_id=<?php echo $r["_id"]; ?>"><?php echo $r["title"][1];?> (<?php echo $r["year"][0]; ?>)</a>
+          <div class="meta">
+          <span class="cinema"><b>Outros títulos:</b> <?php echo $r["title"][0];?></span>
+          </div>
+        <?php else: ?>
+          <a class="header" href="single.php?_id=<?php echo $r["_id"]; ?>"><?php echo $r["title"][0];?> (<?php echo $r["year"][0]; ?>)</a>
+        <?php endif; ?>
+        <!--List authors -->
+        <div class="extra">
+        <?php if (!empty($r["autor"])): ?>
+          <?php foreach ($r["autor"] as $autores): ?>
+            <div class="ui label"><i class="user icon"></i><a href="result.php?autor=<?php echo $autores;?>"><?php echo $autores;?></a></div>
+          <?php endforeach;?>
+          </ul>
+        <?php else: ?>
+        <?php foreach ($r["creator"] as $autores): ?>
+            <div class="ui label"><i class="user icon"></i><?php echo $autores;?></div>
+        <?php endforeach;?>
+        <?php endif; ?>
       </div>
-    <?php else: ?>
-      <a href="single.php?_id=<?php echo $r["_id"]; ?>"><?php echo $r["title"][0];?> (<?php echo $r["year"][0]; ?>)</a>
-      </div>
-    <?php endif; ?>
-    </div>
-    <!--List authors -->
-    <div class="content" style="flex-grow:0;">
-    <h5 class="card-subtitle text-muted">Autor(es):</h5>
-    <?php if (!empty($r["autor"])): ?>
-      <ul>
-      <?php foreach ($r["autor"] as $autores): ?>
-        <li><a href="result.php?autor=<?php echo $autores;?>"><?php echo $autores;?></a></li>
-      <?php endforeach;?>
-      </ul>
-    <?php else: ?>
-    <?php foreach ($r["creator"] as $autores): ?>
-        <b>Autor</b>:<?php echo $autores;?><br/>
-    <?php endforeach;?>
-    <?php endif; ?>
-    <?php if (!empty($r["references"])): ?>
-      <small>Referências cadastradas: <?php echo sizeof($r["references"]);?></small></br>
-    <?php endif; ?>
-    <?php if (!empty($r["references_ok"])): ?>
-      <small>Referências OK: <?php echo $r["references_ok"];?></small></br>
-    <?php endif; ?>
-    <a href="<?php echo $r["url_principal"];?>" class="btn btn-info">Acesso online</a><br/>
-    </div>
-    <div class="extra content" style="flex-grow:0;">
-      <small><ul class="nav nav-pills list-inline-facebook" role="tablist">
-      <li role="presentation" class="active">
-        <button class="ui circular facebook icon button">
-          <i class="facebook icon"></i>
-        </button>
-      </li>
-      <li role="presentation"><span class="yellow ui label"><?php echo $r["facebook_url_likes"];?></span></li>
-      <li role="presentation"><span class="green ui label"><?php echo $r["facebook_url_shares"];?></span></li>
-      <li role="presentation"><span class="red ui label"><?php echo $r["facebook_url_comments"];?></span></li>
-      </ul></small>
-    </div>
+        <div class="description">
+          <p></p>
+        </div>
+        <div class="extra">
+          <?php if (!empty($r["subject"])): ?>
+            <?php foreach ($r["subject"] as $assunto): ?>
+              <div class="ui label"><i class="globe icon"></i><a href="result.php?subject=<?php echo $assunto;?>"><?php echo $assunto;?></a></div>
+            <?php endforeach;?>
+          <?php endif; ?>
+        <a href="<?php echo $r["url_principal"];?>">
+        <div class="ui right floated primary button">
+          Acesso online
+          <i class="right chevron icon"></i>
+        </div></a>
+        </div>
   </div>
+</div>
 <?php endforeach;?>
 </div>
 

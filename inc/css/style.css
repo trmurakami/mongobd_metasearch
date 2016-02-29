@@ -22,19 +22,6 @@
   height: 600px;
 }
 
-.list-inline{display:block;}
-.list-inline li{display:inline-block;}
-.list-inline first-child {content: ""; }
-.list-inline li:before {content: ", ";}
-.list-inline li:first-child:before {content: "";}
-
-.list-inline-facebook{display:block;}
-.list-inline-facebook li{display:inline-block;}
-
-.list-inline-button{display:block;}
-.list-inline-button li{display:inline-block;}
-
-
 /* center search */
 
    .global-search {
