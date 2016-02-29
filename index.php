@@ -7,7 +7,7 @@
 <title><?php echo gettext('branch');?> - Repertório da Produção Periódica Brasileira de Ciência da Informação</title>
 <style type="text/css">
   .ui.inverted.segment {
-    background-image: url("https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xta1/v/t1.0-9/12495246_1221323127896573_4188915509226264323_n.jpg?oh=f6a4344942cebd178387837b4765e2f5&oe=574E0236&__gda__=1466527691_36c68dad2d6910f657d788344c6d75c4");
+    background-image: url("inc/images/maceio.jpg");
     width: 100%;
     height: auto;
     background-repeat: no-repeat;
