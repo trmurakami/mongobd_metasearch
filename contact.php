@@ -10,13 +10,14 @@
   include "inc/navbar.php";
 ?>
 <div class="ui container">
-  <div class="row">
-    <div class="col-md-12">
+  <div class="sixteen wide column">
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <p>Tiago Rodrigo Marçal Murakami ( tiago.murakami EM dt.sibi.usp.br )</p>
       <p>Prof. Ronaldo Ferreira de Araújo ( ronaldfa EM gmail.com )</p>
-    </div>
- </div>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  </div>
 </div>
+
 <?php
   include "inc/footer.php";
 ?>
