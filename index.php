@@ -141,11 +141,31 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 <?php
-/*   include ('inc/navbar.php');
-Conta a quantidade de artigos na base */
+/*Conta a quantidade de artigos na base */
   $num_documentos = ($c->count());
 ?>
 
+<?php
+/*Conta a quantidade de referencias na base */
+$aggregate_references_count=array(
+  array(
+    '$unwind'=>'$references'
+  ),
+  array(
+    '$group' => array(
+      "_id"=>'$_id',
+      "sum"=>array('$sum'=>1)
+      )
+  ),
+  array(
+    '$group' => array(
+      "_id"=>"null",
+      "total_sum"=>array('$sum'=>'$sum')
+      )
+  )
+);
+$references_count = $c->aggregate($aggregate_references_count);
+?>
 
 <!-- Following Menu -->
 <div class="ui large top fixed hidden menu">
@@ -292,7 +312,7 @@ Conta a quantidade de artigos na base */
 <div class="ui vertical stripe segment">
 <div class="ui text container">
 <h3 class="ui header">Alguns números</h3><br/><br/>
-<div class="ui two statistics">
+<div class="ui three statistics">
   <div class="statistic">
     <div class="value">
       31
@@ -307,6 +327,14 @@ Conta a quantidade de artigos na base */
     </div>
     <div class="label">
       Artigos indexados
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <?php print_r($references_count["result"][0]["total_sum"]); ?>
+    </div>
+    <div class="label">
+      referências cadastradas
     </div>
   </div>
 </div>

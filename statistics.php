@@ -19,7 +19,27 @@
 <?php
   include ('inc/navbar.php');
 ?>
-
+<?php
+/*Conta a quantidade de referencias na base */
+$aggregate_references_count=array(
+  array(
+    '$unwind'=>'$references'
+  ),
+  array(
+    '$group' => array(
+      "_id"=>'$_id',
+      "sum"=>array('$sum'=>1)
+      )
+  ),
+  array(
+    '$group' => array(
+      "_id"=>"null",
+      "total_sum"=>array('$sum'=>'$sum')
+      )
+  )
+);
+$references_count = $c->aggregate($aggregate_references_count);
+?>
 <?php
 $aggregate_citations=array(
   array(
@@ -72,7 +92,7 @@ Conta a quantidade de artigos na base */
 <div class="ui container">
 
 <h3>Alguns números</h3>
-<div class="ui statistics">
+<div class="ui three statistics">
   <div class="statistic">
     <div class="value">
       31
@@ -87,6 +107,14 @@ Conta a quantidade de artigos na base */
     </div>
     <div class="label">
       Documentos
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <?php print_r($references_count["result"][0]["total_sum"]); ?>
+    </div>
+    <div class="label">
+      referências cadastradas
     </div>
   </div>
 </div>
