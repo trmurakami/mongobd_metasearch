@@ -165,7 +165,7 @@ Conta a quantidade de artigos na base */
         </div>
       </div>
       <div class="item">
-        <a class="ui button">Login</a>
+        <a class="ui button" href="admin/login.php">Login</a>
       </div>
     </div>
   </div>
@@ -177,8 +177,7 @@ Conta a quantidade de artigos na base */
   <a class="item" href="statistics.php">Estatísticas</a>
   <a class="item" href="contact.php">Contato</a>
   <a class="item" href="about.php">Sobre</a>
-  <a class="item">Login</a>
-  <a class="item">Signup</a>
+  <a class="item" href="admin/login.php">Login</a>
 </div>
 
 
@@ -205,7 +204,7 @@ Conta a quantidade de artigos na base */
               </form>
             </div>
           </div>
-          <a class="ui inverted button">Login</a>
+          <a class="ui inverted button" href="admin/login.php">Login</a>
         </div>
       </div>
     </div>

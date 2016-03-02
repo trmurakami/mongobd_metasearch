@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="item">
-        <a class="ui button">Log in</a>
+        <a class="ui button" href="<?php echo "http://" . $_SERVER['SERVER_NAME'] ."/".$SERVER_DIRECTORY."/"; ?>admin/login.php">Login</a>
       </div>
     </div>
   </div>

@@ -28,11 +28,11 @@
               rules: [
                 {
                   type   : 'empty',
-                  prompt : 'Please enter your e-mail'
+                  prompt : 'Digite seu e-mail'
                 },
                 {
                   type   : 'email',
-                  prompt : 'Please enter a valid e-mail'
+                  prompt : 'Digite um e-mail válido'
                 }
               ]
             },
@@ -41,11 +41,11 @@
               rules: [
                 {
                   type   : 'empty',
-                  prompt : 'Please enter your password'
+                  prompt : 'Digite sua senha'
                 },
                 {
                   type   : 'length[6]',
-                  prompt : 'Your password must be at least 6 characters'
+                  prompt : 'Sua senha precisa ter ao menos 6 caracteres'
                 }
               ]
             }
@@ -65,9 +65,8 @@
 <div class="ui middle aligned center aligned grid">
   <div class="column">
     <h2 class="ui teal image header">
-      <img src="assets/images/logo.png" class="image">
       <div class="content">
-        Log-in to your account
+        Login em sua conta
       </div>
     </h2>
     <form class="ui large form">
@@ -75,13 +74,13 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <input type="text" name="email" placeholder="E-mail address">
+            <input type="text" name="email" placeholder="E-mail">
           </div>
         </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Senha">
           </div>
         </div>
         <div class="ui fluid large teal submit button">Login</div>
@@ -92,7 +91,7 @@
     </form>
 
     <div class="ui message">
-      New to us? <a href="#">Sign Up</a>
+      Não tem conta ainda? <a href="#">Crie sua conta</a>
     </div>
   </div>
 </div>
