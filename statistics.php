@@ -130,7 +130,7 @@ Conta a quantidade de artigos na base */
     <tbody>
 <?php foreach ($citations["result"] as $ct):?>
   <tr>
-    <th scope="row"><?php echo $ct["_id"]["journal_citador"][0];?></th>
+    <td scope="row"><?php echo $ct["_id"]["journal_citador"][0];?></td>
     <td><?php if (!empty($ct["_id"]["journal"][0][0])): ?><?php echo $ct["_id"]["journal"][0][0]; ?><?php endif;?></td>
     <td><?php echo $ct["count"];?></td>
   </tr>
