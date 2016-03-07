@@ -5,9 +5,9 @@
 <title><?php echo gettext("branch");?> - Contato</title>
 </head>
 <body>
-<?php include_once("inc/analyticstracking.php") ?>
 <?php
-  include "inc/navbar.php";
+  include_once('inc/analytics.php');
+  include 'inc/navbar.php';
 ?>
 <div class="ui container">
   <div class="sixteen wide column">

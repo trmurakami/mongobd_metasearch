@@ -23,3 +23,13 @@ db.ci.aggregate([{ "$unwind" : "$citation" },{ "$group" : { "_id" : "$citation",
 
 #apagar campos vazios
 db.ci.update({"citation":""},{$unset: { citation: ""}},{multi:true})
+
+#apagar references vazios
+db.ci.update({"references": ""}, {$unset: {"references": ""}}, {multi:true})
+
+# alterar string para integer
+
+db.ci.find({facebook_url_total: {$exists: true}}).forEach(function(obj) {
+    obj.facebook_url_total = new NumberInt(obj.facebook_url_total);
+    db.ci.save(obj);
+});

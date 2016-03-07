@@ -5,10 +5,9 @@
 <title><?php echo gettext('branch');?> - Detalhes do registro</title>
 </head>
 <body>
-  <?php include_once('inc/analyticstracking.php') ?>
 <?php
+  include_once('inc/analytics.php');
   include 'inc/navbar.php';
-
 ?>
 <div class="ui container">
 <?php

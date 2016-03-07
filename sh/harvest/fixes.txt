@@ -1,9 +1,9 @@
 add_field("data_de_coleta","2016-01-20");
-add_field("facebook_atualizacao","00000000");
-add_field("facebook_url_comments",0);
-add_field("facebook_url_likes",0);
-add_field("facebook_url_shares",0);
-add_field("facebook_url_total",0);
+add_field("facebook_atualizacao",'00000000');
+add_field("facebook_url_comments",'0');
+add_field("facebook_url_likes",'0');
+add_field("facebook_url_shares",'0');
+add_field("facebook_url_total",'0');
 add_field("references_ok","false");
 split_field("subject.*",";");
 set_array("tipo","Artigo de periódico");
