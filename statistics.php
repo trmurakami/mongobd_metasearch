@@ -11,6 +11,10 @@
   include ('inc/navbar.php');
 ?>
 <?php
+/*Conta a quantidade de artigos na base */
+  $num_documentos = ($c->count());
+?>
+<?php
 /*Conta a quantidade de referencias na base */
 $aggregate_references_count=array(
   array(
