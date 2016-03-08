@@ -15,6 +15,9 @@
         <div class="ui inverted link list">
           <a href="statistics.php" class="item">Estatísticas</a>
         </div>
+        <div class="ui inverted link list">
+          <a href="status.php" class="item">Status</a>
+        </div>
       </div>
       <div class="seven wide column">
         <h4 class="ui inverted header"><a href="http://dgp.cnpq.br/dgp/espelhogrupo/5207019450670905">Laboratório de Estudos Métricos da Informação na Web (Lab-iMetrics)</a></h4>
