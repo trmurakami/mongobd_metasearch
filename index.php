@@ -251,7 +251,14 @@ $references_count = $c->aggregate($aggregate_references_count);
       </form>
       <p>A equipe do Lab-iMetrics está constantemente estudando novas formas de disponibilizar os dados para os usuários. Atualmente, você pode fazer a busca nos campos "Título, Autores e Resumos", ou somente nas Referências (Regex), também é possível fazer uma busca no texto completo (Regex) ou nos campos de Autores (Regex) e Assunto (Regex).</p>
       <a class="ui large button" href="advanced_search.php">Busca avançada</a>
-    </div>
+
+    <div class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header">
+        Atenção: A busca por texto completo e busca nas referências está funcionando de maneira parcial
+      </div>
+      <p>Estamos trabalhando para completar essa funcionalidade</p></div>
+      </div>
   </div>
 
 
