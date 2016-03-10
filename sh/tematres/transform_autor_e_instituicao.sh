@@ -12,14 +12,14 @@ instautor_result_id=""
 
 consulta_termo() {
   query=$(echo $1 | sed 's/ /+/g')
-  url="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetch&arg=$query"
+  url="http://www.labimetrics.inf.br/vocabci/vocab/services.php?task=fetch&arg=$query"
   vocabci_result_id=$(curl -s -G -L $url | xmlstarlet sel -t -v "//term_id")
-  url2="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetchTerm&arg=$vocabci_result_id"
+  url2="http://www.labimetrics.inf.br/vocabci/vocab/services.php?task=fetchTerm&arg=$vocabci_result_id"
   vocabci_result=$(curl -s -G -L $url2 | xmlstarlet sel -t -v "//string" | sed 's/(/\\(/g' | sed 's/)/\\)/g')
 }
 
 consulta_instautor(){
-  url="http://bdpife2.sibi.usp.br/vocabci/vocab/services.php?task=fetchRelated&arg=$1"
+  url="http://www.labimetrics.inf.br/vocabci/vocab/services.php?task=fetchRelated&arg=$1"
   instautor_result=$(curl -s -G -L "$url" | xmlstarlet sel -I -t -m '//string' -v "concat(.,'|')" | sed 's/|$//g')
   instautor_result_id=$(curl -s -G -L "$url" | xmlstarlet sel -I -t -m '//term_id' -v "concat(.,'|')" | sed 's/|$//g')
 }
