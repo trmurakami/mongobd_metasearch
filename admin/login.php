@@ -1,5 +1,5 @@
 <?php
-  include ('../inc/config.php');
+  include ('../inc/config_admin.php');
   include ('../inc/header.php');
 ?>
 <title><?php echo gettext("branch");?> - Login</title>

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm ../export/export_update.csv
+rm ../../export/export_update.csv
 sleep 2
 mongoexport --db journals --collection ci --type=csv --fields _id,creator --query '{ "autor" : { "$exists" : false } }' --out ../../export/export_update.csv -v
 sleep 2

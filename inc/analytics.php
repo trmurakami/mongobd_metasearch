@@ -1,4 +1,4 @@
-<?php include_once('inc/analyticstracking.php') ?>
+<?php include_once('analyticstracking.php') ?>
 <div id="fb-root"></div>
 <script>
   (function(d, s, id) {

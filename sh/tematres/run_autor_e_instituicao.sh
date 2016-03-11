@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm ../export/export.csv
+rm ../../export/export.csv
 sleep 2
 mongoexport --db journals --collection ci --type=csv --fields _id,creator --out ../../export/export.csv -v
 sleep 2
