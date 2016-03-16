@@ -241,7 +241,7 @@ $references_count = $c->aggregate($aggregate_references_count);
             <select class="ui fluid dropdown" name="category">
               <option value="buscaindice">Título, autores e resumos</option>
               <option value="references">Referências</option>
-              <option value="full_text">Texto completo dos artigos</option>
+              <!-- <option value="full_text">Texto completo dos artigos</option> -->
               <option value="autor">Nome do autor</option>
               <option value="subject">Assunto</option>
             </select>
@@ -255,7 +255,7 @@ $references_count = $c->aggregate($aggregate_references_count);
     <div class="ui negative message">
       <i class="close icon"></i>
       <div class="header">
-        Atenção: A busca por texto completo e busca nas referências está funcionando de maneira parcial
+        Atenção: A busca nas referências está funcionando de maneira parcial
       </div>
       <p>Estamos trabalhando para completar essa funcionalidade</p></div>
       </div>
