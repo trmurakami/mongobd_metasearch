@@ -57,10 +57,10 @@
   </script>
 </head>
 <body>
-<?php include_once("../inc/analyticstracking.php") ?>
-<?php
-  include "../inc/navbar.php";
-?>
+  <?php
+    include_once('../inc/analytics.php');
+    include '../inc/navbar.php';
+  ?>
 
 <div class="ui middle aligned center aligned grid">
   <div class="column">
@@ -69,12 +69,12 @@
         Login em sua conta
       </div>
     </h2>
-    <form class="ui large form">
+    <form class="ui large form" role="form" action="admin.php" method="post">
       <div class="ui stacked segment">
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <input type="text" name="email" placeholder="E-mail">
+            <input type="text" name="username" placeholder="E-mail">
           </div>
         </div>
         <div class="field">
@@ -83,7 +83,7 @@
             <input type="password" name="password" placeholder="Senha">
           </div>
         </div>
-        <div class="ui fluid large teal submit button">Login</div>
+        <button type="submit" id="login" class="ui fluid large teal submit button">Login</button>
       </div>
 
       <div class="ui error message"></div>

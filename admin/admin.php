@@ -2,13 +2,26 @@
   include ('../inc/config_admin.php');
   include ('../inc/header.php');
 ?>
+<?php
+if (!empty($_POST)) {
+$username = $_POST["username"];
+$password = $_POST["password"];
+$user = $c->findOne(array("username" => $username, "password" => $password));
+$user->limit(1);
+if ($user->count(true) > 0) {
+    return $user;
+return null;
+}
+}
+?>
 <title><?php echo gettext("branch");?> - Administração</title>
 </head>
 <body>
-<?php include_once("../inc/analyticstracking.php") ?>
-<?php
-  include "../inc/navbar.php";
-?>
+  <?php
+    include_once('../inc/analytics.php');
+    include '../inc/navbar.php';
+  ?>
+<?php print_r($user); ?>
 
 <div class="ui container">
 <p><a href="list_users.php">Listar usuários</a></p>

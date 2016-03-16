@@ -18,11 +18,11 @@ urls=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/"",""/|/g' | sed 's/"//g
     egrep -A 2500 'REFERÊNCIAS' ../../pdfs/$2/$pdf_name.txt >> ../../pdfs/$2/$pdf_name.references.txt
     sed -i 's/"//g' ../../pdfs/$2/$pdf_name.txt
     sed -i 's/"//g' ../../pdfs/$2/$pdf_name.references.txt
-    full_text=$(cat ../../pdfs/$2/$pdf_name.txt)
+#    full_text=$(cat ../../pdfs/$2/$pdf_name.txt)
     reference_text=$(cat ../../pdfs/$2/$pdf_name.references.txt)
 
 
-    echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {full_text: cat(\"../../pdfs/$2/$pdf_name.txt\")}})" | mongo journals
+#    echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {full_text: cat(\"../../pdfs/$2/$pdf_name.txt\")}})" | mongo journals
     echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {references: cat(\"../../pdfs/$2/$pdf_name.references.txt\")}})" | mongo journals
   done
 
