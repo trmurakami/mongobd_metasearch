@@ -16,6 +16,7 @@ query_url_facebook() {
  echo like $result_url_facebook_likes
  echo click $result_url_facebook_click
  echo total $result_url_facebook_total
+ echo \n
 
 }
 
@@ -23,11 +24,13 @@ IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
 
-url=$(printf "%s\n" "$line" | cut -d "\"" -f 4)
+line=$(printf "%s\n" "$line" | sed "s/,\"\[/#/g" | sed 's/,$/#/g')
+_id=$(printf "%s\n" "$line" | cut -d "#" -f 1 | sed 's/\"//g')
+url=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/\"//g' | sed 's/\]//g' )
 query_url_facebook $url
 hoje=$(date +'%Y%m%d')
 
-echo "db.ci.update({\""identifier.0"\" : \""$url"\"},{\$set: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total",facebook_atualizacao: "$hoje"}})" | mongo journals
+echo "db.ci_altmetrics.update({\"_id\" : \""$_id"\"},{\$set: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total",facebook_atualizacao: "$hoje"}},{ upsert: true })" | mongo journals
 
 sleep 7
 
