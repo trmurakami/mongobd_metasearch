@@ -6,98 +6,23 @@
 </head>
 <body>
 <?php
-if (isset($_POST["page"])) {
-  unset ($_REQUEST["page"]);
-  unset ($_REQUEST["extra_submit_value"]);
-  unset ($_REQUEST["extra_submit_param"]);
-}
 
-if (isset($_GET["buscaindice"])) {
-  $_GET["buscaindice"] = str_replace('"','\\"',$_GET["buscaindice"]);
-}
-
-if (isset($_GET["category"])) {
-  if ($_GET["category"] === "buscaindice") {
-    $_GET["buscaindice"] = str_replace('"','\\"',$_GET["q"]);
+if (empty($_GET)) {
+    $query = json_decode('{}');
+} elseif (!empty($_GET["category"])) {
     unset ($_GET["category"]);
+    $q = str_replace('"','\\"',$_GET["q"]);
     unset ($_GET["q"]);
-    unset ($_REQUEST["q"]);
-    unset ($_REQUEST["category"]);
-    $consult="";
-
-  }
-
-  if ($_GET["category"] == "full_text") {
-    $_GET["full_text"] = $_GET["q"];
-    unset ($_GET["category"]);
-    unset ($_GET["q"]);
-    unset ($_REQUEST["q"]);
-    unset ($_REQUEST["category"]);
-    $consult="";
-  }
-
-  if ($_GET["category"] == "references") {
-    $_GET["references"] = $_GET["q"];
-    unset ($_GET["category"]);
-    unset ($_GET["q"]);
-    unset ($_REQUEST["q"]);
-    unset ($_REQUEST["category"]);
-    $consult="";
-  }
-
-  if ($_GET["category"] == "autor") {
-    $_GET["autor"] = $_GET["q"];
-    unset ($_GET["category"]);
-    unset ($_GET["q"]);
-    unset ($_REQUEST["q"]);
-    unset ($_REQUEST["category"]);
-    $consult="";
-  }
-
-  if ($_GET["category"] == "subject") {
-    $_GET["subject"] = $_GET["q"];
-    unset ($_GET["category"]);
-    unset ($_GET["q"]);
-    unset ($_REQUEST["q"]);
-    unset ($_REQUEST["category"]);
-    $consult="";
-  }
-}
-
-if (!empty($_GET["buscaindice"])) {
-  unset ($_REQUEST["buscaindice"]);
-}
-if (!empty($_GET["full_text"])) {
-  unset ($_REQUEST["full_text"]);
-}
-if (!empty($_GET["references"])) {
-  unset ($_REQUEST["references"]);
-}
-foreach ($_REQUEST as $key => $value) {
-  $consult .= '"'.$key.'":"'.$value.'",';
-}
-
-switch (true) {
-    case (!empty($_GET["full_text"])):
-        $query = json_decode('{'.$consult.'"full_text": {"$regex": "'.$_GET["full_text"].'", "$options": "i"}}');
-    break;
-    case (!empty($_GET["references"])):
-        $query = json_decode('{'.$consult.'"references": {"$regex": "'.$_GET["references"].'", "$options": "i"}}');
-    break;
-    case (!empty($_GET["buscaindice"])):
-          $query = json_decode('{'.$consult.'"$text": {"$search":"'.$_GET["buscaindice"].'"}}');
-    break;
-    case (!empty($_GET["autor"])):
-        $query = json_decode('{'.$consult.'"autor": {"$regex": "'.$_GET["autor"].'", "$options": "i"}}');
-    break;
-    case (!empty($_GET["subject"])):
-        $query = json_decode('{'.$consult.'"subject": {"$regex": "'.$_GET["subject"].'", "$options": "i"}}');
-    break;
-    default:
-        foreach ($_GET as $key=>$value) {
-          $query[$key] = $value;
+    $consult = "";
+    foreach ($_GET as $key => $value) {
+      $consult .= '"'.$key.'":"'.$value.'",';
     }
-
+    $query = json_decode('{'.$consult.'"$text": {"$search":"'.$q.'"}}');
+} else {
+    $query = array();
+    foreach ($_GET as $key => $value) {
+        $query[$key] = $value;
+    }
 }
 
 /* Pegar a URL atual */
@@ -114,9 +39,12 @@ switch (true) {
 echo "<br/><br/>";
 $query_json = json_encode($query);
 $query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$skip":'.$skip.'},{"$limit":'.$limit.'},{ "$sort" : { "journalci_title": -1}}]');
+$query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 $cursor = $c->aggregate($query_new);
+$total_count = $c->aggregate($query_count);
+$total = $total_count["result"][0]["count"];
 
-#    print_r($cursor);
+# print_r($cursor);
 #    $cursor = $c->find($query)->skip($skip)->limit($limit)->sort($sort);
 #    $total= $cursor->count();
 
@@ -233,7 +161,7 @@ echo   '</div>
 
 <?php
 /* Pagination - Start */
-echo '<div class="ui buttons">';
+echo '<br/><div class="ui buttons">';
 if($page > 1){
   echo '<form method="post" action="'.$escaped_url.'">';
   echo '<input type="hidden" name="extra_submit_param" value="extra_submit_value">';
@@ -254,7 +182,7 @@ if($page > 1){
       echo '</form>';
     }
 }
-echo '</div>';
+echo '</div><br/>';
 /* Pagination - End */
 ?>
 
