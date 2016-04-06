@@ -38,7 +38,7 @@ if (empty($_GET)) {
   /* Consultas */
 echo "<br/><br/>";
 $query_json = json_encode($query);
-$query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$skip":'.$skip.'},{"$limit":'.$limit.'},{"$unwind":"$altmetrics"},{"$sort":{"altmetrics.facebook_url_total":-1}}]');
+$query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$skip":'.$skip.'},{"$limit":'.$limit.'},{"$sort":{"altmetrics.0.facebook_url_total":-1}}]');
 $query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 $cursor = $c->aggregate($query_new);
 $total_count = $c->aggregate($query_count);
@@ -216,9 +216,9 @@ echo '</div><br/>';
               <i class="facebook icon"></i>
             </button>
           </div>
-          <div class="item" style="margin-left:3px;"><span class="yellow ui label"><?php echo $r["altmetrics"]["facebook_url_likes"];?></span></div>
-          <div class="item" style="margin-left:3px;"><span class="green ui label"><?php echo $r["altmetrics"]["facebook_url_shares"];?></span></div>
-          <div class="item" style="margin-left:3px;"><span class="red ui label"><?php echo $r["altmetrics"]["facebook_url_comments"];?></span></div>
+          <div class="item" style="margin-left:3px;"><span class="yellow ui label"><?php echo $r["altmetrics"][0]["facebook_url_likes"];?></span></div>
+          <div class="item" style="margin-left:3px;"><span class="green ui label"><?php echo $r["altmetrics"][0]["facebook_url_shares"];?></span></div>
+          <div class="item" style="margin-left:3px;"><span class="red ui label"><?php echo $r["altmetrics"][0]["facebook_url_comments"];?></span></div>
         </div>
       </div>
       <div class="content">
