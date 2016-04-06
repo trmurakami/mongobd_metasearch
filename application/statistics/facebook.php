@@ -20,12 +20,23 @@ $aggregate_facebook_total = array(
     '$unwind' => '$journalci_title',
   ),
   array(
+    '$lookup' => array(
+      "from" => "ci_altmetrics",
+      "localField" => "_id",
+      "foreignField" => "_id",
+      "as" => "altmetrics"
+    )
+  ),
+  array(
+    '$unwind'=> '$altmetrics'
+  ),
+  array(
     '$group' => array(
       '_id' => '$journalci_title',
-      'likes' => array('$sum' => '$facebook_url_likes'),
-      'shares' => array('$sum' => '$facebook_url_shares'),
-      'comments' => array('$sum' => '$facebook_url_comments'),
-      'interacoes' => array('$sum' => '$facebook_url_total'),
+      'likes' => array('$sum' => '$altmetrics.facebook_url_likes'),
+      'shares' => array('$sum' => '$altmetrics.facebook_url_shares'),
+      'comments' => array('$sum' => '$altmetrics.facebook_url_comments'),
+      'interacoes' => array('$sum' => '$altmetrics.facebook_url_total'),
       ),
   ),
   array(

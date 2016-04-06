@@ -38,7 +38,7 @@ if (empty($_GET)) {
   /* Consultas */
 echo "<br/><br/>";
 $query_json = json_encode($query);
-$query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$skip":'.$skip.'},{"$limit":'.$limit.'},{ "$sort" : { "journalci_title": -1}}]');
+$query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$skip":'.$skip.'},{"$limit":'.$limit.'},{"$unwind":"$altmetrics"},{"$sort":{"altmetrics.facebook_url_total":-1}}]');
 $query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 $cursor = $c->aggregate($query_new);
 $total_count = $c->aggregate($query_count);
@@ -90,6 +90,7 @@ echo   '</div>
 <?php
   include ('inc/navbar.php');
 ?>
+<div class="ui container">
 <div class="ui two column stackable grid">
 <div class="four wide column">
   <?php
@@ -99,16 +100,29 @@ echo   '</div>
         '$match'=>$query
       ),
       array(
+        '$lookup' => array(
+          "from" => "ci_altmetrics",
+          "localField" => "_id",
+          "foreignField" => "_id",
+          "as" => "altmetrics"
+        )
+      ),
+      array(
+        '$unwind'=> '$altmetrics'
+      ),
+      array(
         '$group' => array(
           "_id"=>"Total de interações no facebook",
-          "likes"=>array('$sum'=>'$facebook_url_likes'),
-          "shares"=>array('$sum'=>'$facebook_url_shares'),
-          "comments"=>array('$sum'=>'$facebook_url_comments'),
-          "total"=>array('$sum'=>'$facebook_url_total')
+          "likes"=>array('$sum'=>'$altmetrics.facebook_url_likes'),
+          "shares"=>array('$sum'=>'$altmetrics.facebook_url_shares'),
+          "comments"=>array('$sum'=>'$altmetrics.facebook_url_comments'),
+          "total"=>array('$sum'=>'$altmetrics.facebook_url_total')
           )
       )
     );
+
     $facet_facebook = $c->aggregate($aggregate_facebook);
+
     echo '<div class="ui list">';
     echo '<a href="#" class="list-group-item active">Interações no Facebook</a>';
     foreach ($facet_facebook["result"] as $fb) {
@@ -284,6 +298,7 @@ echo '</div>';
 /* Pagination - End */
 ?>
 
+</div>
 </div>
 </div>
 </div></div></div>
