@@ -240,7 +240,7 @@ $references_count = $c->aggregate($aggregate_references_count);
           <div class="six wide field">
             <select class="ui fluid dropdown" name="category">
               <option value="buscaindice">Título, autores e resumos</option>
-              <option value="references">Referências</option>
+              <!-- <option value="references">Referências</option> -->
               <!-- <option value="full_text">Texto completo dos artigos</option> -->
               <option value="autor">Nome do autor</option>
               <option value="subject">Assunto</option>
@@ -251,7 +251,7 @@ $references_count = $c->aggregate($aggregate_references_count);
       </form>
       <p>A equipe do Lab-iMetrics está constantemente estudando novas formas de disponibilizar os dados para os usuários. Atualmente, você pode fazer a busca nos campos "Título, Autores e Resumos", ou somente nas Referências (Regex), também é possível fazer uma busca no texto completo (Regex) ou nos campos de Autores (Regex) e Assunto (Regex).</p>
       <a class="ui large button" href="advanced_search.php">Busca avançada</a>
-
+<!--
     <div class="ui negative message">
       <i class="close icon"></i>
       <div class="header">
@@ -260,7 +260,7 @@ $references_count = $c->aggregate($aggregate_references_count);
       <p>Estamos trabalhando para completar essa funcionalidade</p></div>
       </div>
   </div>
-
+-->
 
   <div class="ui vertical stripe segment">
     <div class="ui text container">
