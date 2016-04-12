@@ -40,7 +40,7 @@ do
   query_url_facebook $url_relation
 
   echo $_id
-  echo "db.ci_altmetrics.update({\"_id\" : \""$_id"\"},{\$inc: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total"}},{ upsert: true })" | mongo journals
+  echo "db.ci_altmetrics.update({\"_id\" : \""$_id"\"},{\$inc: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total"}},{\$set: {relation:"sim"},{ upsert: true })" | mongo journals
   sleep 7
 
   done
