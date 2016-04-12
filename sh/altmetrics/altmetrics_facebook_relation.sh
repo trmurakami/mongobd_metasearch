@@ -26,14 +26,21 @@ IFS=$'\n'       # make newlines the only separator
 for line in $(cat $1);
 do
 
-  IFS=',' read -ra line <<< "$line"
+
+
+  line=$(printf "%s\n" "$line" | sed "s/,\"\[/#/g" | sed 's/,$/#/g' | sed 's/\"//g' | sed 's/\]//g' )
+  _id=$(printf "%s\n" "$line" | cut -d "#" -f 1 | sed 's/\"//g')
+  url_array=$(printf "%s\n" "$line" | cut -d "#" -f 2)
+
+  IFS=',' read -ra line <<< "$url_array"
 	for i in "${line[@]}"; do
 
-  url_relation=$(printf "$i" | sed 's/\"//g' | sed 's/ \]//g' | sed 's/\[ //g' | sed 's/^ //g' | sed 's/\[//g' | sed 's/\]//g' )
+  url_relation=$(printf "$i")
 
   query_url_facebook $url_relation
 
-  echo "db.ci_altmetrics.update({\""relation"\" : \""$url_relation"\"},{\$inc: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total"}})" | mongo journals
+  echo $_id
+  echo "db.ci_altmetrics.update({\"_id\" : \""$_id"\"},{\$inc: {facebook_url_likes: "$result_url_facebook_likes",facebook_url_shares: "$result_url_facebook_shares",facebook_url_comments: "$result_url_facebook_comments",facebook_url_clicks: "$result_url_facebook_click",facebook_url_total: "$result_url_facebook_total"}},{ upsert: true })" | mongo journals
   sleep 7
 
   done
