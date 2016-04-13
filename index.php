@@ -169,7 +169,14 @@ $references_count = $c->aggregate($aggregate_references_count);
         <div class="ui transparent icon input">
           <form class="form-inline pull-xs-right" action="result.php" method="get">
           <i class="search icon"></i>
-          <input type="text" name="buscaindice" placeholder="Buscar em Títulos, Autores e Resumos">
+          <input type="text" name="q" placeholder="Buscar em Títulos, Autores e Resumos">
+          <select class="ui dropdown" name="category" style="color:black;">
+            <option value="buscaindice">Título, autores e resumos</option>
+            <!-- <option value="references">Referências</option> -->
+            <!-- <option value="full_text">Texto completo dos artigos</option> -->
+            <option value="autor">Nome do autor</option>
+            <option value="subject">Assunto</option>
+          </select>
           <button class="ui button">Buscar</button>
           </form>
         </div>
@@ -209,7 +216,14 @@ $references_count = $c->aggregate($aggregate_references_count);
             <div class="ui transparent inverted icon input">
               <form class="form-inline pull-xs-right" action="result.php" method="get">
               <i class="search icon"></i>
-              <input type="text" name="buscaindice" placeholder="Buscar em Títulos, Autores e Resumos">
+              <input type="text" name="q" placeholder="Buscar em Títulos, Autores e Resumos">
+              <select class="ui dropdown" name="category" style="color:black;">
+                <option value="buscaindice">Título, autores e resumos</option>
+                <!-- <option value="references">Referências</option> -->
+                <!-- <option value="full_text">Texto completo dos artigos</option> -->
+                <option value="autor">Nome do autor</option>
+                <option value="subject">Assunto</option>
+              </select>
               <button class="ui button">Buscar</button>
               </form>
             </div>
