@@ -18,7 +18,15 @@
 /*Conta a quantidade de referencias na base */
 $aggregate_references_count=array(
   array(
-    '$unwind'=>'$references'
+    '$lookup' => array(
+      "from" => "ci_altmetrics",
+      "localField" => "_id",
+      "foreignField" => "_id",
+      "as" => "altmetrics"
+    )
+  ),
+  array(
+    '$unwind'=>'$altmetrics.references'
   ),
   array(
     '$group' => array(
