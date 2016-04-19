@@ -26,6 +26,9 @@ $aggregate_references_count=array(
     )
   ),
   array(
+    '$unwind'=>'$altmetrics'
+  ),
+  array(
     '$unwind'=>'$altmetrics.references'
   ),
   array(
