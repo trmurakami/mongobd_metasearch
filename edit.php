@@ -34,12 +34,9 @@ $SERVER_DIRECTORY = "rppbci";
 <?php
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 1);
-if (!empty($_GET['_id'])) {
-    $_id = ''.$_GET['_id'].'';
-} elseif (!empty($_POST['_id'])) {
-    $_id = ''.$_POST['_id'].'';
-} else {
-}
+
+    $_id = ''.$_REQUEST['_id'].'';
+
 
 /* Update */
 if (!empty($_POST)) {
@@ -48,20 +45,23 @@ if (!empty($_POST)) {
         $c->update(array('_id' => $_id),
              array('$set' => array(
                'references_ok' => $_POST['references_ok'],
-             )));
+             )),
+           array('upsert'=>true));
     } elseif (empty($_POST['citation'])) {
         $c->update(array('_id' => $_id),
              array('$set' => array(
                'references_ok' => $_POST['references_ok'],
                'references' => $_POST['references'],
-             )));
+             )),
+           array('upsert'=>true));
     } else {
         $c->update(array('_id' => $_id),
            array('$set' => array(
              'references_ok' => $_POST['references_ok'],
              'references' => $_POST['references'],
              'citation' => $_POST['citation'],
-           )));
+           )),
+         array('upsert'=>true));
     }
     echo '
 <div class="alert alert-success" role="alert">
