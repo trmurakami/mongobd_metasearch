@@ -9,6 +9,15 @@
 
 if (empty($_GET)) {
     $query = json_decode('{}');
+} elseif (!empty($_GET["altmetrics.references"])) {
+        unset ($_GET["altmetrics.references"]);
+        $q = str_replace('"','\\"',$_GET["q"]);
+        unset ($_GET["q"]);
+        $consult = "";
+        foreach ($_GET as $key => $value) {
+          $consult .= '"'.$key.'":"'.$value.'",';
+        }
+        $query = json_decode('{'.$consult.'"$altmetrics.references": {"$search":"'.$q.'"}}');      
 } elseif (!empty($_GET["category"])) {
     unset ($_GET["category"]);
     $q = str_replace('"','\\"',$_GET["q"]);
