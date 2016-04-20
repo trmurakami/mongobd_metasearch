@@ -51,9 +51,9 @@ if (empty($_GET)) {
     $query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$sort":{"altmetrics.facebook_url_total":-1}},{"$skip":'.$skip.'},{"$limit":'.$limit.'}]');
     $query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 } else {
-    $query = array();
+    $consult = "";
     foreach ($_GET as $key => $value) {
-        $query[$key] = $value;
+      $consult .= '"'.$key.'":"'.$value.'",';
     }
     $query = json_decode('{'.$consult.'"$text": {"$search":"'.$q.'"}}');
     $query_json = json_encode($query);

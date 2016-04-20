@@ -351,14 +351,16 @@ $references_count = $c->aggregate($aggregate_references_count);
       Artigos indexados
     </div>
   </div>
-  <div class="statistic">
-    <div class="value">
-      <?php print_r($references_count["result"][0]["total_sum"]); ?>
+  <?php if (!empty($references_count["result"][0]["total_sum"])): ?>
+    <div class="statistic">
+      <div class="value">
+        <?php print_r($references_count["result"][0]["total_sum"]); ?>
+      </div>
+      <div class="label">
+        referências cadastradas
+      </div>
     </div>
-    <div class="label">
-      referências cadastradas
-    </div>
-  </div>
+  <?php endif; ?>
 </div>
 </div>
 </div>

@@ -230,9 +230,9 @@ if (!empty($cursor_citation)) {
       </div>
   <?php endforeach;?>
   <?php endif; ?>
-  <?php if (!empty($cursor["result"][0]['references'])): ?>
+  <?php if (!empty($cursor["result"][0]["altmetrics"][0]['references'])): ?>
     <h4>Referências</h4>
-    <?php foreach ($cursor["result"][0]['references'] as $cursorreferences): ?>
+    <?php foreach ($cursor["result"][0]["altmetrics"][0]['references'] as $cursorreferences): ?>
       <div class="item" style="color:black;">
         <i class="quote left icon"></i>
         <div class="content">
@@ -241,9 +241,9 @@ if (!empty($cursor_citation)) {
       </div>
   <?php endforeach;?>
   <?php endif; ?>
-  <?php if (!empty($cursor["result"][0]['citation'])): ?>
+  <?php if (!empty($cursor["result"][0]["altmetrics"][0]['citation'])): ?>
     <h4>Citações de trabalhos no RPPBCI</h4>
-    <?php foreach ($cursor["result"][0]['citation'] as $citation): ?>
+    <?php foreach ($cursor["result"][0]["altmetrics"][0]['citation'] as $citation): ?>
       <div class="item" style="color:black;">
         <i class="quote left icon"></i>
         <div class="content">
