@@ -4,7 +4,7 @@ $SERVER_DIRECTORY = "rppbci";
 /* Banco de dados*/
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', 1);
-$m  = new MongoClient();
+$m  = new MongoClient("bdpife3.sibi.usp.br:27017");
 $d  = $m->journals;
 $c = $d->ci;
 
