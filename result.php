@@ -17,7 +17,7 @@ if (empty($_GET)) {
         foreach ($_GET as $key => $value) {
           $consult .= '"'.$key.'":"'.$value.'",';
         }
-        $query = json_decode('{'.$consult.'"$altmetrics.references": {"$search":"'.$q.'"}}');
+        $query = json_decode('{'.$consult.'"altmetrics.references": {"$regex":"'.$q.'"}}');
 } elseif (!empty($_GET["category"])) {
     unset ($_GET["category"]);
     $q = str_replace('"','\\"',$_GET["q"]);
