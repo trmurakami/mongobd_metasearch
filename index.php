@@ -183,7 +183,7 @@ $references_count = $c->aggregate($aggregate_references_count);
           <input type="text" name="q" placeholder="Buscar em Títulos, Autores e Resumos">
           <select class="ui dropdown" name="category" style="color:black;">
             <option value="buscaindice">Título, autores e resumos</option>
-            <!-- <option value="references">Referências</option> -->
+            <option value="altmetrics.references">Referências</option>
             <!-- <option value="full_text">Texto completo dos artigos</option> -->
             <option value="autor">Nome do autor</option>
             <option value="subject">Assunto</option>
