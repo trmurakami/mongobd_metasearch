@@ -25,6 +25,7 @@ if (empty($_GET)) {
       $query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$sort":{"altmetrics.facebook_url_total":-1}},{"$skip":'.$skip.'},{"$limit":'.$limit.'}]');
       $query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 } elseif ($_GET["category"] == "altmetrics.references") {
+        $q1 = $_GET["category"];
         unset ($_GET["category"]);
         $q = str_replace('"','\\"',$_GET["q"]);
         unset ($_GET["q"]);
@@ -37,6 +38,7 @@ if (empty($_GET)) {
         $query_new = json_decode('[{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$match":'.$query_json.'},{"$sort":{"altmetrics.facebook_url_total":-1}},{"$skip":'.$skip.'},{"$limit":'.$limit.'}]');
         $query_count = json_decode('[{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 } elseif (!empty($_GET["category"])) {
+    $q1 = $_GET["category"];
     unset ($_GET["category"]);
     $q = str_replace('"','\\"',$_GET["q"]);
     unset ($_GET["q"]);
@@ -107,7 +109,7 @@ function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_
   };
   echo   '</div>
         </div>
-    </div>';  
+    </div>';
 }
 
 function generateFacetReferences($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
@@ -227,7 +229,7 @@ echo   '</div>
     </div>
   <?php
   /* Gerar facetas */
-if ($_GET["category"] == "altmetrics.references") {
+if ($q1 == "altmetrics.references") {
   generateFacetReferences($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",10);
   generateFacetReferences($url,$c,$query,"\$journalci_title","count",-1,"Título da publicação",20);
   generateFacetReferences($url,$c,$query,"\$year","_id",-1,"Ano de publicação",50);
