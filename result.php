@@ -92,6 +92,22 @@ function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_
       '$sort' => array($sort_name=>$sort_value)
     )
   );
+  $facet = $c->aggregate($aggregate_facet);
+
+  echo '<div class="item">';
+  echo '<a class="active title"><i class="dropdown icon"></i>'.$facet_display_name.'</a>';
+  echo '<div class="content">';
+  echo '<div class="ui list">';
+  $i = 0;
+  foreach ($facet["result"] as $facets) {
+  echo '<div class="item">';
+  echo '<a href="'.$url.'&'.substr($facet_name, 1).'='.$facets["_id"].'">'.$facets["_id"].'</a><span> ('.$facets["count"].')</span>';
+  echo '</div>';
+  if(++$i > $limit) break;
+  };
+  echo   '</div>
+        </div>
+    </div>';  
 }
 
 function generateFacetReferences($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
@@ -120,7 +136,6 @@ function generateFacetReferences($url,$c,$query,$facet_name,$sort_name,$sort_val
         '$sort' => array($sort_name=>$sort_value)
       )
     );
-}
 
 $facet = $c->aggregate($aggregate_facet);
 
