@@ -73,16 +73,9 @@ $total = $total_count["result"][0]["count"];
 #    $total= $cursor->count();
 
 /* Function to generate facets */
+
 function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
   $aggregate_facet=array(
-    array(
-      '$lookup' => array(
-        "from" => "ci_altmetrics",
-        "localField" => "_id",
-        "foreignField" => "_id",
-        "as" => "altmetrics"
-      )
-    ),
     array(
       '$match'=>$query
     ),
@@ -99,6 +92,35 @@ function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_
       '$sort' => array($sort_name=>$sort_value)
     )
   );
+
+  function generateFacetReferences($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
+    $aggregate_facet=array(
+      array(
+        '$lookup' => array(
+          "from" => "ci_altmetrics",
+          "localField" => "_id",
+          "foreignField" => "_id",
+          "as" => "altmetrics"
+        )
+      ),
+      array(
+        '$match'=>$query
+      ),
+      array(
+        '$unwind'=>$facet_name
+      ),
+      array(
+        '$group' => array(
+          "_id"=>$facet_name,
+          "count"=>array('$sum'=>1)
+          )
+      ),
+      array(
+        '$sort' => array($sort_name=>$sort_value)
+      )
+    );
+
+
 $facet = $c->aggregate($aggregate_facet);
 
 echo '<div class="item">';
@@ -189,6 +211,18 @@ echo   '</div>
     </div>
   <?php
   /* Gerar facetas */
+if ($_GET["category"] == "altmetrics.references") {
+  generateFacetReferences($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",10);
+  generateFacetReferences($url,$c,$query,"\$journalci_title","count",-1,"Título da publicação",20);
+  generateFacetReferences($url,$c,$query,"\$year","_id",-1,"Ano de publicação",50);
+  generateFacetReferences($url,$c,$query,"\$fasciculo","_id",-1,"Fascículos",30);
+  generateFacetReferences($url,$c,$query,"\$autor","count",-1,"Autores",20);
+  generateFacetReferences($url,$c,$query,"\$instituicao","count",-1,"Instituições",20);
+  generateFacetReferences($url,$c,$query,"\$subject","count",-1,"Principais assuntos",20);
+  generateFacetReferences($url,$c,$query,"\$language","count",-1,"Idioma",10);
+  generateFacetReferences($url,$c,$query,"\$citation","count",-1,"Principais citações",20);
+  generateFacetReferences($url,$c,$query,"\$references_ok","count",-1,"Referências",10);  
+} else {
     generateFacet($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",10);
     generateFacet($url,$c,$query,"\$journalci_title","count",-1,"Título da publicação",20);
     generateFacet($url,$c,$query,"\$year","_id",-1,"Ano de publicação",50);
@@ -199,6 +233,7 @@ echo   '</div>
     generateFacet($url,$c,$query,"\$language","count",-1,"Idioma",10);
     generateFacet($url,$c,$query,"\$citation","count",-1,"Principais citações",20);
     generateFacet($url,$c,$query,"\$references_ok","count",-1,"Referências",10);
+}
   ?>
   </div>
 </div>
