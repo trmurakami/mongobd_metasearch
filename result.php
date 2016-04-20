@@ -92,8 +92,9 @@ function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_
       '$sort' => array($sort_name=>$sort_value)
     )
   );
+}
 
-  function generateFacetReferences($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
+function generateFacetReferences($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
     $aggregate_facet=array(
       array(
         '$lookup' => array(
@@ -119,7 +120,7 @@ function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_
         '$sort' => array($sort_name=>$sort_value)
       )
     );
-
+}
 
 $facet = $c->aggregate($aggregate_facet);
 
@@ -221,7 +222,7 @@ if ($_GET["category"] == "altmetrics.references") {
   generateFacetReferences($url,$c,$query,"\$subject","count",-1,"Principais assuntos",20);
   generateFacetReferences($url,$c,$query,"\$language","count",-1,"Idioma",10);
   generateFacetReferences($url,$c,$query,"\$citation","count",-1,"Principais citações",20);
-  generateFacetReferences($url,$c,$query,"\$references_ok","count",-1,"Referências",10);  
+  generateFacetReferences($url,$c,$query,"\$references_ok","count",-1,"Referências",10);
 } else {
     generateFacet($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",10);
     generateFacet($url,$c,$query,"\$journalci_title","count",-1,"Título da publicação",20);
