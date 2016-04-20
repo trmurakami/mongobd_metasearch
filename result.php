@@ -76,6 +76,14 @@ $total = $total_count["result"][0]["count"];
 function generateFacet($url,$c,$query,$facet_name,$sort_name,$sort_value,$facet_display_name,$limit){
   $aggregate_facet=array(
     array(
+      '$lookup' => array(
+        "from" => "ci_altmetrics",
+        "localField" => "_id",
+        "foreignField" => "_id",
+        "as" => "altmetrics"
+      )
+    ),
+    array(
       '$match'=>$query
     ),
     array(
