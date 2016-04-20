@@ -7,6 +7,17 @@
 <body>
 <?php
 
+/* Pegar a URL atual */
+  $url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+  $escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+/* Pagination variables */
+  $page  = isset($_POST['page']) ? (int) $_POST['page'] : 1;
+  $limit = 15;
+  $skip  = ($page - 1) * $limit;
+  $next  = ($page + 1);
+  $prev  = ($page - 1);
+  $sort  = array('facebook_url_total' => -1);
+
 if (empty($_GET)) {
     $query = json_decode('{}');
       $query = json_decode('{'.$consult.'"$text": {"$search":"'.$q.'"}}');
@@ -45,20 +56,9 @@ if (empty($_GET)) {
 
 }
 
-/* Pegar a URL atual */
-  $url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-  $escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
-/* Pagination variables */
-  $page  = isset($_POST['page']) ? (int) $_POST['page'] : 1;
-  $limit = 15;
-  $skip  = ($page - 1) * $limit;
-  $next  = ($page + 1);
-  $prev  = ($page - 1);
-  $sort  = array('facebook_url_total' => -1);
   /* Consultas */
 echo "<br/><br/>";
 
-print_r($query_new);
 $query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 $cursor = $c->aggregate($query_new);
 $total_count = $c->aggregate($query_count);
