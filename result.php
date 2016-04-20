@@ -19,8 +19,8 @@
   $sort  = array('facebook_url_total' => -1);
 
 if (empty($_GET)) {
+    $q1 = "";
     $query = json_decode('{}');
-      $query = json_decode('{'.$consult.'"$text": {"$search":"'.$q.'"}}');
       $query_json = json_encode($query);
       $query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$sort":{"altmetrics.facebook_url_total":-1}},{"$skip":'.$skip.'},{"$limit":'.$limit.'}]');
       $query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');

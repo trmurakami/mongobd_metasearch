@@ -24,7 +24,7 @@ urls=$(printf "%s\n" "$line" | cut -d "#" -f 2 | sed 's/"",""/|/g' | sed 's/"//g
 
 
 #    echo "db.ci.update({\"_id\" : \""$_id"\"},{\$addToSet: {full_text: cat(\"../../pdfs/$2/$pdf_name.txt\")}})" | mongo journals
-    echo "db.ci_altmetrics.update({\"_id\" : \""$_id"\"},{\$addToSet: {references: cat(\"../../pdfs/$2/$pdf_name.references.txt\")}})" | mongo journals
+    echo "db.ci_altmetrics.update({\"_id\" : \""$_id"\"},{\$addToSet: {references: cat(\"../../pdfs/$2/$pdf_name.references.txt\")}},{ upsert: true })" | mongo journals
   done
 
 
