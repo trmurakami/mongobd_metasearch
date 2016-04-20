@@ -260,7 +260,7 @@ if ($q1 == "altmetrics.references") {
 
 <?php
 /* Pagination - Start */
-echo 'Página'.$page.'de'.$page * $limit.'';
+echo 'Página'.$page.'de'.$total / $limit.'';
 echo '<br/><div class="ui buttons">';
 if($page > 1){
   echo '<form method="post" action="'.$escaped_url.'">';
