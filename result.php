@@ -11,7 +11,7 @@ if (empty($_GET)) {
     $query = json_decode('{}');
       $query = json_decode('{'.$consult.'"$text": {"$search":"'.$q.'"}}');
       $query_json = json_encode($query);
-      $query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$sort":{"altmetrics.facebook_url_total":-1}},{"$skip":'.$skip.'},{"$limit":'.$limit.'}]');  
+      $query_new = json_decode('[{"$match":'.$query_json.'},{"$lookup":{"from": "ci_altmetrics", "localField": "_id", "foreignField": "_id", "as": "altmetrics"}},{"$sort":{"altmetrics.facebook_url_total":-1}},{"$skip":'.$skip.'},{"$limit":'.$limit.'}]');
 } elseif ($_GET["category"] == "altmetrics.references") {
         unset ($_GET["category"]);
         $q = str_replace('"','\\"',$_GET["q"]);
@@ -58,6 +58,7 @@ if (empty($_GET)) {
   /* Consultas */
 echo "<br/><br/>";
 
+print_r($query_new);
 $query_count = json_decode('[{"$match":'.$query_json.'},{"$group":{"_id":null,"count":{"$sum": 1}}}]');
 $cursor = $c->aggregate($query_new);
 $total_count = $c->aggregate($query_count);
