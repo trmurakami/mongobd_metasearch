@@ -259,7 +259,7 @@ if (!empty($cursor_citation)) {
   </div>
 
 <?php
-if ($cursor["result"][0]['references_ok'] == 'false') {
+if (empty($cursor["result"][0]["altmetrics"][0]['references_ok'])) {
     echo '<form method="get" action="edit.php">';
     echo '<input type="hidden">';
     echo '<button type="submit" name="_id" class="btn btn-primary-outline" value="'.$cursor["result"][0]['_id'].'">Editar referências</button>';
