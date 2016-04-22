@@ -49,17 +49,38 @@ $references_count = $c->aggregate($aggregate_references_count);
 <?php
 $aggregate_citations=array(
   array(
-    '$match'=>array(
-      "citation"=>array('$exists'=>true)
+    '$lookup' => array(
+      "from" => "ci_altmetrics",
+      "localField" => "_id",
+      "foreignField" => "_id",
+      "as" => "altmetrics"
     )
   ),
   array(
-    '$unwind'=>'$citation'
+    '$project'=>array(
+      "_id"=>1,
+      "journalci_title"=>1,
+      "altmetrics.citation"=>1
+    )
+  ),
+  array(
+	'$unwind'=>'$altmetrics'
+  ),
+  array(
+    '$unwind'=> '$journalci_title'
+  ),  
+  array(
+    '$match'=>array(
+      "altmetrics.citation"=>array('$exists'=>true)
+    )
+  ),
+  array(
+    '$unwind'=>'$altmetrics.citation'
   ),
   array(
     '$lookup'=>array(
       'from'=>"ci",
-      'localField'=>"citation",
+      'localField'=>"altmetrics.citation",
       'foreignField'=>"_id",
       'as'=>"cited"
     )
@@ -82,7 +103,10 @@ $aggregate_citations=array(
   ),
   array(
     '$sort' => array('cited.journalci_title'=>1,'count'=>-1)
-  )
+  ),
+  array(
+    '$limit'=>20000,
+  ),
 );
 
 $citations = $c->aggregate($aggregate_citations);
@@ -136,7 +160,7 @@ Conta a quantidade de artigos na base */
     <tbody>
 <?php foreach ($citations["result"] as $ct):?>
   <tr>
-    <td scope="row"><?php echo $ct["_id"]["journal_citador"][0];?></td>
+    <td scope="row"><?php echo $ct["_id"]["journal_citador"];?></td>
     <td><?php if (!empty($ct["_id"]["journal"][0][0])): ?><?php echo $ct["_id"]["journal"][0][0]; ?><?php endif;?></td>
     <td><?php echo $ct["count"];?></td>
   </tr>
