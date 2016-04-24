@@ -39,6 +39,10 @@ ini_set('display_errors', 1);
 
 
 /* Update */
+foreach ($_POST['references'] as &$ref_a) {
+$ref[] = explode("\n",$ref_a);
+}
+
 if (!empty($_POST)) {
     $query = array('_id' => ''.$_POST['_id'].'');
     if (empty($_POST['references']) && empty($_POST['citation'])) {
@@ -48,20 +52,24 @@ if (!empty($_POST)) {
              )),
            array('upsert'=>true));
     } elseif (empty($_POST['citation'])) {
+      foreach ($ref as &$ref_each) {
         $c->update(array('_id' => $_id),
              array('$set' => array(
                'references_ok' => $_POST['references_ok'],
-               'references' => $_POST['references'],
+               'references' => $ref_each,
              )),
            array('upsert'=>true));
+      }
     } else {
+      foreach ($ref as &$ref_each) {
         $c->update(array('_id' => $_id),
            array('$set' => array(
              'references_ok' => $_POST['references_ok'],
-             'references' => $_POST['references'],
+             'references' => $ref_each,
              'citation' => $_POST['citation'],
            )),
          array('upsert'=>true));
+      }
     }
     echo '
 <div class="alert alert-success" role="alert">
