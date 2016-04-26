@@ -32,9 +32,6 @@ $SERVER_DIRECTORY = "rppbci";
 ?>
 <div class="ui container">
 <?php
-
-print_r($_REQUEST);
-
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 1);
 
@@ -46,12 +43,10 @@ ini_set('display_errors', 1);
 foreach ($_POST['references'] as &$ref_a) {
     $ref_add = explode("\n",$ref_a);
     foreach ($ref_add as &$ref_each) {
-      print_r($ref_each);
       array_push($ref, $ref_each);
     }
 }
-    echo "<br/>";
-print_r($ref);
+
 
 if (!empty($_POST)) {
     $query = array('_id' => ''.$_POST['_id'].'');
