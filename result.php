@@ -238,8 +238,8 @@ if ($q1 == "altmetrics.references") {
   generateFacetReferences($url,$c,$query,"\$instituicao","count",-1,"Instituições",20);
   generateFacetReferences($url,$c,$query,"\$subject","count",-1,"Principais assuntos",20);
   generateFacetReferences($url,$c,$query,"\$language","count",-1,"Idioma",10);
-  generateFacetReferences($url,$c,$query,"\$citation","count",-1,"Principais citações",20);
-  generateFacetReferences($url,$c,$query,"\$references_ok","count",-1,"Referências",10);
+  generateFacetReferences($url,$c,$query,"\$altmetrics.citation","count",-1,"Principais citações",20);
+  generateFacetReferences($url,$c,$query,"\$altmetrics.references_ok","count",-1,"Referências",10);
 } else {
     generateFacet($url,$c,$query,"\$tipo","count",-1,"Tipo de publicação",10);
     generateFacet($url,$c,$query,"\$journalci_title","count",-1,"Título da publicação",20);
@@ -249,8 +249,8 @@ if ($q1 == "altmetrics.references") {
     generateFacet($url,$c,$query,"\$instituicao","count",-1,"Instituições",20);
     generateFacet($url,$c,$query,"\$subject","count",-1,"Principais assuntos",20);
     generateFacet($url,$c,$query,"\$language","count",-1,"Idioma",10);
-    generateFacet($url,$c,$query,"\$citation","count",-1,"Principais citações",20);
-    generateFacet($url,$c,$query,"\$references_ok","count",-1,"Referências",10);
+    generateFacet($url,$c,$query,"\$altmetrics.citation","count",-1,"Principais citações",20);
+    generateFacet($url,$c,$query,"\$altmetrics.references_ok","count",-1,"Referências",10);
 }
   ?>
   </div>

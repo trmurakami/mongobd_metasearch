@@ -32,6 +32,9 @@ $SERVER_DIRECTORY = "rppbci";
 ?>
 <div class="ui container">
 <?php
+
+print_r($_REQUEST);
+
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 1);
 
@@ -39,9 +42,16 @@ ini_set('display_errors', 1);
 
 
 /* Update */
+    $ref = array();
 foreach ($_POST['references'] as &$ref_a) {
-$ref[] = explode("\n",$ref_a);
+    $ref_add = explode("\n",$ref_a);
+    foreach ($ref_add as &$ref_each) {
+      print_r($ref_each);
+      array_push($ref, $ref_each);
+    }
 }
+    echo "<br/>";
+print_r($ref);
 
 if (!empty($_POST)) {
     $query = array('_id' => ''.$_POST['_id'].'');
@@ -56,7 +66,7 @@ if (!empty($_POST)) {
         $c->update(array('_id' => $_id),
              array('$set' => array(
                'references_ok' => $_POST['references_ok'],
-               'references' => $ref_each,
+               'references' => $ref,
              )),
            array('upsert'=>true));
       }
@@ -65,7 +75,7 @@ if (!empty($_POST)) {
         $c->update(array('_id' => $_id),
            array('$set' => array(
              'references_ok' => $_POST['references_ok'],
-             'references' => $ref_each,
+             'references' => $ref,
              'citation' => $_POST['citation'],
            )),
          array('upsert'=>true));
@@ -147,6 +157,7 @@ if ($cursor['references_ok'] == 'true') {
       <div class="input_fields_wrap form-group">
 <?php
 if (!empty($cursor['references'])) {
+    print_r($cursor['references']);
     foreach ($cursor['references'] as $rf) {
         echo '<div><textarea class="form-control" id="exampleTextarea" rows="6" name="references[]">'.$rf.'</textarea><a href="#" class="remove_field">Remover</a></div>';
     }
