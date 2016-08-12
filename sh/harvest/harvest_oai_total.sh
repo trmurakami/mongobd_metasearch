@@ -152,6 +152,11 @@ catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista 
 echo "Revista Ciencia da Informacao OK" >> ../../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Revista Ciencia da Informacao"}).count()' | mongo journals >> ../../export/oai_result.txt
 sleep 2
+#Revista Conhecimento em Ação
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Conhecimento em Acao")' --fix 'set_array("qualis2014","Nao possui")' --url https://revistas.ufrj.br/index.php/rca/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+echo "Revista Conhecimento em Acao OK" >> ../../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Revista Conhecimento em Acao"}).count()' | mongo journals >> ../../export/oai_result.txt
+sleep 2
 # Revista Digital de Biblioteconomia e Ciência da Informação - RDBCI
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Digital de Biblioteconomia e Ciencia da Informacao")' --fix 'set_array("qualis2014","B1")' --url http://periodicos.sbu.unicamp.br/ojs/index.php/rdbci/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
 echo "RDBCI OK" >> ../../export/oai_result.txt
