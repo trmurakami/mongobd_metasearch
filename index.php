@@ -337,7 +337,7 @@ $references_count = $c->aggregate($aggregate_references_count);
 <div class="ui three statistics">
   <div class="statistic">
     <div class="value">
-      32
+      33
     </div>
     <div class="label">
       Periódicos coletados

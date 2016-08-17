@@ -77,6 +77,11 @@ catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informac
 echo "ITEC OK" >> ../../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Informacao e Tecnologia - ITEC"}).count()' | mongo journals >> ../../export/oai_result.txt
 sleep 2
+# Informação em pauta - IP
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Informacao em pauta")' --fix 'set_array("qualis2014","Nao possui")' --url http://www.periodicos.ufc.br/index.php/informacaoempauta/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+echo "Informacao em pauta OK" >> ../../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Informacao em pauta"}).count()' | mongo journals >> ../../export/oai_result.txt
+sleep 2
 # IRIS - Revista de Informação, Memória e Tecnologia
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","IRIS")' --fix 'set_array("qualis2014","B3")' --url http://www.repositorios.ufpe.br/revistas/index.php/IRIS/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
 echo "IRIS OK" >> ../../export/oai_result.txt
