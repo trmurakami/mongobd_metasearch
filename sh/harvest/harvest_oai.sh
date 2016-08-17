@@ -70,6 +70,10 @@ sleep 2
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Liinc em Revista")' --fix 'set_array("qualis2014","B1")' --url http://revista.ibict.br/liinc/index.php/liinc/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
 echo 'db.ci.find({"journalci_title":"Liinc em Revista"}).count()' | mongo journals
 sleep 2
+# Logeion - Filosofia da informação
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Logeion")' --fix 'set_array("qualis2014","B1")' --url http://revista.ibict.br/fiinf/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
+echo 'db.ci.find({"journalci_title":"Logeion"}).count()' | mongo journals
+sleep 2
 # Perspectivas em Ciência da Informação - PCI
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Perspectivas em Ciencia da Informacao")' --fix 'set_array("qualis2014","A1")' --url http://portaldeperiodicos.eci.ufmg.br/index.php/pci/oai --metadataPrefix oai_dc --from $ontem --until $hoje to MongoDB --database_name journals --bag ci --verbose
 echo 'db.ci.find({"journalci_title":"Perspectivas em Ciencia da Informacao"}).count()' | mongo journals

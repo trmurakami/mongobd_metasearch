@@ -87,6 +87,11 @@ catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Liinc em
 echo "Liinc em Revista OK" >> ../../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Liinc em Revista"}).count()' | mongo journals >> ../../export/oai_result.txt
 sleep 2
+# Logeion - Filosofia da informação
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Logeion")' --fix 'set_array("qualis2014","Nao possui")' --url http://revista.ibict.br/fiinf/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+echo "Logeion OK" >> ../../export/oai_result.txt
+echo 'db.ci.find({"journalci_title":"Logeion"}).count()' | mongo journals >> ../../export/oai_result.txt
+sleep 2
 # Perspectivas em Ciência da Informação - PCI
 catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Perspectivas em Ciencia da Informacao")' --fix 'set_array("qualis2014","A1")' --url http://portaldeperiodicos.eci.ufmg.br/index.php/pci/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
 echo "Perspectivas em Ciencia da Informacao OK" >> ../../export/oai_result.txt
@@ -153,7 +158,7 @@ echo "Revista Ciencia da Informacao OK" >> ../../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Revista Ciencia da Informacao"}).count()' | mongo journals >> ../../export/oai_result.txt
 sleep 2
 #Revista Conhecimento em Ação
-catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Conhecimento em Acao")' --fix 'set_array("qualis2014","Nao possui")' --url https://revistas.ufrj.br/index.php/rca/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
+catmandu import OAI --fix fixes.txt --fix 'set_array("journalci_title","Revista Conhecimento em Acao")' --fix 'set_array("qualis2014","Nao possui")' --url http://revistas.ufrj.br/index.php/rca/oai --metadataPrefix oai_dc  to MongoDB --database_name journals --bag ci --verbose
 echo "Revista Conhecimento em Acao OK" >> ../../export/oai_result.txt
 echo 'db.ci.find({"journalci_title":"Revista Conhecimento em Acao"}).count()' | mongo journals >> ../../export/oai_result.txt
 sleep 2
