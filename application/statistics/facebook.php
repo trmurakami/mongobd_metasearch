@@ -93,16 +93,37 @@ function drawMaterial() {
 <table class="ui celled table">
   <tbody>
       <?php 
+            $sum_1 = "";
+            $sum_2 = "";
+            $sum_3 = "";
+            $sum_4 = "";
         foreach ($facebook as $facebook_row){
+            $sum_1 +=intval($facebook_row[1]);
+            $sum_2 += intval($facebook_row[2]);
+            $sum_3 += intval($facebook_row[3]);
+            $sum_4 += (intval($facebook_row[1])+intval($facebook_row[2])+intval($facebook_row[3]));
             echo '<tr>';
             echo '<td>'.$facebook_row[0].'</td>';
             echo '<td>'.$facebook_row[1].'</td>';
             echo '<td>'.$facebook_row[2].'</td>';
             echo '<td>'.$facebook_row[3].'</td>';
+            echo '<td>'.(intval($facebook_row[1])+intval($facebook_row[2])+intval($facebook_row[3])).'</td>';
             echo '</tr>';
+            
         }     
       
       ?>
+      <tr>
+        <?php
+            echo '<td>Total:</td>';
+            echo '<td>'.$sum_1.'</td>';
+            echo '<td>'.$sum_2.'</td>';
+            echo '<td>'.$sum_3.'</td>';
+            echo '<td>'.$sum_4.'</td>';
+            
+        ?>
+      </tr>
+          
   </tbody>
 </table>
 <br/><br/>    
