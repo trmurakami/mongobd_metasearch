@@ -88,10 +88,27 @@ function drawMaterial() {
 
 <div id="chart_div" style="width: 100%; height: 1000px;"></div>
 
+<br/><br/>      
+    
+<table class="ui celled table">
+  <tbody>
+      <?php 
+        foreach ($facebook as $facebook_row){
+            echo '<tr>';
+            echo '<td>'.$facebook_row[0].'</td>';
+            echo '<td>'.$facebook_row[1].'</td>';
+            echo '<td>'.$facebook_row[2].'</td>';
+            echo '<td>'.$facebook_row[3].'</td>';
+            echo '</tr>';
+        }     
+      
+      ?>
+  </tbody>
+</table>
+<br/><br/>    
 </div>
 <?php
   include '../../inc/footer.php';
 ?>
-
 </body>
 </html>
